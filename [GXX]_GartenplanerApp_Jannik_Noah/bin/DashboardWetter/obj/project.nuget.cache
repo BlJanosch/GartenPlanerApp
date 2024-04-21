@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "HX7m0xCwqb3/b9WGTsR3UXF7j7qv1RBnPIP9fySX3IIswcTKCMy73cRjs288r4z3LUKFWF2QIdacUrK9NEeJDA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Jannik\\OneDrive - HTL-Rankweil\\SJ2023-24\\POS\\GartenplanerApp\\[GXX]_GartenplanerApp_Jannik_Noah\\bin\\DashboardWetter\\DashboardWetter.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Jannik\\.nuget\\packages\\openmeteo.dotnet\\2.0.0\\openmeteo.dotnet.2.0.0.nupkg.sha512",
+    "C:\\Users\\Jannik\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\Jannik\\.nuget\\packages\\system.text.encodings.web\\6.0.0\\system.text.encodings.web.6.0.0.nupkg.sha512",
+    "C:\\Users\\Jannik\\.nuget\\packages\\system.text.json\\6.0.5\\system.text.json.6.0.5.nupkg.sha512"
+  ],
+  "logs": []
+}

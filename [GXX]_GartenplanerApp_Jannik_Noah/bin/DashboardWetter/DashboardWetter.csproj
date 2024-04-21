@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Bild1.png" />
+    <None Remove="Home.png" />
+    <None Remove="Images\Beet.png" />
+    <None Remove="Images\Bild1.png" />
+    <None Remove="Images\Bild6.png" />
+    <None Remove="Images\Home.png" />
+    <None Remove="Images\User.png" />
+    <None Remove="Images\Wetter.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpenMeteo.dotnet" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Bild1.png" />
+    <Resource Include="Home.png" />
+    <Resource Include="Images\Beet.png" />
+    <Resource Include="Images\Bild1.png" />
+    <Resource Include="Images\Bild6.png" />
+    <Resource Include="Images\Home.png" />
+    <Resource Include="Images\User.png" />
+    <Resource Include="Images\Wetter.png" />
+  </ItemGroup>
+
+</Project>
