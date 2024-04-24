@@ -205,24 +205,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Jannik\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\janni\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Jannik\\OneDrive - HTL-Rankweil\\SJ2023-24\\POS\\GartenplanerApp\\[GXX]_GartenplanerApp_Jannik_Noah\\bin\\DashboardWetter\\DashboardWetter.csproj",
+      "projectUniqueName": "C:\\Users\\janni\\OneDrive - HTL-Rankweil\\SJ2023-24\\POS\\GartenplanerApp\\[GXX]_GartenplanerApp_Jannik_Noah\\bin\\DashboardWetter\\DashboardWetter.csproj",
       "projectName": "DashboardWetter",
-      "projectPath": "C:\\Users\\Jannik\\OneDrive - HTL-Rankweil\\SJ2023-24\\POS\\GartenplanerApp\\[GXX]_GartenplanerApp_Jannik_Noah\\bin\\DashboardWetter\\DashboardWetter.csproj",
-      "packagesPath": "C:\\Users\\Jannik\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Jannik\\OneDrive - HTL-Rankweil\\SJ2023-24\\POS\\GartenplanerApp\\[GXX]_GartenplanerApp_Jannik_Noah\\bin\\DashboardWetter\\obj\\",
+      "projectPath": "C:\\Users\\janni\\OneDrive - HTL-Rankweil\\SJ2023-24\\POS\\GartenplanerApp\\[GXX]_GartenplanerApp_Jannik_Noah\\bin\\DashboardWetter\\DashboardWetter.csproj",
+      "packagesPath": "C:\\Users\\janni\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\janni\\OneDrive - HTL-Rankweil\\SJ2023-24\\POS\\GartenplanerApp\\[GXX]_GartenplanerApp_Jannik_Noah\\bin\\DashboardWetter\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Jannik\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\janni\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

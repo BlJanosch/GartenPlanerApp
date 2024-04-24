@@ -2,7 +2,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +39,8 @@ namespace DashboardWetter
         public Label SchneeDaily;
         public Label WolkenDaily;
         public Label WetterDashBoard;
+        public string UserDataFile = "C:\\Users\\janni\\OneDrive - HTL-Rankweil\\SJ2023-24\\POS\\GartenplanerApp\\[GXX]_GartenplanerApp_Jannik_Noah\\bin\\DashboardWetter\\UserData\\Login.csv";
+        public User MainUser;
 
         public MainWindow()
         {
@@ -51,12 +55,40 @@ namespace DashboardWetter
             SchneeDaily = new Label();
             WolkenDaily = new Label();
             WetterDashBoard = new Label();
+            MainUser = new User();
             this.Loaded += Window_Loaded;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DrawHome();
+            bool SignedIn = false;
+            string[] UserData = new string[3];
+            if (File.Exists(UserDataFile))
+            {
+                using (StreamReader reader = new StreamReader(UserDataFile))
+                {
+                    for (int x = 0; x < 2; x++)
+                    {
+                        if (x == 0)
+                        {
+                            if (reader.ReadLine() == "1")
+                            {
+                                SignedIn = true;
+                            }
+                        }
+                        else
+                        {
+                            UserData = reader.ReadLine().Split(";");
+                            if (SignedIn)
+                            {
+                                MainUser = new User(UserData[0], UserData[1], UserData[2]);
+                                DrawHome();
+                            }
+                        }
+                    }
+                    
+                }
+            }
         }
 
         private void timer_Uhr_Tick(object? sender, EventArgs e)
@@ -66,38 +98,23 @@ namespace DashboardWetter
 
 
 
-        private async void getWeather(string ort)
+        private async void getWeather()
         {
             OpenMeteo.OpenMeteoClient client = new OpenMeteo.OpenMeteoClient();
-            WeatherForecast forecast = await client.QueryAsync(ort);
-            if (forecast == null)
-            {
-                //MessageBox.Show($"Didn't find Location '{TextBoxLocation.Text}'", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                int id = Convert.ToInt32(forecast.Current.Weathercode);
-                WetterDashBoard.Content = client.WeathercodeToString(id);
-                TemperaturNow.Content = $"Temperatur {forecast.Current.Temperature} C°";
-                RegenNow.Content = $"Regen {forecast.Current.Rain} %";
-                SchneeNow.Content = $"Schnee {forecast.Current.Snowfall} %";
-                WolkenNow.Content = $"Wolken {forecast.Current.Cloudcover} %";
-                
-            }
-        }
+            WeatherForecast forecast = await client.QueryAsync(MainUser.Location);
 
-        private void ButtonRefreshWetter_Click(object sender, RoutedEventArgs e)
-        {
+            int id = Convert.ToInt32(forecast.Current.Weathercode);
+            WetterDashBoard.Content = client.WeathercodeToString(id);
+            TemperaturNow.Content = $"Temperatur {forecast.Current.Temperature} C°";
+            RegenNow.Content = $"Regen {forecast.Current.Rain} %";
+            SchneeNow.Content = $"Schnee {forecast.Current.Snowfall} %";
+            WolkenNow.Content = $"Wolken {forecast.Current.Cloudcover} %";
 
-            //getWeather(TextBoxLocation.Text);
-
-            //WetterDashBoard.Content = Wetter;
         }
 
         private void UserButton_Click(object sender, RoutedEventArgs e)
         {
-            MainArea.Children.Clear();
-            MainArea.Background = Brushes.White;    
+            DrawUserMenu();    
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
@@ -107,6 +124,10 @@ namespace DashboardWetter
 
         public void DrawHome()
         {
+            HomeButton.IsEnabled = true;
+            BeetButton.IsEnabled = true;
+            PflanzeButton.IsEnabled = true;
+            UserButton.IsEnabled = true;
             MainArea.Children.Clear();
             MainArea.Background = Brushes.Transparent;
 
@@ -120,7 +141,7 @@ namespace DashboardWetter
             GutenTag.Margin = new Thickness(0, 20, 0, 0);
 
             Label UserName = new Label();
-            UserName.Content = "USER";
+            UserName.Content = MainUser.Name;
             UserName.FontSize = 20;
             UserName.FontFamily = new System.Windows.Media.FontFamily("Aharoni");
             UserName.FontWeight = FontWeights.Bold;
@@ -289,7 +310,50 @@ namespace DashboardWetter
             timer_Uhr.Start();
             Wetter = "Location needed";
             WetterDashBoard.Content = Wetter;
-            getWeather("Blons");
+            getWeather();
+        }
+
+        public void DrawUserMenu()
+        {
+            MainArea.Children.Clear();
+            MainArea.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#262626"));
+        }
+
+        private async void UserDataOK_Click(object sender, RoutedEventArgs e)
+        {
+            // Check Input
+            try
+            {
+                MainUser = new User(UserNameTextBox.Text, User.PasswordToHash(UserPasswordTextBox.Text), UserLocationTextBox.Text);
+                OpenMeteo.OpenMeteoClient client = new OpenMeteo.OpenMeteoClient();
+                WeatherForecast forecast = await client.QueryAsync(MainUser.Location);
+                if (forecast == null)
+                {
+                    throw new Exception();
+                }
+                
+                DrawHome();
+                if (File.Exists(UserDataFile))
+                {
+                    using (StreamWriter writer = new StreamWriter(UserDataFile, false))
+                    {
+                        writer.WriteLine("1");
+                        writer.WriteLine(MainUser.Searlized());
+                    }
+                }
+                else
+                {
+                    using (StreamWriter writer = new StreamWriter(UserDataFile))
+                    {
+                        writer.WriteLine("1");
+                        writer.WriteLine(MainUser.Searlized());
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show($"Didn't find Location '{UserLocationTextBox.Text}'", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
+            } 
         }
     }
 }

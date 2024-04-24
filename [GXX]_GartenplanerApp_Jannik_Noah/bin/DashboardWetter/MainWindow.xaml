@@ -26,27 +26,37 @@
                 <Image Source="Images/Home.png" Width="50" Height="50"></Image>
                 <Label FontSize="20" FontFamily="Aharoni" FontWeight="Bold" Foreground="White">HOME</Label>
             </StackPanel>
-            <Button Opacity=".1" Background="#262626" x:Name="HomeButton" Click="HomeButton_Click"></Button>
-            <Button Opacity=".1" Grid.Row="1" Background="#262626"></Button>
+            <Button Opacity=".1" Background="#262626" x:Name="HomeButton" Click="HomeButton_Click" IsEnabled="False"></Button>
+            <Button Opacity=".1" Grid.Row="1" Background="#262626" IsEnabled="False" x:Name="BeetButton"></Button>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1">
                 <Image Source="Images/Beet.png" Width="50" Height="50"></Image>
                 <Label FontSize="20" FontFamily="Aharoni" FontWeight="Bold" Foreground="White">BEETE</Label>
             </StackPanel>
-            <Button Opacity=".1" Grid.Row="2" Background="#262626"></Button>
+            <Button Opacity=".1" Grid.Row="2" Background="#262626" IsEnabled="False" x:Name="PflanzeButton"></Button>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2">
                 <Image Source="Images/Bild6.png" Width="50" Height="50"></Image>
                 <Label FontSize="20" FontFamily="Aharoni" FontWeight="Bold" Foreground="White">PFLANZEN</Label>
             </StackPanel>
-            <Button Opacity=".1" Grid.Row="3" Background="#262626"></Button>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3">
                 <Image Source="Images/User.png" Width="50" Height="50"></Image>
                 <Label FontSize="20" FontFamily="Aharoni" FontWeight="Bold" Foreground="White">YOU</Label>
             </StackPanel>
-            <Button Opacity=".1" Grid.Row="3" Background="#262626" x:Name="UserButton" Click="UserButton_Click"></Button>
+            <Button Opacity=".1" Grid.Row="3" Background="#262626" x:Name="UserButton" Click="UserButton_Click" IsEnabled="False"></Button>
         </Grid>
         <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1">
             <StackPanel  x:Name="MainArea">
-                
+                <Ellipse Height="150" Width="150" Stroke="#262626" StrokeThickness="2" Margin="0,30,0,0">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="/userPicture2.png" Stretch="UniformToFill" TileMode="None"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <Label FontSize="20" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Margin="0,10,0,0">NAME</Label>
+                <TextBox Width="200" Height="30" Background="#262626" x:Name="UserNameTextBox" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" TextAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                <Label FontSize="20" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Margin="0,10,0,0">PASSWORT</Label>
+                <TextBox Width="200" Height="30" Background="#262626" x:Name="UserPasswordTextBox" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" TextAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                <Label FontSize="20" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Margin="0,10,0,0">STANDORT</Label>
+                <TextBox Width="200" Height="30" Background="#262626" x:Name="UserLocationTextBox" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" TextAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                <Button Width="200" Height="30" Background="#262626" FontSize="20" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" x:Name="UserDataOK" Margin="0,20,0,20" Click="UserDataOK_Click">OK</Button>
             </StackPanel>
         </ScrollViewer>
         
