@@ -15,6 +15,8 @@
     <None Remove="Images\Bild6.png" />
     <None Remove="Images\Home.png" />
     <None Remove="Images\User.png" />
+    <None Remove="Images\UserPicture.jpg" />
+    <None Remove="Images\userPicture2.png" />
     <None Remove="Images\Wetter.png" />
     <None Remove="User.png" />
     <None Remove="UserPicture.jpg" />
@@ -26,17 +28,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Bild1.png" />
     <Resource Include="Home.png" />
     <Resource Include="Images\Beet.png" />
     <Resource Include="Images\Bild1.png" />
     <Resource Include="Images\Bild6.png" />
     <Resource Include="Images\Home.png" />
     <Resource Include="Images\User.png" />
+    <Resource Include="Images\UserPicture.jpg" />
+    <Resource Include="Images\userPicture2.png">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\Wetter.png" />
-    <Resource Include="User.png" />
-    <Resource Include="UserPicture.jpg" />
-    <Resource Include="userPicture2.png" />
   </ItemGroup>
 
   <ItemGroup>

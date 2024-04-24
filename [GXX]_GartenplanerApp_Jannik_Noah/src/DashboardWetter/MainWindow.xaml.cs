@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography.Xml;
 using System.Security.Policy;
 using System.Text;
@@ -39,11 +40,12 @@ namespace DashboardWetter
         public Label SchneeDaily;
         public Label WolkenDaily;
         public Label WetterDashBoard;
-        public string UserDataFile = "C:\\Users\\janni\\OneDrive - HTL-Rankweil\\SJ2023-24\\POS\\GartenplanerApp\\[GXX]_GartenplanerApp_Jannik_Noah\\bin\\DashboardWetter\\UserData\\Login.csv";
+        public string UserDataFile = "C:\\Users\\janni\\OneDrive - HTL-Rankweil\\SJ2023-24\\POS\\GartenplanerApp\\[GXX]_GartenplanerApp_Jannik_Noah\\src\\DashboardWetter\\UserData\\Login.csv";
         public User MainUser;
         public TextBox UserNameBox;
         public TextBox UserPasswordBox;
         public TextBox UserLocationBox;
+        public Button UserLoginOK;
 
         public MainWindow()
         {
@@ -59,11 +61,14 @@ namespace DashboardWetter
             WolkenDaily = new Label();
             WetterDashBoard = new Label();
             MainUser = new User();
+            UserLoginOK = new Button();
+            UserLoginOK.Click += UserLogin_Click;
             this.Loaded += Window_Loaded;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            DrawUserLogin();
             bool SignedIn = false;
             string[] UserData = new string[3];
             if (File.Exists(UserDataFile))
@@ -322,18 +327,14 @@ namespace DashboardWetter
             MainArea.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#262626"));
         }
 
-        private async void UserDataOK_Click(object sender, RoutedEventArgs e)
+        private async void UserLogin_Click(object sender, RoutedEventArgs e)
         {
             // Check Input
             try
             {
-                MainUser = new User(UserNameTextBox.Text, User.PasswordToHash(UserPasswordTextBox.Text), UserLocationTextBox.Text);
+                MainUser = new User(UserNameBox.Text, User.PasswordToHash(UserPasswordBox.Text), UserLocationBox.Text);
                 OpenMeteo.OpenMeteoClient client = new OpenMeteo.OpenMeteoClient();
                 WeatherForecast forecast = await client.QueryAsync(MainUser.Location);
-                if (forecast == null)
-                {
-                    throw new Exception();
-                }
                 
                 DrawHome();
                 if (File.Exists(UserDataFile))
@@ -355,7 +356,7 @@ namespace DashboardWetter
             }
             catch
             {
-                MessageBox.Show($"Didn't find Location '{UserLocationTextBox.Text}'", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Didn't find Location '{UserLocationBox.Text}'", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
             } 
         }
 
@@ -369,9 +370,12 @@ namespace DashboardWetter
             Profilbuch.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#262626"));
             Profilbuch.StrokeThickness = 2;
             Profilbuch.Margin = new Thickness(0, 30, 0, 0);
-
-            var imageBrush = new ImageBrush();
-            imageBrush.ImageSource = new BitmapImage(new Uri("/userPicture2.png", UriKind.Relative));
+            ImageBrush imageBrush = new ImageBrush();
+            //imageBrush.ImageSource = new BitmapImage(new Uri("Images/userPicture2.png", UriKind.Relative));
+            imageBrush.ImageSource = new BitmapImage(UriHelper.GetRessourceUri("Images/userPicture2.png"));
+            //imageBrush.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/"
+    //+ Assembly.GetExecutingAssembly().GetName().Name
+    //+ ";component/" + "Images/userPicture2.png", UriKind.Absolute));
             imageBrush.Stretch = Stretch.UniformToFill;
             imageBrush.TileMode = TileMode.None;
 
@@ -384,6 +388,7 @@ namespace DashboardWetter
                 FontWeight = FontWeights.Bold,
                 Foreground = Brushes.White,
                 Content = "NAME",
+                HorizontalAlignment = HorizontalAlignment.Center,
             };
 
             Label UserPassword = new Label()
@@ -393,6 +398,7 @@ namespace DashboardWetter
                 FontWeight = FontWeights.Bold,
                 Foreground = Brushes.White,
                 Content = "PASSWORT",
+                HorizontalAlignment = HorizontalAlignment.Center,
             };
 
             Label UserLocation = new Label()
@@ -402,12 +408,64 @@ namespace DashboardWetter
                 FontWeight = FontWeights.Bold,
                 Foreground = Brushes.White,
                 Content = "STANDORT",
+                HorizontalAlignment = HorizontalAlignment.Center,
             };
 
-            UserNameBox = new TextBox()
-            {
+            UserNameBox = new TextBox();
+            UserNameBox.Width = 200;
+            UserNameBox.Height = 30;
+            UserNameBox.Background = new SolidColorBrush(Color.FromRgb(38, 38, 38));
+            UserNameBox.FontSize = 15;
+            UserNameBox.FontFamily = new FontFamily("Aharoni");
+            UserNameBox.FontWeight = FontWeights.Bold;
+            UserNameBox.Foreground = Brushes.White;
+            UserNameBox.TextAlignment = TextAlignment.Center;
+            UserNameBox.VerticalContentAlignment = VerticalAlignment.Center;
+            UserNameBox.Name = "UserNameTextBox";
 
-            }
+            UserPasswordBox = new TextBox();
+            UserPasswordBox.Width = 200;
+            UserPasswordBox.Height = 30;
+            UserPasswordBox.Background = new SolidColorBrush(Color.FromRgb(38, 38, 38));
+            UserPasswordBox.FontSize = 15;
+            UserPasswordBox.FontFamily = new FontFamily("Aharoni");
+            UserPasswordBox.FontWeight = FontWeights.Bold;
+            UserPasswordBox.Foreground = Brushes.White;
+            UserPasswordBox.TextAlignment = TextAlignment.Center;
+            UserPasswordBox.VerticalContentAlignment = VerticalAlignment.Center;
+            UserPasswordBox.Name = "UserNameTextBox";
+
+            UserLocationBox = new TextBox();
+            UserLocationBox.Width = 200;
+            UserLocationBox.Height = 30;
+            UserLocationBox.Background = new SolidColorBrush(Color.FromRgb(38, 38, 38));
+            UserLocationBox.FontSize = 15;
+            UserLocationBox.FontFamily = new FontFamily("Aharoni");
+            UserLocationBox.FontWeight = FontWeights.Bold;
+            UserLocationBox.Foreground = Brushes.White;
+            UserLocationBox.TextAlignment = TextAlignment.Center;
+            UserLocationBox.VerticalContentAlignment = VerticalAlignment.Center;
+            UserLocationBox.Name = "UserNameTextBox";
+
+            UserLoginOK.Width = 200;
+            UserLoginOK.Height = 30;
+            UserLoginOK.Content = "OK";
+            UserLoginOK.FontSize = 15;
+            UserLoginOK.FontFamily = new FontFamily("Aharoni");
+            UserLoginOK.FontWeight = FontWeights.Bold;
+            UserLoginOK.Foreground = Brushes.White;
+            UserLoginOK.VerticalContentAlignment = VerticalAlignment.Center;
+            UserLoginOK.Background = new SolidColorBrush(Color.FromRgb(38, 38, 38));
+            UserLoginOK.Margin = new Thickness(0, 20, 0, 20);
+
+            MainArea.Children.Add(Profilbuch);
+            MainArea.Children.Add(UserName);
+            MainArea.Children.Add(UserNameBox);
+            MainArea.Children.Add(UserPassword);
+            MainArea.Children.Add(UserPasswordBox);
+            MainArea.Children.Add(UserLocation);
+            MainArea.Children.Add(UserLocationBox);
+            MainArea.Children.Add(UserLoginOK);
         }
     }
 }
