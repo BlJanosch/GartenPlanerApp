@@ -14,6 +14,7 @@
     <None Remove="Images\Bild1.png" />
     <None Remove="Images\Bild6.png" />
     <None Remove="Images\Home.png" />
+    <None Remove="Images\Plus.png" />
     <None Remove="Images\User.png" />
     <None Remove="Images\UserPicture.jpg" />
     <None Remove="Images\userPicture2.png" />
@@ -34,6 +35,7 @@
     <Resource Include="Images\Bild1.png" />
     <Resource Include="Images\Bild6.png" />
     <Resource Include="Images\Home.png" />
+    <Resource Include="Images\Plus.png" />
     <Resource Include="Images\User.png" />
     <Resource Include="Images\UserPicture.jpg" />
     <Resource Include="Images\userPicture2.png">

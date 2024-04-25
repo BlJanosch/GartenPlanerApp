@@ -9,6 +9,7 @@
 |User Fenster hinzugefügt (Wetter funktioniert nicht mehr)|Jannik|
 |User Login hinzugefügt und Wetter Bug gefixed|Jannik|
 |Passwort ändern können|Noah|
+|User kann Standort und Namen ändern|Jannik|
 
 ## Tagebuch
 
@@ -16,4 +17,4 @@
 Programm um User-Login erweitert --> Wenn noch keine Daten vorhanden sind wird eine .csv Datei erstellt und man muss sich anmelden. Anderenfalls werden die Daten aus der .csv Datei geladen und man muss sich nicht mehr anmelden.
 
 ### 25.04.2024
-Programm um ein User-Login erweitert. Daten werden searilisiert und in .csv Datei gespeichert (Passwort wird gehashed). Passwort kann unter Reiter YOU geändert werden (man muss alter Passwort angeben um ein neues erstellen zu können).
+Programm um ein User-Login erweitert. Daten werden searilisiert und in .csv Datei gespeichert (Passwort wird gehashed). Passwort kann unter Reiter YOU geändert werden (man muss alter Passwort angeben um ein neues erstellen zu können). Weitere Funktion: User kann seinen Namen ändern sowie sein Standort. Mit Beet angefangen d.h. Design ausprobiert...

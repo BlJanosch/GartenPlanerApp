@@ -45,6 +45,16 @@
         </Grid>
         <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1">
             <StackPanel  x:Name="MainArea">
+                <Label FontSize="40" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Margin="0,20,0,0">BEETE</Label>
+                <WrapPanel Margin="10,0,10,0">
+                    <Border BorderThickness="1" Background="#262626" Opacity="0.6"  Width="225" Height="195" CornerRadius="20, 20, 20, 20">
+                        <Grid>
+                            <Image Source="Images/Plus.png" Height="80"></Image>
+                            <Button Width="80" Height="80" Opacity="0.0001"></Button>
+                        </Grid>
+                    </Border>
+                    
+                </WrapPanel>
             </StackPanel>
         </ScrollViewer>
         

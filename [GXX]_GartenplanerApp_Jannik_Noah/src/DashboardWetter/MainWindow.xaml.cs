@@ -35,7 +35,7 @@ namespace DashboardWetter
         public Label RegenNow;
         public Label SchneeNow;
         public Label WolkenNow;
-        public Label TemperaturDaily;
+        public Label CurrentLocation;
         public Label RegenDaily;
         public Label SchneeDaily;
         public Label WolkenDaily;
@@ -55,7 +55,7 @@ namespace DashboardWetter
             RegenNow = new Label();
             SchneeNow = new Label();
             WolkenNow = new Label();
-            TemperaturDaily = new Label();
+            CurrentLocation = new Label();
             RegenDaily = new Label();
             SchneeDaily = new Label();
             WolkenDaily = new Label();
@@ -67,7 +67,7 @@ namespace DashboardWetter
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
+        {/*
             DrawUserLogin();
             bool SignedIn = false;
             string[] UserData = new string[3];
@@ -97,6 +97,7 @@ namespace DashboardWetter
                     
                 }
             }
+            */
         }
 
         private void timer_Uhr_Tick(object? sender, EventArgs e)
@@ -200,30 +201,22 @@ namespace DashboardWetter
             }
 
             Label Zurzeit = new Label() { Content = "Zurzeit", FontSize = 15, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, HorizontalAlignment = HorizontalAlignment.Center };
-            Label Ganztaegig = new Label() { Content = "Ganztägig", FontSize = 15, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, HorizontalAlignment = HorizontalAlignment.Center };
+            Label Ganztaegig = new Label() { Content = "Standort", FontSize = 15, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, HorizontalAlignment = HorizontalAlignment.Center };
             Grid.SetColumn(Ganztaegig, 1);
 
-            TemperaturNow = new Label() { Name = "TemperaturNowLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = "Temperatur" };
+            TemperaturNow = new Label() { Name = "TemperaturNowLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = "Temperatur", HorizontalAlignment = HorizontalAlignment.Center };
             Grid.SetRow(TemperaturNow, 1);
-            RegenNow = new Label() { Name = "RegenNowLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = "Regen" };
+            RegenNow = new Label() { Name = "RegenNowLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = "Regen", HorizontalAlignment = HorizontalAlignment.Center };
             Grid.SetRow(RegenNow, 2);
-            SchneeNow = new Label() { Name = "SchneeNowLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = "Schnee" };
+            SchneeNow = new Label() { Name = "SchneeNowLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = "Schnee", HorizontalAlignment = HorizontalAlignment.Center };
             Grid.SetRow(SchneeNow, 3);
-            WolkenNow = new Label() { Name = "WolkenNowLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = "Wolken" };
+            WolkenNow = new Label() { Name = "WolkenNowLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = "Wolken", HorizontalAlignment = HorizontalAlignment.Center };
             Grid.SetRow(WolkenNow, 4);
 
-            TemperaturDaily = new Label() { Name = "TemperaturDailyLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = "Temperatur" };
-            Grid.SetRow(TemperaturDaily, 1);
-            Grid.SetColumn(TemperaturDaily, 1);
-            RegenDaily = new Label() { Name = "RegenDailyLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = "Regen" };
-            Grid.SetRow(RegenDaily, 2);
-            Grid.SetColumn(RegenDaily, 1);
-            SchneeDaily = new Label() { Name = "SchneeDailyLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = "Schnee" };
-            Grid.SetRow(SchneeDaily, 3);
-            Grid.SetColumn(SchneeDaily, 1);
-            WolkenDaily = new Label() { Name = "WolkenDailyLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = "Wolken" };
-            Grid.SetRow(WolkenDaily, 4);
-            Grid.SetColumn(WolkenDaily, 1);
+            CurrentLocation = new Label() { Name = "TemperaturDailyLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = MainUser.Location, HorizontalAlignment = HorizontalAlignment.Center };
+            Grid.SetRow(CurrentLocation, 1);
+            Grid.SetColumn(CurrentLocation, 1);
+            
 
             subGrid.Children.Add(Zurzeit);
             subGrid.Children.Add(Ganztaegig);
@@ -231,10 +224,7 @@ namespace DashboardWetter
             subGrid.Children.Add(RegenNow);
             subGrid.Children.Add(SchneeNow);
             subGrid.Children.Add(WolkenNow);
-            subGrid.Children.Add(TemperaturDaily);
-            subGrid.Children.Add(RegenDaily);
-            subGrid.Children.Add(SchneeDaily);
-            subGrid.Children.Add(WolkenDaily);
+            subGrid.Children.Add(CurrentLocation);
 
             innerGrid.Children.Add(subGrid);
 
