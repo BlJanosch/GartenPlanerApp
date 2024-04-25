@@ -19,6 +19,7 @@
     <None Remove="Images\userPicture2.png" />
     <None Remove="Images\Wetter.png" />
     <None Remove="User.png" />
+    <None Remove="UserData\Login.csv" />
     <None Remove="UserPicture.jpg" />
     <None Remove="userPicture2.png" />
   </ItemGroup>

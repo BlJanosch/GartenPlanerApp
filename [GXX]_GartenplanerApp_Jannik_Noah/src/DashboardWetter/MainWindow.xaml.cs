@@ -40,7 +40,7 @@ namespace DashboardWetter
         public Label SchneeDaily;
         public Label WolkenDaily;
         public Label WetterDashBoard;
-        public string UserDataFile = "C:\\Users\\janni\\OneDrive - HTL-Rankweil\\SJ2023-24\\POS\\GartenplanerApp\\[GXX]_GartenplanerApp_Jannik_Noah\\src\\DashboardWetter\\UserData\\Login.csv";
+        public string UserDataFile = AppDomain.CurrentDomain.BaseDirectory.Split("\\bin\\")[0] + "\\UserData\\Login.csv";
         public User MainUser;
         public TextBox UserNameBox;
         public TextBox UserPasswordBox;
