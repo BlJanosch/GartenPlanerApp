@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Printing;
 using System.Text;
@@ -20,20 +21,26 @@ namespace DashboardWetter
     /// </summary>
     public partial class Window_ChangePassword : Window
     {
-        public string newPassword = "";
-        public string oldPW;
-        public Window_ChangePassword(string oldPW)
+        public User MainUser;
+        public string UserDataFile;
+        public Window_ChangePassword(User mainUser, string userDataFile)
         {
             InitializeComponent();
-            this.oldPW = oldPW;
+            this.MainUser = mainUser;
             ButtonConfirm.IsEnabled = true;
+            UserDataFile = userDataFile;
         }
 
         private void ButtonConfirm_Click(object sender, RoutedEventArgs e)
         {
-            if (User.PasswordToHash(TBold.Text) == oldPW)
+            if (User.PasswordToHash(TBold.Text) == MainUser.Password)
             {
-                newPassword = User.PasswordToHash(TBnew.Text);
+                MainUser.Password = User.PasswordToHash(TBnew.Text);
+                using (StreamWriter writer = new StreamWriter(UserDataFile, false))
+                {
+                    writer.WriteLine("1");
+                    writer.WriteLine(MainUser.Searlized());
+                }
                 this.DialogResult = true;
             }
             else

@@ -351,6 +351,34 @@ namespace DashboardWetter
                 HorizontalAlignment = HorizontalAlignment.Center,
             };
 
+            Button ChangeUserName = new Button()
+            {
+                Width = 200,
+                Height = 30,
+                Content = "Change User Name",
+                FontSize = 15,
+                FontFamily = new FontFamily("Aharoni"),
+                FontWeight = FontWeights.Bold,
+                Foreground = Brushes.White,
+                VerticalContentAlignment = VerticalAlignment.Center,
+                Background = new SolidColorBrush(Color.FromRgb(38, 80, 38)),
+                Margin = new Thickness(0, 20, 0, 0),
+            };
+
+            Button ChangeLocation = new Button()
+            {
+                Width = 200,
+                Height = 30,
+                Content = "Change Location",
+                FontSize = 15,
+                FontFamily = new FontFamily("Aharoni"),
+                FontWeight = FontWeights.Bold,
+                Foreground = Brushes.White,
+                VerticalContentAlignment = VerticalAlignment.Center,
+                Background = new SolidColorBrush(Color.FromRgb(38, 80, 38)),
+                Margin = new Thickness(0, 20, 0, 0),
+            };
+
             Button ChangePassword = new Button()
             {
                 Width = 200,
@@ -362,25 +390,53 @@ namespace DashboardWetter
                 Foreground = Brushes.White,
                 VerticalContentAlignment = VerticalAlignment.Center,
                 Background = new SolidColorBrush(Color.FromRgb(38, 80, 38)),
-                Margin = new Thickness(0, 20, 0, 20),
+                Margin = new Thickness(0, 20, 0, 0),
             };
 
             ChangePassword.Click += ChangePassword_Click;
+            ChangeUserName.Click += ChangeUserName_Click;
+            ChangeLocation.Click += ChangeLocation_Click;
             MainArea.Children.Add(Profilbuch);
             MainArea.Children.Add(UserName);
+            MainArea.Children.Add(ChangeUserName);
             MainArea.Children.Add(ChangePassword);
+            MainArea.Children.Add(ChangeLocation);
         }
 
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            Window_ChangePassword window_ChangePassword = new Window_ChangePassword(MainUser.Password);
+            Window_ChangePassword window_ChangePassword = new Window_ChangePassword(MainUser, UserDataFile);
             window_ChangePassword.ShowDialog();
             if (window_ChangePassword.DialogResult == true)
             {
-                MainUser.Password = window_ChangePassword.newPassword;
+                MainUser = window_ChangePassword.MainUser;
                 window_ChangePassword.Close();
             }
         }
+
+        private void ChangeUserName_Click(object sender, RoutedEventArgs e)
+        {
+            Window_ChangeNameLocation window_ChangeName = new Window_ChangeNameLocation(MainUser, "Name", UserDataFile);
+            window_ChangeName.ShowDialog();
+            if (window_ChangeName.DialogResult == true)
+            {
+                MainUser = window_ChangeName.MainUser;
+                window_ChangeName.Close();
+            }
+            DrawUserMenu();
+        }
+
+        private void ChangeLocation_Click(object sender, RoutedEventArgs e)
+        {
+            Window_ChangeNameLocation window_ChangeLocation = new Window_ChangeNameLocation(MainUser, "Location", UserDataFile);
+            window_ChangeLocation.ShowDialog();
+            if (window_ChangeLocation.DialogResult == true)
+            {
+                MainUser = window_ChangeLocation.MainUser;
+                window_ChangeLocation.Close();
+            }
+        }
+
         private async void UserLogin_Click(object sender, RoutedEventArgs e)
         {
             // Check Input
@@ -425,11 +481,8 @@ namespace DashboardWetter
             Profilbuch.StrokeThickness = 2;
             Profilbuch.Margin = new Thickness(0, 30, 0, 0);
             ImageBrush imageBrush = new ImageBrush();
-            //imageBrush.ImageSource = new BitmapImage(new Uri("Images/userPicture2.png", UriKind.Relative));
             imageBrush.ImageSource = new BitmapImage(UriHelper.GetRessourceUri("Images/userPicture2.png"));
-            //imageBrush.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/"
-    //+ Assembly.GetExecutingAssembly().GetName().Name
-    //+ ";component/" + "Images/userPicture2.png", UriKind.Absolute));
+           
             imageBrush.Stretch = Stretch.UniformToFill;
             imageBrush.TileMode = TileMode.None;
 

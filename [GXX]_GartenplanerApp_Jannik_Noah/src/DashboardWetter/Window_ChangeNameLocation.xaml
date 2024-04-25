@@ -1,11 +1,11 @@
-﻿<Window x:Class="DashboardWetter.Window_ChangePassword"
+﻿<Window x:Class="DashboardWetter.Window_ChangeNameLocation"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashboardWetter"
         mc:Ignorable="d"
-        Title="Passwort verändern" Height="150" Width="350">
+        Title="Daten verändern" Height="120" Width="350">
     <Grid Background="#262626">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -14,12 +14,9 @@
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Label  FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" VerticalAlignment="Center">Altes Passwort</Label>
-        <Label  FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" Grid.Row="1">Neues Passwort</Label>
-        <TextBox x:Name="TBold" Grid.Column="1" Background="#262626" VerticalContentAlignment="Center" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White"></TextBox>
-        <TextBox x:Name="TBnew" Grid.Column="1" Grid.Row="1" Background="#262626" VerticalContentAlignment="Center" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White"></TextBox>
+        <Label FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" x:Name="ChangeLabel"></Label>
+        <TextBox x:Name="TextBoxNew" Grid.Column="1" Background="#262626" VerticalContentAlignment="Center" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White"></TextBox>
         <Button Grid.Column="1" Grid.Row="2" Width="85" Height="30" HorizontalAlignment="Left" IsCancel="True" Background="#265026" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" Margin="20,0,0,0" >Abbrechen</Button>
         <Button Grid.Column="1" Grid.Row="2" Width="85" Height="30" HorizontalAlignment="Right" Background="#265026" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" Margin="0,0,20,0" x:Name="ButtonConfirm" Click="ButtonConfirm_Click">OK</Button>
     </Grid>
