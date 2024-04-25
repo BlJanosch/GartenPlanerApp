@@ -325,8 +325,62 @@ namespace DashboardWetter
         {
             MainArea.Children.Clear();
             MainArea.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#262626"));
+
+            Ellipse Profilbuch = new Ellipse()
+            {
+                Height = 150,
+                Width = 150,
+            };
+            Profilbuch.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#262626"));
+            Profilbuch.StrokeThickness = 2;
+            Profilbuch.Margin = new Thickness(0, 30, 0, 0);
+            ImageBrush imageBrush = new ImageBrush();
+            imageBrush.ImageSource = new BitmapImage(UriHelper.GetRessourceUri("Images/userPicture2.png"));
+            imageBrush.Stretch = Stretch.UniformToFill;
+            imageBrush.TileMode = TileMode.None;
+            Profilbuch.Fill = imageBrush;
+
+
+            Label UserName = new Label()
+            {
+                FontSize = 20,
+                FontFamily = new FontFamily("Aharoni"),
+                FontWeight = FontWeights.Bold,
+                Foreground = Brushes.White,
+                Content = MainUser.Name,
+                HorizontalAlignment = HorizontalAlignment.Center,
+            };
+
+            Button ChangePassword = new Button()
+            {
+                Width = 200,
+                Height = 30,
+                Content = "Change Password",
+                FontSize = 15,
+                FontFamily = new FontFamily("Aharoni"),
+                FontWeight = FontWeights.Bold,
+                Foreground = Brushes.White,
+                VerticalContentAlignment = VerticalAlignment.Center,
+                Background = new SolidColorBrush(Color.FromRgb(38, 80, 38)),
+                Margin = new Thickness(0, 20, 0, 20),
+            };
+
+            ChangePassword.Click += ChangePassword_Click;
+            MainArea.Children.Add(Profilbuch);
+            MainArea.Children.Add(UserName);
+            MainArea.Children.Add(ChangePassword);
         }
 
+        private void ChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+            Window_ChangePassword window_ChangePassword = new Window_ChangePassword(MainUser.Password);
+            window_ChangePassword.ShowDialog();
+            if (window_ChangePassword.DialogResult == true)
+            {
+                MainUser.Password = window_ChangePassword.newPassword;
+                window_ChangePassword.Close();
+            }
+        }
         private async void UserLogin_Click(object sender, RoutedEventArgs e)
         {
             // Check Input
