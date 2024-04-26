@@ -67,7 +67,7 @@ namespace DashboardWetter
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
-        {/*
+        {
             DrawUserLogin();
             bool SignedIn = false;
             string[] UserData = new string[3];
@@ -83,6 +83,13 @@ namespace DashboardWetter
                             {
                                 SignedIn = true;
                             }
+                            else
+                            {
+                                MainArea.Children.Clear();
+                                DrawUserLogin();
+                                SignedIn = true;
+                                break;
+                            }
                         }
                         else
                         {
@@ -97,7 +104,7 @@ namespace DashboardWetter
                     
                 }
             }
-            */
+            
         }
 
         private void timer_Uhr_Tick(object? sender, EventArgs e)
@@ -383,14 +390,30 @@ namespace DashboardWetter
                 Margin = new Thickness(0, 20, 0, 0),
             };
 
+            Button Logout = new Button()
+            {
+                Width = 200,
+                Height = 30,
+                Content = "Logout",
+                FontSize = 15,
+                FontFamily = new FontFamily("Aharoni"),
+                FontWeight = FontWeights.Bold,
+                Foreground = Brushes.White,
+                VerticalContentAlignment = VerticalAlignment.Center,
+                Background = new SolidColorBrush(Color.FromRgb(38, 80, 38)),
+                Margin = new Thickness(0, 20, 0, 20),
+            };
+
             ChangePassword.Click += ChangePassword_Click;
             ChangeUserName.Click += ChangeUserName_Click;
             ChangeLocation.Click += ChangeLocation_Click;
+            Logout.Click += Logout_Click;
             MainArea.Children.Add(Profilbuch);
             MainArea.Children.Add(UserName);
             MainArea.Children.Add(ChangeUserName);
             MainArea.Children.Add(ChangePassword);
             MainArea.Children.Add(ChangeLocation);
+            MainArea.Children.Add(Logout);
         }
 
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
@@ -425,6 +448,16 @@ namespace DashboardWetter
                 MainUser = window_ChangeLocation.MainUser;
                 window_ChangeLocation.Close();
             }
+        }
+
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            using (StreamWriter writer = new StreamWriter(UserDataFile, false))
+            {
+                writer.WriteLine("0");
+            }
+            MainArea.Children.Clear();
+            DrawUserLogin();
         }
 
         private async void UserLogin_Click(object sender, RoutedEventArgs e)
@@ -462,6 +495,7 @@ namespace DashboardWetter
 
         public void DrawUserLogin()
         {
+            MainArea.Background = Brushes.Transparent;
             Ellipse Profilbuch = new Ellipse()
             {
                 Height = 150,
