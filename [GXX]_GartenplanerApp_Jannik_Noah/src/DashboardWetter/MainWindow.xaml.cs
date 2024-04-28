@@ -141,7 +141,7 @@ namespace DashboardWetter
         public void DrawHome()
         {
             HomeButton.IsEnabled = true;
-            BeetButton.IsEnabled = true;
+            BeeteButton.IsEnabled = true;
             PflanzeButton.IsEnabled = true;
             UserButton.IsEnabled = true;
             MainArea.Children.Clear();
@@ -316,6 +316,55 @@ namespace DashboardWetter
             Wetter = "Location needed";
             WetterDashBoard.Content = Wetter;
             getWeather();
+        }
+
+        public void DrawBeeteMenu()
+        {
+            MainArea.Children.Clear();
+            // MainArea.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2a6d43"));
+
+            WrapPanel wrapPanelBeet = new WrapPanel();
+            wrapPanelBeet.Margin = new Thickness(30);
+            Border border = new Border()
+            {
+                Background = Brushes.Black,
+                Opacity = 0.6,
+                Width = 225,
+                Height = 195,
+                CornerRadius = new CornerRadius(20, 20, 20, 20)
+                
+            };
+            border.BorderThickness = new Thickness(1);
+            Grid grid = new Grid();
+            grid.Margin = new Thickness(10);
+            Image imagePlus = new Image();
+            imagePlus.Source = new BitmapImage(new Uri("Images/Plus.png", UriKind.Relative));
+            imagePlus.Height = 80;
+            imagePlus.VerticalAlignment = VerticalAlignment.Center;
+            imagePlus.HorizontalAlignment = HorizontalAlignment.Center;
+
+            Button buttonAddBeet = new Button()
+            {
+                Width = 80,
+                Height = 80,
+                Opacity = 0.0001,
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
+            };
+
+            buttonAddBeet.Click += ButtonAddBeet_Click;
+
+            MainArea.Children.Add(wrapPanelBeet);
+            wrapPanelBeet.Children.Add(border);
+            border.Child = grid;
+            grid.Children.Add(imagePlus);
+            grid.Children.Add(buttonAddBeet);
+        }
+
+        private void ButtonAddBeet_Click(object sender, RoutedEventArgs e)
+        {
+            WindowAddBeet windowAddBeet = new WindowAddBeet();
+            windowAddBeet.Show();
         }
 
         public void DrawUserMenu()
@@ -597,6 +646,11 @@ namespace DashboardWetter
             MainArea.Children.Add(UserLocation);
             MainArea.Children.Add(UserLocationBox);
             MainArea.Children.Add(UserLoginOK);
+        }
+
+        private void BeeteButton_Click(object sender, RoutedEventArgs e)
+        {
+            DrawBeeteMenu();
         }
     }
 }

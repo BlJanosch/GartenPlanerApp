@@ -1,0 +1,16 @@
+﻿<Window x:Class="DashboardWetter.WindowAddBeet"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DashboardWetter"
+        mc:Ignorable="d"
+        Title="Breite und Länge angeben" Height="190" Width="230" Background="RosyBrown">
+    <Canvas>
+        <TextBox Background="LightGray"  TextWrapping="Wrap" Text="" Width="121" HorizontalAlignment="Center" Canvas.Left="61" Canvas.Top="25" VerticalAlignment="Top"/>
+        <TextBox Background="LightGray" TextWrapping="Wrap" Text="" Width="121" HorizontalAlignment="Center" Canvas.Left="61" Canvas.Top="60" VerticalAlignment="Top"/>
+        <Label Content="Länge" Canvas.Left="10" Canvas.Top="21" RenderTransformOrigin="0.566,0.656" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Content="Breite" Canvas.Left="10" Canvas.Top="56" RenderTransformOrigin="0.566,0.656" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Button IsDefault="True" Content="OK" Canvas.Left="142" Canvas.Top="111" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40"/>
+    </Canvas>
+</Window>
