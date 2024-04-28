@@ -23,5 +23,47 @@ namespace DashboardWetter
         {
             InitializeComponent();
         }
+
+        private void ButtonOK_Click(object sender, RoutedEventArgs e)
+        {
+            int zahl;
+            try
+            {
+                zahl = Convert.ToInt32(TBLänge.Text);
+                if (zahl <= 0) 
+                {
+                    throw new Exception("Bitte keine negativen Zahlen eingeben!");
+                }
+                else if (zahl > 10)
+                {
+                    throw new Exception("max. 10 Länge!!!");
+                }
+                zahl = Convert.ToInt32(TBBreite.Text);
+                if (zahl <= 0)
+                {
+                    throw new Exception("Bitte keine negativen Zahlen eingeben!");
+                }
+                else if (zahl > 3)
+                {
+                    throw new Exception("max. 3 Breite!!!");
+                }
+                this.DialogResult = true;
+                this.Close();
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("ACHTUNG Nur Zahlen erlaubt!!!", "Eingabe überprüfen", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Eingabe überprüfen", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            this.Close();
+        }
     }
 }

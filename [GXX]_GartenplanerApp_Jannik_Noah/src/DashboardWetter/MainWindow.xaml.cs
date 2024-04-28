@@ -47,6 +47,8 @@ namespace DashboardWetter
         public TextBox UserLocationBox;
         public Button UserLoginOK;
 
+        public BeeteManager beeteManager = new BeeteManager();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -364,7 +366,15 @@ namespace DashboardWetter
         private void ButtonAddBeet_Click(object sender, RoutedEventArgs e)
         {
             WindowAddBeet windowAddBeet = new WindowAddBeet();
-            windowAddBeet.Show();
+            windowAddBeet.ShowDialog();
+
+            if (windowAddBeet.DialogResult == true)
+            {
+                Beet neuesBeet = new Beet(windowAddBeet.TBName.Text, Convert.ToInt32(windowAddBeet.TBBreite.Text), Convert.ToInt32(windowAddBeet.TBLänge.Text));
+                beeteManager.AddBeet(neuesBeet);
+                BeetBearbeiter beetBearbeiter = new BeetBearbeiter(neuesBeet);
+                beetBearbeiter.ShowDialog();
+            }
         }
 
         public void DrawUserMenu()
