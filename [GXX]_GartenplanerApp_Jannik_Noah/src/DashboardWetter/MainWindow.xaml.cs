@@ -323,6 +323,7 @@ namespace DashboardWetter
         public void DrawBeeteMenu()
         {
             MainArea.Children.Clear();
+            MainArea.Background = Brushes.Transparent;
             // MainArea.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2a6d43"));
 
             WrapPanel wrapPanelBeet = new WrapPanel();
