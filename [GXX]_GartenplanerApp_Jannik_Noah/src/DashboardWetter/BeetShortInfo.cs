@@ -12,7 +12,12 @@ namespace DashboardWetter
 {
     public class BeetShortInfo
     {
-        public static Border GetShortInfo(Beet beet)
+        public Beet beet;
+        public BeetShortInfo(Beet beet)
+        {
+            this.beet = beet;
+        }
+        public Border GetShortInfo()
         {
             Border border = new Border()
             {
@@ -49,6 +54,7 @@ namespace DashboardWetter
                 Margin = new Thickness(0, 5, 10, 0),
                 Opacity = 0.000001
             };
+            infoButton.Click += infoButton_Click;
 
             Image infoImage = new Image()
             {
@@ -95,13 +101,18 @@ namespace DashboardWetter
             }
 
             grid.Children.Add(nameLabel);
-            grid.Children.Add(infoButton);
             grid.Children.Add(infoImage);
+            grid.Children.Add(infoButton);
             grid.Children.Add(beetViewGrid);
 
             border.Child = grid;
 
             return border;
+        }
+
+        private void infoButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Beet-Bearbeiter
         }
     }
 }
