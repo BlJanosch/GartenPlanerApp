@@ -5,17 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashboardWetter"
         mc:Ignorable="d"
-        Title="Breite und Länge angeben" WindowStartupLocation="CenterScreen" Height="220" Width="260" Background="RosyBrown">
-    <Canvas>
-        <TextBox x:Name="TBLänge" Background="LightGray"  TextWrapping="Wrap" Text="" Width="121" HorizontalAlignment="Center" Canvas.Left="61" Canvas.Top="25" VerticalAlignment="Top"/>
-        <TextBox x:Name="TBBreite" Background="LightGray" TextWrapping="Wrap" Text="" Width="121" HorizontalAlignment="Center" Canvas.Left="61" Canvas.Top="60" VerticalAlignment="Top"/>
-        <Label Content="Länge" Canvas.Left="10" Canvas.Top="21" RenderTransformOrigin="0.566,0.656" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Label Content="(max. 10)" Canvas.Left="182" RenderTransformOrigin="0.566,0.656" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Canvas.Top="21"/>
-        <Label Content="(max. 3)" Canvas.Left="182" Canvas.Top="56" RenderTransformOrigin="0.566,0.656" HorizontalAlignment="Left" VerticalAlignment="Top" Width="55"/>
-        <Label Content="Breite" Canvas.Left="10" Canvas.Top="56" RenderTransformOrigin="0.566,0.656" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Button x:Name="ButtonOK" Click="ButtonOK_Click" IsDefault="True" Content="OK" Canvas.Left="135" Canvas.Top="143" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40"/>
-        <Button x:Name="ButtonCancel" Click="ButtonCancel_Click" IsDefault="True" Content="Cancel" Canvas.Left="83" Canvas.Top="143" HorizontalAlignment="Left" VerticalAlignment="Top" Width="47"/>
-        <TextBox x:Name="TBName" Background="LightGray" TextWrapping="Wrap" Text="" Width="121" HorizontalAlignment="Center" Canvas.Left="61" Canvas.Top="106" VerticalAlignment="Top"/>
-        <Label Content="Name" Canvas.Left="10" Canvas.Top="102" RenderTransformOrigin="0.566,0.656" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-    </Canvas>
+        Title="Breite und Länge angeben" WindowStartupLocation="CenterScreen" Height="200" Width="300">
+    <Grid Background="#262626">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center">Spalten</Label>
+        <TextBox x:Name="TBLänge" Grid.Column="1" Background="#262626" VerticalContentAlignment="Center" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White"></TextBox>
+        <Label FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1">Reihen</Label>
+        <TextBox x:Name="TBBreite" Grid.Column="1" Grid.Row="1" Background="#262626" VerticalContentAlignment="Center" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White"></TextBox>
+        <Label FontSize="15" FontFamily="Aharoni" Grid.Row="2" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center">Name</Label>
+        <TextBox x:Name="TBName" Grid.Column="1" Grid.Row="2" Background="#262626" VerticalContentAlignment="Center" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White"></TextBox>
+        <Button Grid.Column="1" Grid.Row="3" Width="85" Height="30" HorizontalAlignment="Left" IsCancel="True" Background="#265026" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" Margin="5,0,0,0" >Abbrechen</Button>
+        <Button Grid.Column="1" Grid.Row="3" Width="85" Height="30" HorizontalAlignment="Right" Background="#265026" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" Margin="0,0,5,0" x:Name="ButtonOK" Click="ButtonOK_Click" IsDefault="True">OK</Button>
+    </Grid>
 </Window>

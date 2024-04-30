@@ -46,8 +46,8 @@ namespace DashboardWetter
         public TextBox UserPasswordBox;
         public TextBox UserLocationBox;
         public Button UserLoginOK;
-
-        public BeeteManager beeteManager = new BeeteManager();
+        public WrapPanel wrapPanelBeet;
+        public BeeteManager beeteManager;
 
         public MainWindow()
         {
@@ -64,6 +64,8 @@ namespace DashboardWetter
             WetterDashBoard = new Label();
             MainUser = new User();
             UserLoginOK = new Button();
+            wrapPanelBeet = new WrapPanel();
+            beeteManager = new BeeteManager();
             UserLoginOK.Click += UserLogin_Click;
             this.Loaded += Window_Loaded;
         }
@@ -325,15 +327,29 @@ namespace DashboardWetter
             MainArea.Children.Clear();
             MainArea.Background = Brushes.Transparent;
 
-            WrapPanel wrapPanelBeet = new WrapPanel();
-            wrapPanelBeet.Margin = new Thickness(30);
+            wrapPanelBeet.Children.Clear();
+            wrapPanelBeet.HorizontalAlignment = HorizontalAlignment.Center;
+
+            Label Header = new Label()
+            {
+                Content = "BEETE",
+                FontSize = 40,
+                FontFamily = new FontFamily("Aharoni"),
+                FontWeight = FontWeights.Bold,
+                Foreground = Brushes.White,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Margin = new Thickness(0, 20, 0, 0)
+            };
+
+
             Border border = new Border()
             {
                 Background = Brushes.Black,
                 Opacity = 0.6,
                 Width = 225,
                 Height = 195,
-                CornerRadius = new CornerRadius(20, 20, 20, 20)
+                CornerRadius = new CornerRadius(20, 20, 20, 20),
+                Margin = new Thickness(5, 5, 5, 5),
                 
             };
             border.BorderThickness = new Thickness(1);
@@ -356,7 +372,12 @@ namespace DashboardWetter
 
             buttonAddBeet.Click += ButtonAddBeet_Click;
 
+            MainArea.Children.Add(Header);
             MainArea.Children.Add(wrapPanelBeet);
+            foreach (Beet beet in beeteManager.Beete)
+            {
+                wrapPanelBeet.Children.Add(BeetShortInfo.GetShortInfo(beet));
+            }
             wrapPanelBeet.Children.Add(border);
             border.Child = grid;
             grid.Children.Add(imagePlus);
@@ -372,8 +393,7 @@ namespace DashboardWetter
             {
                 Beet neuesBeet = new Beet(windowAddBeet.TBName.Text, Convert.ToInt32(windowAddBeet.TBBreite.Text), Convert.ToInt32(windowAddBeet.TBLänge.Text));
                 beeteManager.AddBeet(neuesBeet);
-                BeetBearbeiter beetBearbeiter = new BeetBearbeiter(neuesBeet);
-                beetBearbeiter.ShowDialog();
+                DrawBeeteMenu();
             }
         }
 
