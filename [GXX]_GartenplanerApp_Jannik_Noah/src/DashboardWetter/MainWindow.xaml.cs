@@ -324,7 +324,6 @@ namespace DashboardWetter
         {
             MainArea.Children.Clear();
             MainArea.Background = Brushes.Transparent;
-            // MainArea.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2a6d43"));
 
             WrapPanel wrapPanelBeet = new WrapPanel();
             wrapPanelBeet.Margin = new Thickness(30);
