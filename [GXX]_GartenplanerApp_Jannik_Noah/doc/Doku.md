@@ -14,6 +14,7 @@
 |Beete Menü Prototyp|Noah|28.04.2024|
 |Window zum Beete hinzufügen|Noah|28.04.2024|
 |Beete Menü Bug beheben|Jannik|29.04.2024|
+|Beete Hinzufügen Designen und Beete Übersicht hinzufügen|Jannik|30.04.2024|
 
 ## Tagebuch
 
@@ -26,8 +27,11 @@ Programm um ein User-Login erweitert. Daten werden searilisiert und in .csv Date
 ### 26.04.2024
 Programm um ein Logout System erweitert. User kann sich nun ausloggen und wieder neu anmelden. Die Datei Login.csv wird dabei wieder zurückgesetzt und neu überschrieben.
 
-### 28.04.2023
+### 28.04.2024
 Beete-Menü hat nun Funktion und es gibt ein neues Fenster zum Hinzufügen von neuen Beeten (Spalten, Reihen).
 
-### 29.04.2023
+### 29.04.2024
 Bug --> Wenn man von User-Menü zu Beete-Menü gewechselt hat, hat sich der Background nicht resetet. Dieser Bug wurde nun behoben.
+
+### 30.04.2024
+Beete Hinzufügen Fenster Designed und sobald man nun auf das Plus klickt erscheint ein neues "Quadrat" mit einer kurzen Übersicht (Name, kleiner Version vom Beet, Info Button). Plan --> Wenn man auf den Info Button klickt, soll der Beete-Designer geöffnet werden.
