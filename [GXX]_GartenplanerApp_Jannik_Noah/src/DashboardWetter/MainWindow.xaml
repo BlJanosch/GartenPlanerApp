@@ -44,7 +44,7 @@
             <Button Opacity=".1" Grid.Row="3" Background="#262626" x:Name="UserButton" Click="UserButton_Click" IsEnabled="False"></Button>
         </Grid>
         <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1">
-            <StackPanel  x:Name="MainArea">
+            <StackPanel x:Name="MainArea">
             </StackPanel>
         </ScrollViewer>
         

@@ -376,7 +376,7 @@ namespace DashboardWetter
             MainArea.Children.Add(wrapPanelBeet);
             foreach (Beet beet in beeteManager.Beete)
             {
-                BeetShortInfo info = new BeetShortInfo(beet);
+                BeetShortInfo info = new BeetShortInfo(beet, MainArea);
                 wrapPanelBeet.Children.Add(info.GetShortInfo());
             }
             wrapPanelBeet.Children.Add(border);

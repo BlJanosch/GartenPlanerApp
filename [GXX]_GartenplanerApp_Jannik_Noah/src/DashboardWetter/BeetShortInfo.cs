@@ -13,9 +13,11 @@ namespace DashboardWetter
     public class BeetShortInfo
     {
         public Beet beet;
-        public BeetShortInfo(Beet beet)
+        public StackPanel MainArea;
+        public BeetShortInfo(Beet beet, StackPanel mainArea)
         {
             this.beet = beet;
+            MainArea = mainArea;
         }
         public Border GetShortInfo()
         {
@@ -112,7 +114,7 @@ namespace DashboardWetter
 
         private void infoButton_Click(object sender, RoutedEventArgs e)
         {
-            // Beet-Bearbeiter
+            beet.DrawBeet(MainArea);
         }
     }
 }
