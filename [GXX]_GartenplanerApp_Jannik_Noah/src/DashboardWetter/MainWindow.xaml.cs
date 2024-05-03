@@ -89,7 +89,7 @@ namespace DashboardWetter
                             }
                             else
                             {
-                                
+
                                 DrawUserLogin();
                                 SignedIn = true;
                                 break;
@@ -105,10 +105,10 @@ namespace DashboardWetter
                             }
                         }
                     }
-                    
+
                 }
             }
-            
+
         }
 
         private void timer_Uhr_Tick(object? sender, EventArgs e)
@@ -134,7 +134,7 @@ namespace DashboardWetter
 
         private void UserButton_Click(object sender, RoutedEventArgs e)
         {
-            DrawUserMenu();    
+            DrawUserMenu();
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
@@ -155,7 +155,7 @@ namespace DashboardWetter
 
         public void DrawBeeteMenu()
         {
-            PageBeeteMenu pageBeeteMenu = new PageBeeteMenu(beeteManager);
+            PageBeeteMenu pageBeeteMenu = new PageBeeteMenu(beeteManager, MainFrame);
             MainFrame.Content = pageBeeteMenu;
             pageBeeteMenu.DrawBeeteMenu();
         }
@@ -169,7 +169,7 @@ namespace DashboardWetter
             pageUserMenu.DrawUserMenu();
         }
 
-       
+
 
         /*
         private void Logout_Click(object sender, RoutedEventArgs e)
@@ -191,7 +191,7 @@ namespace DashboardWetter
                 MainUser = new User(UserNameBox.Text, User.PasswordToHash(UserPasswordBox.Text), UserLocationBox.Text);
                 OpenMeteo.OpenMeteoClient client = new OpenMeteo.OpenMeteoClient();
                 WeatherForecast forecast = await client.QueryAsync(MainUser.Location);
-                
+
                 DrawHome();
                 if (File.Exists(UserDataFile))
                 {
@@ -213,10 +213,10 @@ namespace DashboardWetter
             catch
             {
                 MessageBox.Show($"Didn't find Location '{UserLocationBox.Text}'", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
-            } 
+            }
         }
 
-        
+
         public void DrawUserLogin()
         {
             PageUserLogin pageUserLogin = new PageUserLogin();
