@@ -29,7 +29,7 @@ namespace DashboardWetter
             this.plants = new string[breite * laenge];
         }
 
-        public ScrollViewer DrawBeet(StackPanel MainArea)
+        public void DrawBeet(StackPanel MainArea, Frame MainFrame)
         {
             /* Zoom Funktion einbauen
              */
@@ -38,8 +38,38 @@ namespace DashboardWetter
             ScrollViewer scrollViewer = new ScrollViewer();
 
             Grid BeetGrid = new Grid();
-            BeetGrid.Width = MainArea.ActualWidth;
+
+            for (int i = 0; i < Laenge; i++)
+            {
+                ColumnDefinition column = new ColumnDefinition();
+                column.Width = new GridLength(50);
+                BeetGrid.ColumnDefinitions.Add(column);
+            }
+
+            for (int i = 0; i < Breite; i++)
+            {
+                RowDefinition row = new RowDefinition();
+                row.Height = new GridLength(50);
+                BeetGrid.RowDefinitions.Add(row);
+            }
+            BeetGrid.Width = MainFrame.ActualWidth;
             BeetGrid.Background = Brushes.White;
+
+            for (int x = 0; x < Laenge; x++)
+            {
+                for (int y = 0; y < Breite; y++)
+                {
+                    Border border = new Border()
+                    {
+                        BorderThickness = new Thickness(2),
+                        BorderBrush = Brushes.Black
+                    };
+                    Grid.SetColumn(border, x);
+                    Grid.SetRow(border, y);
+                    BeetGrid.Children.Add(border);
+                }
+            }
+            
 
             Label nameLabel = new Label()
             {
@@ -54,7 +84,7 @@ namespace DashboardWetter
 
             Grid EditGrid = new Grid();
             EditGrid.Height = MainArea.ActualHeight * 0.1;
-            EditGrid.Width = MainArea.ActualWidth;
+            EditGrid.Width = MainFrame.ActualWidth;
             EditGrid.Background = Brushes.Black;
             BeetGrid.Height = MainArea.ActualHeight - nameLabel.Height - EditGrid.Height;
 
@@ -62,7 +92,6 @@ namespace DashboardWetter
             scrollViewer.Content = BeetGrid;
             MainArea.Children.Add(scrollViewer);
             MainArea.Children.Add(EditGrid);
-            return scrollViewer;
         } 
     }
 }

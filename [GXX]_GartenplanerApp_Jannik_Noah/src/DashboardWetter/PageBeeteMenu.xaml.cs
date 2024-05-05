@@ -37,7 +37,7 @@ namespace DashboardWetter
             // MainArea.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2a6d43"));
 
             WrapPanel wrapPanelBeet = new WrapPanel();
-            wrapPanelBeet.Margin = new Thickness(5);
+            wrapPanelBeet.Margin = new Thickness(0);
             Border border = new Border()
             {
                 Background = Brushes.Black,
@@ -80,7 +80,7 @@ namespace DashboardWetter
             MainArea.Children.Add(wrapPanelBeet);
             foreach (Beet beet in beeteManager.Beete)
             {
-                BeetShortInfo shortInfo = new BeetShortInfo(beet);
+                BeetShortInfo shortInfo = new BeetShortInfo(beet, MainArea, MainFrame);
                 wrapPanelBeet.Children.Add(shortInfo.GetShortInfo());
             }
             wrapPanelBeet.Children.Add(border);
