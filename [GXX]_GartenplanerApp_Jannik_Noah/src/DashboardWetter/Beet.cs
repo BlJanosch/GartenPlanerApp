@@ -31,55 +31,42 @@ namespace DashboardWetter
 
         public void DrawBeet(StackPanel MainArea, Frame MainFrame)
         {
-            /* Zoom Funktion einbauen
-             */
             MainArea.Children.Clear();
-            int margin = 0;
-            if (Laenge % 2 == 0)
-            {
-                margin = 10;
-            }
-            else
-            {
-                margin = 35;
-            }
+            double Size = 80;
 
             Grid BeetGrid = new Grid()
             {
-                
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
+                Background = Brushes.Transparent,
+                Margin = new Thickness(0, 10, 0, 10),
             };
 
-            for (int i = 0; i < (14-Laenge)/2; i++)
+            for (int i = 0; i < Breite; i++)
             {
                 ColumnDefinition column = new ColumnDefinition();
-                column.Width = new GridLength(50);
+                column.Width = new GridLength(Size);
                 BeetGrid.ColumnDefinitions.Add(column);
             }
 
             for (int i = 0; i < Laenge; i++)
             {
                 ColumnDefinition column = new ColumnDefinition();
-                column.Width = new GridLength(50);
+                column.Width = new GridLength(Size);
                 BeetGrid.ColumnDefinitions.Add(column);
             }
 
-            RowDefinition row1 = new RowDefinition();
-            row1.Height = new GridLength(50);
-            BeetGrid.RowDefinitions.Add(row1);
-            for (int i = 0; i < Breite; i++)
+            for (int i = 0; i <= Breite; i++)
             {
                 RowDefinition row = new RowDefinition();
-                row.Height = new GridLength(50);
+                row.Height = new GridLength(Size);
                 BeetGrid.RowDefinitions.Add(row);
             }
-            BeetGrid.Width = MainFrame.ActualWidth - margin * 2;
-            BeetGrid.Background = Brushes.White;
+            //BeetGrid.Background = Brushes.Transparent;
 
-            for (int x = ((14 - Laenge) / 2); x < (Laenge+((14 - Laenge) / 2)); x++)
+            for (int x = 0; x < Laenge; x++)
             {
-                for (int y = 1; y < Breite+1; y++)
+                for (int y = 0; y < Breite; y++)
                 {
                     Border border = new Border()
                     {
@@ -102,10 +89,11 @@ namespace DashboardWetter
                 Foreground = Brushes.White,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 Height = 55,
+                Margin = new Thickness(0, 10, 0, 0),
             };
 
-
-            BeetGrid.Height = MainArea.ActualHeight - nameLabel.Height;
+            BeetGrid.Width = Laenge * Size;
+            BeetGrid.Height = Breite * Size;  
 
             MainArea.Children.Add(nameLabel);
             

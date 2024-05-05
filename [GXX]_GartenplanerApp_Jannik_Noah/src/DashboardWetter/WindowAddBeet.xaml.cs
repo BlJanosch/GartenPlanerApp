@@ -34,7 +34,7 @@ namespace DashboardWetter
                 {
                     throw new Exception("Bitte keine negativen Zahlen eingeben!");
                 }
-                else if (zahl >= 11) 
+                else if (zahl >= 9) 
                 {
                     throw new Exception("Achtung! Höchstens 10 Spalten erlaubt!");
                 }
@@ -43,7 +43,7 @@ namespace DashboardWetter
                 {
                     throw new Exception("Bitte keine negativen Zahlen eingeben!");
                 }
-                else if (zahl >= 5)
+                else if (zahl >= 6)
                 {
                     throw new Exception("Achtung! Höchstens 4 Reihen erlaubt!");
                 }
