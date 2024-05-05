@@ -34,10 +34,18 @@ namespace DashboardWetter
                 {
                     throw new Exception("Bitte keine negativen Zahlen eingeben!");
                 }
+                else if (zahl >= 11) 
+                {
+                    throw new Exception("Achtung! Höchstens 10 Spalten erlaubt!");
+                }
                 zahl = Convert.ToInt32(TBBreite.Text);
                 if (zahl <= 0)
                 {
                     throw new Exception("Bitte keine negativen Zahlen eingeben!");
+                }
+                else if (zahl >= 5)
+                {
+                    throw new Exception("Achtung! Höchstens 4 Reihen erlaubt!");
                 }
                 this.DialogResult = true;
                 this.Close();

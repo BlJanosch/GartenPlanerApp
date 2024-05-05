@@ -34,10 +34,29 @@ namespace DashboardWetter
             /* Zoom Funktion einbauen
              */
             MainArea.Children.Clear();
+            int margin = 0;
+            if (Laenge % 2 == 0)
+            {
+                margin = 10;
+            }
+            else
+            {
+                margin = 35;
+            }
 
-            ScrollViewer scrollViewer = new ScrollViewer();
+            Grid BeetGrid = new Grid()
+            {
+                
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+            };
 
-            Grid BeetGrid = new Grid();
+            for (int i = 0; i < (14-Laenge)/2; i++)
+            {
+                ColumnDefinition column = new ColumnDefinition();
+                column.Width = new GridLength(50);
+                BeetGrid.ColumnDefinitions.Add(column);
+            }
 
             for (int i = 0; i < Laenge; i++)
             {
@@ -46,18 +65,21 @@ namespace DashboardWetter
                 BeetGrid.ColumnDefinitions.Add(column);
             }
 
+            RowDefinition row1 = new RowDefinition();
+            row1.Height = new GridLength(50);
+            BeetGrid.RowDefinitions.Add(row1);
             for (int i = 0; i < Breite; i++)
             {
                 RowDefinition row = new RowDefinition();
                 row.Height = new GridLength(50);
                 BeetGrid.RowDefinitions.Add(row);
             }
-            BeetGrid.Width = MainFrame.ActualWidth;
+            BeetGrid.Width = MainFrame.ActualWidth - margin * 2;
             BeetGrid.Background = Brushes.White;
 
-            for (int x = 0; x < Laenge; x++)
+            for (int x = ((14 - Laenge) / 2); x < (Laenge+((14 - Laenge) / 2)); x++)
             {
-                for (int y = 0; y < Breite; y++)
+                for (int y = 1; y < Breite+1; y++)
                 {
                     Border border = new Border()
                     {
@@ -82,16 +104,13 @@ namespace DashboardWetter
                 Height = 55,
             };
 
-            Grid EditGrid = new Grid();
-            EditGrid.Height = MainArea.ActualHeight * 0.1;
-            EditGrid.Width = MainFrame.ActualWidth;
-            EditGrid.Background = Brushes.Black;
-            BeetGrid.Height = MainArea.ActualHeight - nameLabel.Height - EditGrid.Height;
+
+            BeetGrid.Height = MainArea.ActualHeight - nameLabel.Height;
 
             MainArea.Children.Add(nameLabel);
-            scrollViewer.Content = BeetGrid;
-            MainArea.Children.Add(scrollViewer);
-            MainArea.Children.Add(EditGrid);
+            
+            MainArea.Children.Add(BeetGrid);
+            
         } 
     }
 }
