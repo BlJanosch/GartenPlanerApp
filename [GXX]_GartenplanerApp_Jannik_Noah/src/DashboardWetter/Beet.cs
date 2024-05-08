@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace DashboardWetter
 {
@@ -62,7 +63,6 @@ namespace DashboardWetter
                 row.Height = new GridLength(Size);
                 BeetGrid.RowDefinitions.Add(row);
             }
-            //BeetGrid.Background = Brushes.Transparent;
 
             for (int x = 0; x < Laenge; x++)
             {
@@ -71,11 +71,37 @@ namespace DashboardWetter
                     Border border = new Border()
                     {
                         BorderThickness = new Thickness(2),
-                        BorderBrush = Brushes.Black
+                        BorderBrush = Brushes.Black,
+                        Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3d251e")),
                     };
+                    Button button = new Button()
+                    {
+                        Opacity = 0.000001,
+                        Name = $"Button{x+(y*Breite)}",
+                    };
+
+                    button.Click += Button_Click;
+                    Image image = new Image();
+                    if (plants[x*y] == null)
+                    {
+                        image = new Image()
+                        {
+                            Source = new BitmapImage(new Uri("Images/Plus.png", UriKind.Relative)),
+                            Height = 50,
+                            HorizontalAlignment = HorizontalAlignment.Center,
+                            VerticalAlignment = VerticalAlignment.Center,
+
+                        };
+                    }
                     Grid.SetColumn(border, x);
                     Grid.SetRow(border, y);
+                    Grid.SetColumn(button, x);
+                    Grid.SetRow(button, y);
+                    Grid.SetColumn(image, x);
+                    Grid.SetRow(image, y);
                     BeetGrid.Children.Add(border);
+                    BeetGrid.Children.Add(image);
+                    BeetGrid.Children.Add(button);
                 }
             }
             
@@ -99,6 +125,13 @@ namespace DashboardWetter
             
             MainArea.Children.Add(BeetGrid);
             
-        } 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button) sender;
+            MessageBox.Show(button.Name);
+        }
+
     }
 }
