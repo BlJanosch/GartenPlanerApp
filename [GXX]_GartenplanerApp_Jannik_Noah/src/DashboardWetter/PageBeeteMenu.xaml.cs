@@ -95,7 +95,7 @@ namespace DashboardWetter
 
             if (windowAddBeet.DialogResult == true)
             {
-                Beet neuesBeet = new Beet(windowAddBeet.TBName.Text, Convert.ToInt32(windowAddBeet.TBBreite.Text), Convert.ToInt32(windowAddBeet.TBLänge.Text));
+                Beet neuesBeet = new Beet((windowAddBeet.TBName.Text != "") ? windowAddBeet.TBName.Text : $"Beet {beeteManager.Beete.Count + 1}", Convert.ToInt32(windowAddBeet.TBBreite.Text), Convert.ToInt32(windowAddBeet.TBLänge.Text));
                 beeteManager.AddBeet(neuesBeet);
                 PageBeeteMenu newPage = new PageBeeteMenu(beeteManager, MainFrame);
                 MainFrame.Content = newPage;
