@@ -24,11 +24,18 @@ namespace DashboardWetter
         private User MainUser;
         public string UserDataFile = AppDomain.CurrentDomain.BaseDirectory.Split("\\bin\\")[0] + "\\UserData\\Login.csv";
         public Frame MainFrame;
+        public PageUserLogin pageUserLogin;
         public PageUserMenu(User MainUser, Frame mainFrame)
         {
             InitializeComponent();
             this.MainUser = MainUser;
             MainFrame = mainFrame;
+        }
+
+        public PageUserMenu()
+        {
+            InitializeComponent();
+
         }
         public void DrawUserMenu()
         {
@@ -52,67 +59,33 @@ namespace DashboardWetter
 
             Label UserName = new Label()
             {
-                FontSize = 20,
-                FontFamily = new FontFamily("Aharoni"),
-                FontWeight = FontWeights.Bold,
-                Foreground = Brushes.White,
+                Style = Styles.GetFontStyle(20),
                 Content = MainUser.Name,
                 HorizontalAlignment = HorizontalAlignment.Center,
             };
 
             Button ChangeUserName = new Button()
             {
-                Width = 200,
-                Height = 30,
                 Content = "Change User Name",
-                FontSize = 15,
-                FontFamily = new FontFamily("Aharoni"),
-                FontWeight = FontWeights.Bold,
-                Foreground = Brushes.White,
-                VerticalContentAlignment = VerticalAlignment.Center,
-                Background = new SolidColorBrush(Color.FromRgb(38, 80, 38)),
-                Margin = new Thickness(0, 20, 0, 0),
+                Style = Styles.GetUserLoginButtonStyle(),
             };
 
             Button ChangeLocation = new Button()
             {
-                Width = 200,
-                Height = 30,
                 Content = "Change Location",
-                FontSize = 15,
-                FontFamily = new FontFamily("Aharoni"),
-                FontWeight = FontWeights.Bold,
-                Foreground = Brushes.White,
-                VerticalContentAlignment = VerticalAlignment.Center,
-                Background = new SolidColorBrush(Color.FromRgb(38, 80, 38)),
-                Margin = new Thickness(0, 20, 0, 0),
+                Style = Styles.GetUserLoginButtonStyle(),
             };
 
             Button ChangePassword = new Button()
             {
-                Width = 200,
-                Height = 30,
                 Content = "Change Password",
-                FontSize = 15,
-                FontFamily = new FontFamily("Aharoni"),
-                FontWeight = FontWeights.Bold,
-                Foreground = Brushes.White,
-                VerticalContentAlignment = VerticalAlignment.Center,
-                Background = new SolidColorBrush(Color.FromRgb(38, 80, 38)),
-                Margin = new Thickness(0, 20, 0, 0),
+                Style = Styles.GetUserLoginButtonStyle(),
             };
 
             Button Logout = new Button()
             {
-                Width = 200,
-                Height = 30,
                 Content = "Logout",
-                FontSize = 15,
-                FontFamily = new FontFamily("Aharoni"),
-                FontWeight = FontWeights.Bold,
-                Foreground = Brushes.White,
-                VerticalContentAlignment = VerticalAlignment.Center,
-                Background = new SolidColorBrush(Color.FromRgb(38, 80, 38)),
+                Style = Styles.GetUserLoginButtonStyle(),
                 Margin = new Thickness(0, 20, 0, 20),
             };
 
@@ -172,7 +145,7 @@ namespace DashboardWetter
                 writer.WriteLine("0");
             }
             MainArea.Children.Clear();
-            PageUserLogin pageUserLogin = new PageUserLogin(MainFrame, MainUser, UserDataFile);
+            pageUserLogin = new PageUserLogin(MainFrame, MainUser, UserDataFile);
             MainFrame.Content = pageUserLogin;
             pageUserLogin.DrawUserLogin();
         }

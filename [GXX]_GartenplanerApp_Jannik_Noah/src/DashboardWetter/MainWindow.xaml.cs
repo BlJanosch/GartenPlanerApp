@@ -48,6 +48,7 @@ namespace DashboardWetter
         public Button UserLoginOK;
         public WrapPanel wrapPanelBeet;
         public BeeteManager beeteManager;
+        public PageUserMenu pageUserMenu;
 
         public MainWindow()
         {
@@ -75,6 +76,10 @@ namespace DashboardWetter
             string PageName = MainFrame.Content.GetType().Name;
             if (PageName == "PageHome")
             {
+                if (pageUserMenu != null && pageUserMenu.pageUserLogin != null)
+                {
+                    MainUser = pageUserMenu.pageUserLogin.MainUser;
+                }
                 HomeButton.IsEnabled = true;
                 BeeteButton.IsEnabled = true;
                 PflanzeButton.IsEnabled = true;
@@ -135,22 +140,6 @@ namespace DashboardWetter
             UhrDashBoard.Content = DateTime.Now.ToString("hh:mm:ss");
         }
 
-
-
-        private async void getWeather()
-        {
-            OpenMeteo.OpenMeteoClient client = new OpenMeteo.OpenMeteoClient();
-            WeatherForecast forecast = await client.QueryAsync(MainUser.Location);
-
-            int id = Convert.ToInt32(forecast.Current.Weathercode);
-            WetterDashBoard.Content = client.WeathercodeToString(id);
-            TemperaturNow.Content = $"Temperatur {forecast.Current.Temperature} C°";
-            RegenNow.Content = $"Regen {forecast.Current.Rain} %";
-            SchneeNow.Content = $"Schnee {forecast.Current.Snowfall} %";
-            WolkenNow.Content = $"Wolken {forecast.Current.Cloudcover} %";
-
-        }
-
         private void UserButton_Click(object sender, RoutedEventArgs e)
         {
             DrawUserMenu();
@@ -183,24 +172,10 @@ namespace DashboardWetter
 
         public void DrawUserMenu()
         {
-            PageUserMenu pageUserMenu = new PageUserMenu(MainUser, MainFrame);
+            pageUserMenu = new PageUserMenu(MainUser, MainFrame);
             MainFrame.Content = pageUserMenu;
             pageUserMenu.DrawUserMenu();
         }
-
-
-
-        /*
-        private void Logout_Click(object sender, RoutedEventArgs e)
-        {
-            using (StreamWriter writer = new StreamWriter(UserDataFile, false))
-            {
-                writer.WriteLine("0");
-            }
-            MainArea.Children.Clear();
-            DrawUserLogin();
-        }
-        */
 
         public void DrawUserLogin()
         {

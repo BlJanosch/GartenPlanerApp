@@ -59,79 +59,40 @@ namespace DashboardWetter
 
             Label UserName = new Label()
             {
-                FontSize = 20,
-                FontFamily = new FontFamily("Aharoni"),
-                FontWeight = FontWeights.Bold,
-                Foreground = Brushes.White,
+                Style = Styles.GetFontStyle(20),
                 Content = "NAME",
                 HorizontalAlignment = HorizontalAlignment.Center,
             };
 
             Label UserPassword = new Label()
             {
-                FontSize = 20,
-                FontFamily = new FontFamily("Aharoni"),
-                FontWeight = FontWeights.Bold,
-                Foreground = Brushes.White,
+                Style = Styles.GetFontStyle(20),
                 Content = "PASSWORT",
                 HorizontalAlignment = HorizontalAlignment.Center,
             };
 
             Label UserLocation = new Label()
             {
-                FontSize = 20,
-                FontFamily = new FontFamily("Aharoni"),
-                FontWeight = FontWeights.Bold,
-                Foreground = Brushes.White,
+                Style = Styles.GetFontStyle(20),
                 Content = "STANDORT",
                 HorizontalAlignment = HorizontalAlignment.Center,
             };
 
             UserNameBox = new TextBox();
-            UserNameBox.Width = 200;
-            UserNameBox.Height = 30;
-            UserNameBox.Background = new SolidColorBrush(Color.FromRgb(38, 38, 38));
-            UserNameBox.FontSize = 15;
-            UserNameBox.FontFamily = new FontFamily("Aharoni");
-            UserNameBox.FontWeight = FontWeights.Bold;
-            UserNameBox.Foreground = Brushes.White;
-            UserNameBox.TextAlignment = TextAlignment.Center;
-            UserNameBox.VerticalContentAlignment = VerticalAlignment.Center;
+            UserNameBox.Style = Styles.GetTextBoxStyle();
             UserNameBox.Name = "UserNameTextBox";
 
             UserPasswordBox = new TextBox();
-            UserPasswordBox.Width = 200;
-            UserPasswordBox.Height = 30;
-            UserPasswordBox.Background = new SolidColorBrush(Color.FromRgb(38, 38, 38));
-            UserPasswordBox.FontSize = 15;
-            UserPasswordBox.FontFamily = new FontFamily("Aharoni");
-            UserPasswordBox.FontWeight = FontWeights.Bold;
-            UserPasswordBox.Foreground = Brushes.White;
-            UserPasswordBox.TextAlignment = TextAlignment.Center;
-            UserPasswordBox.VerticalContentAlignment = VerticalAlignment.Center;
+            UserPasswordBox.Style = Styles.GetTextBoxStyle();
             UserPasswordBox.Name = "UserNameTextBox";
 
             UserLocationBox = new TextBox();
-            UserLocationBox.Width = 200;
-            UserLocationBox.Height = 30;
-            UserLocationBox.Background = new SolidColorBrush(Color.FromRgb(38, 38, 38));
-            UserLocationBox.FontSize = 15;
-            UserLocationBox.FontFamily = new FontFamily("Aharoni");
-            UserLocationBox.FontWeight = FontWeights.Bold;
-            UserLocationBox.Foreground = Brushes.White;
-            UserLocationBox.TextAlignment = TextAlignment.Center;
-            UserLocationBox.VerticalContentAlignment = VerticalAlignment.Center;
+            UserLocationBox.Style = Styles.GetTextBoxStyle();
             UserLocationBox.Name = "UserNameTextBox";
 
             UserLoginOK = new Button();
-            UserLoginOK.Width = 200;
-            UserLoginOK.Height = 30;
             UserLoginOK.Content = "OK";
-            UserLoginOK.FontSize = 15;
-            UserLoginOK.FontFamily = new FontFamily("Aharoni");
-            UserLoginOK.FontWeight = FontWeights.Bold;
-            UserLoginOK.Foreground = Brushes.White;
-            UserLoginOK.VerticalContentAlignment = VerticalAlignment.Center;
+            UserLoginOK.Style = Styles.GetUserLoginButtonStyle();
             UserLoginOK.Background = new SolidColorBrush(Color.FromRgb(38, 38, 38));
             UserLoginOK.Margin = new Thickness(0, 20, 0, 20);
             UserLoginOK.Click += UserLoginOK_Click;

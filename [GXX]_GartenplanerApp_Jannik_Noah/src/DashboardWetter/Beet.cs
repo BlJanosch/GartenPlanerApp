@@ -77,7 +77,7 @@ namespace DashboardWetter
                     Button button = new Button()
                     {
                         Opacity = 0.000001,
-                        Name = $"Button{x+(y*Breite)}",
+                        Name = $"Pflanze{x+(y*Breite)}",
                     };
 
                     button.Click += Button_Click;
@@ -130,7 +130,9 @@ namespace DashboardWetter
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button) sender;
-            MessageBox.Show(button.Name);
+            
+            WindowAddPlant windowAddPlant = new WindowAddPlant(button.Name);
+            windowAddPlant.ShowDialog();
         }
 
     }

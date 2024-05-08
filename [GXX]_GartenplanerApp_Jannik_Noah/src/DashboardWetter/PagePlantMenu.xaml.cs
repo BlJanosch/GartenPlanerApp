@@ -10,30 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace DashboardWetter
 {
     /// <summary>
-    /// Interaction logic for WindowAddPlant.xaml
+    /// Interaction logic for PagePlantMenu.xaml
     /// </summary>
-    public partial class WindowAddPlant : Window
+    public partial class PagePlantMenu : Page
     {
-        public string Titel;
-        public WindowAddPlant(string Titel)
+        public PagePlantMenu()
         {
             InitializeComponent();
-            this.Titel = Titel; 
-        }
-
-        private void ButtonOK_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            MainWindow.Title = Titel;
         }
     }
 }

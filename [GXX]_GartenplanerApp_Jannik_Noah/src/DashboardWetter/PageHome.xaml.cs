@@ -55,19 +55,13 @@ namespace DashboardWetter
 
             Label GutenTag = new Label();
             GutenTag.Content = "GUTEN TAG";
-            GutenTag.FontSize = 40;
-            GutenTag.FontFamily = new System.Windows.Media.FontFamily("Aharoni");
-            GutenTag.FontWeight = FontWeights.Bold;
-            GutenTag.Foreground = System.Windows.Media.Brushes.White;
+            GutenTag.Style = Styles.GetFontStyle(40);
             GutenTag.HorizontalAlignment = HorizontalAlignment.Center;
             GutenTag.Margin = new Thickness(0, 20, 0, 0);
 
             Label UserName = new Label();
             UserName.Content = MainUser.Name;
-            UserName.FontSize = 20;
-            UserName.FontFamily = new System.Windows.Media.FontFamily("Aharoni");
-            UserName.FontWeight = FontWeights.Bold;
-            UserName.Foreground = System.Windows.Media.Brushes.White;
+            UserName.Style = Styles.GetFontStyle(20);
             UserName.HorizontalAlignment = HorizontalAlignment.Center;
 
             Image WeatherImage = new Image();
@@ -113,20 +107,20 @@ namespace DashboardWetter
                 subGrid.RowDefinitions.Add(row2);
             }
 
-            Label Zurzeit = new Label() { Content = "Zurzeit", FontSize = 15, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, HorizontalAlignment = HorizontalAlignment.Center };
-            Label Ganztaegig = new Label() { Content = "Standort", FontSize = 15, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, HorizontalAlignment = HorizontalAlignment.Center };
+            Label Zurzeit = new Label() { Content = "Zurzeit", Style = Styles.GetFontStyle(15), HorizontalAlignment = HorizontalAlignment.Center };
+            Label Ganztaegig = new Label() { Content = "Standort", Style = Styles.GetFontStyle(15), HorizontalAlignment = HorizontalAlignment.Center };
             Grid.SetColumn(Ganztaegig, 1);
 
-            TemperaturNow = new Label() { Name = "TemperaturNowLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = "Temperatur", HorizontalAlignment = HorizontalAlignment.Center };
+            TemperaturNow = new Label() { Name = "TemperaturNowLabel", Style = Styles.GetFontStyle(12), Content = "Temperatur", HorizontalAlignment = HorizontalAlignment.Center };
             Grid.SetRow(TemperaturNow, 1);
-            RegenNow = new Label() { Name = "RegenNowLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = "Regen", HorizontalAlignment = HorizontalAlignment.Center };
+            RegenNow = new Label() { Name = "RegenNowLabel", Style = Styles.GetFontStyle(12), Content = "Regen", HorizontalAlignment = HorizontalAlignment.Center };
             Grid.SetRow(RegenNow, 2);
-            SchneeNow = new Label() { Name = "SchneeNowLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = "Schnee", HorizontalAlignment = HorizontalAlignment.Center };
+            SchneeNow = new Label() { Name = "SchneeNowLabel", Style = Styles.GetFontStyle(12), Content = "Schnee", HorizontalAlignment = HorizontalAlignment.Center };
             Grid.SetRow(SchneeNow, 3);
-            WolkenNow = new Label() { Name = "WolkenNowLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = "Wolken", HorizontalAlignment = HorizontalAlignment.Center };
+            WolkenNow = new Label() { Name = "WolkenNowLabel", Style = Styles.GetFontStyle(12), Content = "Wolken", HorizontalAlignment = HorizontalAlignment.Center };
             Grid.SetRow(WolkenNow, 4);
 
-            CurrentLocation = new Label() { Name = "TemperaturDailyLabel", FontSize = 12, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, Content = MainUser.Location, HorizontalAlignment = HorizontalAlignment.Center };
+            CurrentLocation = new Label() { Name = "TemperaturDailyLabel", Style = Styles.GetFontStyle(12), Content = MainUser.Location, HorizontalAlignment = HorizontalAlignment.Center };
             Grid.SetRow(CurrentLocation, 1);
             Grid.SetColumn(CurrentLocation, 1);
 
@@ -141,9 +135,9 @@ namespace DashboardWetter
 
             innerGrid.Children.Add(subGrid);
 
-            UhrDashBoard = new Label() { Name = "UhrDashBoard", FontSize = 15, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, HorizontalAlignment = HorizontalAlignment.Right, Content = "00:00", VerticalAlignment = VerticalAlignment.Center };
-            Label WetterDaten = new Label() { FontSize = 20, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center, Content = "Wetter Daten" };
-            WetterDashBoard = new Label() { Name = "WetterDashBoard", VerticalContentAlignment = VerticalAlignment.Center, FontSize = 15, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Content = "Wetter" };
+            UhrDashBoard = new Label() { Name = "UhrDashBoard", Style = Styles.GetFontStyle(15), HorizontalAlignment = HorizontalAlignment.Right, Content = "00:00", VerticalAlignment = VerticalAlignment.Center };
+            Label WetterDaten = new Label() { Style = Styles.GetFontStyle(20), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center, Content = "Wetter Daten" };
+            WetterDashBoard = new Label() { Name = "WetterDashBoard", VerticalContentAlignment = VerticalAlignment.Center, Style = Styles.GetFontStyle(15), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Content = "Wetter" };
 
             innerGrid.Children.Add(UhrDashBoard);
             innerGrid.Children.Add(WetterDaten);
@@ -169,12 +163,12 @@ namespace DashboardWetter
 
             Grid innerGrid1 = new Grid();
 
-            Label label1 = new Label() { Content = "Chemie", FontSize = 20, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
+            Label label1 = new Label() { Content = "Chemie", Style = Styles.GetFontStyle(20), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
 
             Ellipse ellipse1 = new Ellipse() { Height = 120, Width = 120, StrokeThickness = 2, Stroke = Brushes.Black, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
             Ellipse ellipse2 = new Ellipse() { Height = 100, Width = 100, StrokeThickness = 2, Stroke = Brushes.Black, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
 
-            Label label2 = new Label() { Name = "ChemieLabel", Content = "N/A", FontSize = 20, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
+            Label label2 = new Label() { Name = "ChemieLabel", Content = "N/A", Style = Styles.GetFontStyle(20), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
 
             innerGrid1.Children.Add(label1);
             innerGrid1.Children.Add(ellipse1);
@@ -197,12 +191,12 @@ namespace DashboardWetter
 
             Grid innerGrid2 = new Grid();
 
-            Label label3 = new Label() { Content = "Wasser", FontSize = 20, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
+            Label label3 = new Label() { Content = "Wasser", Style = Styles.GetFontStyle(20), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
 
             Ellipse ellipse3 = new Ellipse() { Height = 120, Width = 120, StrokeThickness = 2, Stroke = Brushes.Black, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
             Ellipse ellipse4 = new Ellipse() { Height = 100, Width = 100, StrokeThickness = 2, Stroke = Brushes.Black, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
 
-            Label label4 = new Label() { Name = "WasserLabel", Content = "N/A", FontSize = 20, FontFamily = new FontFamily("Aharoni"), FontWeight = FontWeights.Bold, Foreground = Brushes.White, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
+            Label label4 = new Label() { Name = "WasserLabel", Content = "N/A", Style = Styles.GetFontStyle(20), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
 
             innerGrid2.Children.Add(label3);
             innerGrid2.Children.Add(ellipse3);

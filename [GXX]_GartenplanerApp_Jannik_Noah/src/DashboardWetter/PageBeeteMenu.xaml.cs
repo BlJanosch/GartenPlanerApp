@@ -48,10 +48,7 @@ namespace DashboardWetter
             };
             Label label = new Label();
             label.Content = "Beete";
-            label.FontSize = 40;
-            label.FontFamily = new System.Windows.Media.FontFamily("Aharoni");
-            label.FontWeight = FontWeights.Bold;
-            label.Foreground = System.Windows.Media.Brushes.White;
+            label.Style = Styles.GetFontStyle(40);
             label.HorizontalAlignment = HorizontalAlignment.Center;
             label.Margin = new Thickness(0, 20, 0, 0);
 
