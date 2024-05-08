@@ -48,6 +48,7 @@ namespace DashboardWetter
         public Button UserLoginOK;
         public WrapPanel wrapPanelBeet;
         public BeeteManager beeteManager;
+        public PlantManager plantManager;
         public PageUserMenu pageUserMenu;
 
         public MainWindow()
@@ -67,6 +68,7 @@ namespace DashboardWetter
             UserLoginOK = new Button();
             wrapPanelBeet = new WrapPanel();
             beeteManager = new BeeteManager();
+            plantManager = new PlantManager();
             this.Loaded += Window_Loaded;
             MainFrame.ContentRendered += CheckPageHome;
         }
@@ -187,6 +189,13 @@ namespace DashboardWetter
         private void BeeteButton_Click(object sender, RoutedEventArgs e)
         {
             DrawBeeteMenu();
+        }
+
+        private void PflanzeButton_Click(object sender, RoutedEventArgs e)
+        {
+            PagePlantMenu pagePlantMenu = new PagePlantMenu(plantManager, MainFrame);
+            MainFrame.Content = pagePlantMenu;
+            pagePlantMenu.DrawPlantMenu();
         }
     }
 }

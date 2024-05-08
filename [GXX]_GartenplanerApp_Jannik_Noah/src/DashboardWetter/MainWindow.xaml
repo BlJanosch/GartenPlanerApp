@@ -32,7 +32,7 @@
                 <Image Source="Images/Beet.png" Width="50" Height="50"></Image>
                 <Label FontSize="20" FontFamily="Aharoni" FontWeight="Bold" Foreground="White">BEETE</Label>
             </StackPanel>
-            <Button Opacity=".1" Grid.Row="2" Background="#262626" IsEnabled="False" x:Name="PflanzeButton"></Button>
+            <Button Opacity=".1" Grid.Row="2" Background="#262626" IsEnabled="False" x:Name="PflanzeButton" Click="PflanzeButton_Click"></Button>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2">
                 <Image Source="Images/Bild6.png" Width="50" Height="50"></Image>
                 <Label FontSize="20" FontFamily="Aharoni" FontWeight="Bold" Foreground="White">PFLANZEN</Label>
