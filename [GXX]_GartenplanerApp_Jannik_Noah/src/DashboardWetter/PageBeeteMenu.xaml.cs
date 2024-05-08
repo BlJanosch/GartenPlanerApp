@@ -34,7 +34,6 @@ namespace DashboardWetter
         {
             MainArea.Children.Clear();
             MainArea.HorizontalAlignment = HorizontalAlignment.Center;
-            // MainArea.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2a6d43"));
 
             WrapPanel wrapPanelBeet = new WrapPanel();
             wrapPanelBeet.Margin = new Thickness(0);

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -39,6 +40,11 @@ namespace DashboardWetter
         {
             InitializeComponent();
             this.MainUser = MainUser;
+        }
+
+        public PageHome()
+        {
+            InitializeComponent();
         }
 
         public void DrawHome()

@@ -66,8 +66,27 @@ namespace DashboardWetter
             UserLoginOK = new Button();
             wrapPanelBeet = new WrapPanel();
             beeteManager = new BeeteManager();
-            UserLoginOK.Click += UserLogin_Click;
             this.Loaded += Window_Loaded;
+            MainFrame.ContentRendered += CheckPageHome;
+        }
+
+        private void CheckPageHome(object? sender, EventArgs e)
+        {
+            string PageName = MainFrame.Content.GetType().Name;
+            if (PageName == "PageHome")
+            {
+                HomeButton.IsEnabled = true;
+                BeeteButton.IsEnabled = true;
+                PflanzeButton.IsEnabled = true;
+                UserButton.IsEnabled = true;
+            }
+            else if (PageName == "PageUserLogin")
+            {
+                HomeButton.IsEnabled = false;
+                BeeteButton.IsEnabled = false;
+                PflanzeButton.IsEnabled = false;
+                UserButton.IsEnabled = false;
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -164,7 +183,7 @@ namespace DashboardWetter
 
         public void DrawUserMenu()
         {
-            PageUserMenu pageUserMenu = new PageUserMenu(MainUser);
+            PageUserMenu pageUserMenu = new PageUserMenu(MainUser, MainFrame);
             MainFrame.Content = pageUserMenu;
             pageUserMenu.DrawUserMenu();
         }
@@ -183,43 +202,9 @@ namespace DashboardWetter
         }
         */
 
-        private async void UserLogin_Click(object sender, RoutedEventArgs e)
-        {
-            // Check Input
-            try
-            {
-                MainUser = new User(UserNameBox.Text, User.PasswordToHash(UserPasswordBox.Text), UserLocationBox.Text);
-                OpenMeteo.OpenMeteoClient client = new OpenMeteo.OpenMeteoClient();
-                WeatherForecast forecast = await client.QueryAsync(MainUser.Location);
-
-                DrawHome();
-                if (File.Exists(UserDataFile))
-                {
-                    using (StreamWriter writer = new StreamWriter(UserDataFile, false))
-                    {
-                        writer.WriteLine("1");
-                        writer.WriteLine(MainUser.Searlized());
-                    }
-                }
-                else
-                {
-                    using (StreamWriter writer = new StreamWriter(UserDataFile))
-                    {
-                        writer.WriteLine("1");
-                        writer.WriteLine(MainUser.Searlized());
-                    }
-                }
-            }
-            catch
-            {
-                MessageBox.Show($"Didn't find Location '{UserLocationBox.Text}'", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
-
-
         public void DrawUserLogin()
         {
-            PageUserLogin pageUserLogin = new PageUserLogin();
+            PageUserLogin pageUserLogin = new PageUserLogin(MainFrame, MainUser, UserDataFile);
             MainFrame.Content = pageUserLogin;
             pageUserLogin.DrawUserLogin();
         }

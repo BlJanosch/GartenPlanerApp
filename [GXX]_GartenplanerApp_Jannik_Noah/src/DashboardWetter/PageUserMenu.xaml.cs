@@ -23,10 +23,12 @@ namespace DashboardWetter
     {
         private User MainUser;
         public string UserDataFile = AppDomain.CurrentDomain.BaseDirectory.Split("\\bin\\")[0] + "\\UserData\\Login.csv";
-        public PageUserMenu(User MainUser)
+        public Frame MainFrame;
+        public PageUserMenu(User MainUser, Frame mainFrame)
         {
             InitializeComponent();
             this.MainUser = MainUser;
+            MainFrame = mainFrame;
         }
         public void DrawUserMenu()
         {
@@ -170,7 +172,9 @@ namespace DashboardWetter
                 writer.WriteLine("0");
             }
             MainArea.Children.Clear();
-            // DrawUserLogin();
+            PageUserLogin pageUserLogin = new PageUserLogin(MainFrame, MainUser, UserDataFile);
+            MainFrame.Content = pageUserLogin;
+            pageUserLogin.DrawUserLogin();
         }
     }
 }

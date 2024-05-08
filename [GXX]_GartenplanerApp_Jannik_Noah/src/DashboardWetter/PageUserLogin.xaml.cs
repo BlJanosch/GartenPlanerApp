@@ -1,5 +1,7 @@
-﻿using System;
+﻿using OpenMeteo;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,9 +27,15 @@ namespace DashboardWetter
         public TextBox UserPasswordBox;
         public TextBox UserLocationBox;
         public Button UserLoginOK;
-        public PageUserLogin()
+        public Frame MainFrame;
+        public User MainUser;
+        public string UserDataFile;
+        public PageUserLogin(Frame mainFrame, User mainUser, string userDataFile)
         {
+            this.MainFrame = mainFrame;
+            this.MainUser = mainUser;
             InitializeComponent();
+            UserDataFile = userDataFile;
         }
 
         public void DrawUserLogin()
@@ -126,6 +134,7 @@ namespace DashboardWetter
             UserLoginOK.VerticalContentAlignment = VerticalAlignment.Center;
             UserLoginOK.Background = new SolidColorBrush(Color.FromRgb(38, 38, 38));
             UserLoginOK.Margin = new Thickness(0, 20, 0, 20);
+            UserLoginOK.Click += UserLoginOK_Click;
 
             MainArea.Children.Add(Profilbuch);
             MainArea.Children.Add(UserName);
@@ -135,6 +144,44 @@ namespace DashboardWetter
             MainArea.Children.Add(UserLocation);
             MainArea.Children.Add(UserLocationBox);
             MainArea.Children.Add(UserLoginOK);
+        }
+
+        private async void UserLoginOK_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MainUser = new User(UserNameBox.Text, User.PasswordToHash(UserPasswordBox.Text), UserLocationBox.Text);
+                OpenMeteo.OpenMeteoClient client = new OpenMeteo.OpenMeteoClient();
+                WeatherForecast forecast = await client.QueryAsync(MainUser.Location);
+                if (forecast == null)
+                {
+                    throw new Exception("Didn't find Location");
+                }
+
+                if (File.Exists(UserDataFile))
+                {
+                    using (StreamWriter writer = new StreamWriter(UserDataFile, false))
+                    {
+                        writer.WriteLine("1");
+                        writer.WriteLine(MainUser.Searlized());
+                    }
+                }
+                else
+                {
+                    using (StreamWriter writer = new StreamWriter(UserDataFile))
+                    {
+                        writer.WriteLine("1");
+                        writer.WriteLine(MainUser.Searlized());
+                    }
+                }
+                PageHome pageHome = new PageHome(MainUser);
+                MainFrame.Content = pageHome;
+                pageHome.DrawHome();
+            }
+            catch
+            {
+                MessageBox.Show($"Didn't find Location '{UserLocationBox.Text}'", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }
