@@ -22,6 +22,7 @@ namespace DashboardWetter
     {
         PlantManager plantManager;
         public Frame MainFrame;
+        public List<string> names = DataBaseManager.GetAllNames();
         public PagePlantMenu(PlantManager plantManager, Frame MainFrame)
         {
             InitializeComponent();
@@ -71,16 +72,19 @@ namespace DashboardWetter
 
             buttonAddBeet.Click += ButtonAddBeet_Click;
 
+            ListBox listBox = new ListBox();
+
             MainArea.Children.Add(label);
             MainArea.Children.Add(wrapPanelBeet);
-            foreach (Plant plant in plantManager.Pflanzen)
+            foreach (string plantName in this.names)
             {
-                // Zeichne alle Pflanzen
+                listBox.Items.Add(plantName);   
             }
             wrapPanelBeet.Children.Add(border);
             border.Child = grid;
             grid.Children.Add(imagePlus);
             grid.Children.Add(buttonAddBeet);
+            grid.Children.Add(listBox);
         }
 
         private void ButtonAddBeet_Click(object sender, RoutedEventArgs e)
