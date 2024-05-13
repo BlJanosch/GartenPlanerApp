@@ -10,10 +10,6 @@ namespace DashboardWetter
 {
     public class DataBaseManager
     {
-
-
-
-
         static public List<string> GetAllNames()
         {
             using (SqliteConnection connection =
