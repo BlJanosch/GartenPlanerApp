@@ -22,6 +22,14 @@ namespace DashboardWetter
         // also immer eine Reihe sozusagen durch und dann geht es in die nächste Reihe.
         public string[] plants;
 
+        Grid BeetGrid = new Grid()
+        {
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            Background = Brushes.Transparent,
+            Margin = new Thickness(0, 10, 0, 10),
+        };
+
         public Beet(string name, int breite, int laenge) 
         {
             this.Name = name;
@@ -35,13 +43,7 @@ namespace DashboardWetter
             MainArea.Children.Clear();
             double Size = 80;
 
-            Grid BeetGrid = new Grid()
-            {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                Background = Brushes.Transparent,
-                Margin = new Thickness(0, 10, 0, 10),
-            };
+
 
             for (int i = 0; i < Breite; i++)
             {
@@ -134,10 +136,40 @@ namespace DashboardWetter
             WindowAddPlant windowAddPlant = new WindowAddPlant(button.Name);
             windowAddPlant.ShowDialog();
 
-            this.plants[0] = Convert.ToString(windowAddPlant.selectedIndex+1);
+            int index = Convert.ToInt32(button.Name.Split("Pflanze")[1]);
 
-            throw new Exception("Stopp");
+            this.plants[index] = Convert.ToString(windowAddPlant.selectedIndex+1);
 
+            DrawLabelsPlants(index);
+
+            
+
+            
+        }
+
+        private void DrawLabelsPlants(int index)
+        {
+            foreach (string item in this.plants)
+            {
+                if (item != null)
+                {
+                    Label label = new Label()
+                    {
+                        Content = item,
+                    };
+
+                    BeetGrid.Children.Add(label);
+                    foreach (Button Button in BeetGrid.Children)
+                    {
+                        if (Button.Name.Split("Pflanze")[1] == Convert.ToString(index))
+                        {
+                            Button.
+                        }
+                    }
+                    Grid.SetColumn(label, index % Breite);
+                    Grid.SetRow(label, index % Laenge);
+                }
+            }
         }
 
     }

@@ -21,7 +21,7 @@ namespace DashboardWetter
     public partial class WindowAddPlant : Window
     {
         public string Titel;
-        public List<string> names = DataBaseManager.GetAllNames();
+        public List<string> names = DataBaseManager.GetAllPlantNames();
         public int selectedIndex = -1;
 
         public WindowAddPlant(string Titel)

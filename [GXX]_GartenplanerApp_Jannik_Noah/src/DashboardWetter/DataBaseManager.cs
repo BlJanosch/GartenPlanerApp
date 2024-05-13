@@ -14,7 +14,7 @@ namespace DashboardWetter
 
 
 
-        static public List<string> GetAllNames()
+        static public List<string> GetAllPlantNames()
         {
             using (SqliteConnection connection =
                 new SqliteConnection("Data Source=Assets/GartenPlaner.db"))

@@ -22,7 +22,7 @@ namespace DashboardWetter
     {
         PlantManager plantManager;
         public Frame MainFrame;
-        public List<string> names = DataBaseManager.GetAllNames();
+        public List<string> names = DataBaseManager.GetAllPlantNames();
         public PagePlantMenu(PlantManager plantManager, Frame MainFrame)
         {
             InitializeComponent();
