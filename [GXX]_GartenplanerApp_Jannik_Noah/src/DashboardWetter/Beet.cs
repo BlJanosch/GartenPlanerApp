@@ -133,6 +133,11 @@ namespace DashboardWetter
             
             WindowAddPlant windowAddPlant = new WindowAddPlant(button.Name);
             windowAddPlant.ShowDialog();
+
+            this.plants[0] = Convert.ToString(windowAddPlant.selectedIndex+1);
+
+            throw new Exception("Stopp");
+
         }
 
     }
