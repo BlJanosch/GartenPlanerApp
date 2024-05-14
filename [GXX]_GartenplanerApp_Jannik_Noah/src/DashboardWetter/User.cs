@@ -23,7 +23,7 @@ namespace DashboardWetter
 
         public User() { }
 
-        public string Searlized()
+        public string SaveToDB()
         {
             return $"{Name};{Password};{Location}";
         }

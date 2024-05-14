@@ -39,7 +39,7 @@ namespace DashboardWetter
                 using (StreamWriter writer = new StreamWriter(UserDataFile, false))
                 {
                     writer.WriteLine("1");
-                    writer.WriteLine(MainUser.Searlized());
+                    writer.WriteLine(MainUser.SaveToDB());
                 }
                 this.DialogResult = true;
             }
