@@ -79,9 +79,9 @@ namespace DashboardWetter
                 BeetGrid.RowDefinitions.Add(row);
             }
 
-            for (int x = 0; x < Laenge; x++)
+            for (int y = 0; y < Laenge; y++)
             {
-                for (int y = 0; y < Breite; y++)
+                for (int x = 0; x < Breite; x++)
                 {
                     Border border = new Border()
                     {
@@ -108,13 +108,13 @@ namespace DashboardWetter
 
                         };
                     }
-                    Grid.SetColumn(border, x);
-                    Grid.SetRow(border, y);
-                    Grid.SetColumn(button, x);
-                    Grid.SetRow(button, y);
+                    Grid.SetColumn(border, y);
+                    Grid.SetRow(border, x);
+                    Grid.SetColumn(button, y);
+                    Grid.SetRow(button, x);
                     buttons[x+(y*Breite)] = button;
-                    Grid.SetColumn(image, x);
-                    Grid.SetRow(image, y);
+                    Grid.SetColumn(image, y);
+                    Grid.SetRow(image, x);
                     BeetGrid.Children.Add(border);
                     BeetGrid.Children.Add(image);
                     BeetGrid.Children.Add(button);
@@ -168,7 +168,7 @@ namespace DashboardWetter
         {
             for (int x = 0; x < Breite; x++)
             {
-                for (int y = 0; y < Breite; y++)
+                for (int y = 0; y < Laenge; y++)
                 {
                     if (!(plants[x+(y*Breite)] == null))
                     {
@@ -184,8 +184,8 @@ namespace DashboardWetter
                         };
                         canvas.Children.Add(labelName);
                         BeetGrid.Children.Add(canvas);
-                        Grid.SetColumn(canvas, x);
-                        Grid.SetRow(canvas, y);
+                        Grid.SetColumn(canvas, y);
+                        Grid.SetRow(canvas, x);
                     }
                 }
             }
