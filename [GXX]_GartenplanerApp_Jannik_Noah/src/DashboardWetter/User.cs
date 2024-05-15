@@ -62,7 +62,7 @@ namespace DashboardWetter
 
                 SqliteCommand command = connection.CreateCommand();
 
-                command.CommandText = $"INSERT INTO tblBeet(Name text, Password text, Location text) VALUES({Name}, {Password}, {Location});";
+                command.CommandText = $"INSERT INTO tblUser(Name, Password, Location) VALUES('{Name}', '{Password}', '{Location}');";
 
                 int tmp = command.ExecuteNonQuery();
                 ID = GetUserID();
@@ -76,7 +76,7 @@ namespace DashboardWetter
 
                 SqliteCommand command = connection.CreateCommand();
 
-                command.CommandText = $"UPDATE tblBeet SET Name = {Name}, Password = {Password}, Location = {Location} WHERE id = {ID};";
+                command.CommandText = $"UPDATE tblUser SET Name = {Name}, Password = {Password}, Location = {Location} WHERE id = {ID};";
 
                 int tmp = command.ExecuteNonQuery();
             }
@@ -84,14 +84,14 @@ namespace DashboardWetter
 
         public int GetUserID()
         {
-            int id;
+            int id = 0;
             using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
             {
                 connection.Open();
 
                 SqliteCommand command = connection.CreateCommand();
 
-                command.CommandText = $"SELECT id FROM tblUser where Name = {Name}";
+                command.CommandText = $"SELECT id FROM tblUser where Name = '{Name}'";
 
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {

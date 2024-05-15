@@ -166,7 +166,7 @@ namespace DashboardWetter
 
         public void DrawBeeteMenu()
         {
-            PageBeeteMenu pageBeeteMenu = new PageBeeteMenu(beeteManager, MainFrame);
+            PageBeeteMenu pageBeeteMenu = new PageBeeteMenu(beeteManager, MainFrame, MainUser);
             MainFrame.Content = pageBeeteMenu;
             pageBeeteMenu.DrawBeeteMenu();
         }

@@ -205,7 +205,7 @@ namespace DashboardWetter
                 {
                     Plants += Convert.ToString(plant.ID);
                 }
-                command.CommandText = $"INSERT INTO tblBeet(UserID int, Rows int, Columns int, Name text, Plants text) VALUES({UserID}, {Breite}, {Laenge}, {Name}, {Plants});";
+                command.CommandText = $"INSERT INTO tblBeet(UserID, Rows, Columns, Name, Plants) VALUES({UserID}, {Breite}, {Laenge}, {Name}, {Plants});";
 
                 int tmp = command.ExecuteNonQuery();
             }

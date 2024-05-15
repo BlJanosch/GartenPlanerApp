@@ -46,16 +46,14 @@ namespace DashboardWetter
 
         static public List<Beet> GetAllBeete()
         {
-            using (SqliteConnection connection =
-                new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+            using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
             {
 
                 connection.Open();
 
                 SqliteCommand command = connection.CreateCommand();
 
-                command.CommandText =
-                    @"SELECT * FROM tblBeet";
+                command.CommandText = @"SELECT * FROM tblBeet";
 
                 List<Beet> Beete = new List<Beet>();
 
@@ -65,7 +63,8 @@ namespace DashboardWetter
                     {
                         string[] Plants = reader.GetString(5).Split(",");
                         PlantManager plantManager = GetAllPlants();
-                        Beet beet = new Beet(reader.GetString(4), reader.GetInt32(2), reader.GetInt32(3));
+
+                        Beet beet = new Beet(reader.GetInt16(1), reader.GetString(4), reader.GetInt32(2), reader.GetInt32(3));
                         foreach (Plant plant in plantManager.Pflanzen)
                         {
                             if (Plants.Contains(Convert.ToString(plant.ID)))
