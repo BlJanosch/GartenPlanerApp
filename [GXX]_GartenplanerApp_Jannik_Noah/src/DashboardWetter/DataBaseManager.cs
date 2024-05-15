@@ -10,12 +10,13 @@ using System.Windows.Controls;
 using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Input;
 using System.Xml.Linq;
+using System.Data;
 
 namespace DashboardWetter
 {
     public class DataBaseManager
     {
-        static public List<Plant> GetAllPlants()
+        static public PlantManager GetAllPlants()
         {
             using (SqliteConnection connection =
                 new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
@@ -26,20 +27,20 @@ namespace DashboardWetter
                 SqliteCommand command = connection.CreateCommand();
 
                 command.CommandText =
-                    @"SELECT name FROM tblPflanze";
+                    @"SELECT * FROM tblPflanze";
 
-                List<string> names = new List<string>();
+                PlantManager plantManager = new PlantManager();
 
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        string name = reader.GetString(0);
-                        names.Add(name);
+                        Plant plant = new Plant(reader.GetInt16(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7), reader.GetString(8), reader.GetString(9), reader.GetString(10), reader.GetString(11), reader.GetString(12), reader.GetString(13));
+                        plantManager.Pflanzen.Add(plant);
                     }
                 }
 
-                return names;
+                return plantManager;
             }
         }
 
@@ -62,6 +63,7 @@ namespace DashboardWetter
                 {
                     while (reader.Read())
                     {
+                        string[] Plants = reader.GetString(5).Split(",");
                         Beet beet = new Beet(reader.GetString(4), reader.GetInt32(2), reader.GetInt32(3));
                         Beete.Add(beet);
                     }

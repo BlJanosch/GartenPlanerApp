@@ -8,7 +8,7 @@ namespace DashboardWetter
 {
     public class Plant
     {
-
+        public int ID;
         public string Name;
         public string Saatverfahren;
         public string Pflanzenabstand;
@@ -22,8 +22,9 @@ namespace DashboardWetter
         public string Ernte;
         public string guteNachbarn;
         public string schlechteNachbarn;
-        public Plant(string name, string saatverfahren, string pflanzenabstand, string saattiefe, string saatzeit, string temperatur, string nährstoffbedarf, string wasserbedarf, string pflege, string krankheiten, string ernte, string guteNachbarn, string schlechteNachbarn)
+        public Plant(int id, string name, string saatverfahren, string pflanzenabstand, string saattiefe, string saatzeit, string temperatur, string nährstoffbedarf, string wasserbedarf, string pflege, string krankheiten, string ernte, string guteNachbarn, string schlechteNachbarn)
         {
+            ID = id;
             Name = name;
             Saatverfahren = saatverfahren;
             Pflanzenabstand = pflanzenabstand;
