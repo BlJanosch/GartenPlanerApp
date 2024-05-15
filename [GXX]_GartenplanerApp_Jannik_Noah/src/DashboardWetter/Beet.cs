@@ -97,17 +97,15 @@ namespace DashboardWetter
 
                     button.Click += Button_Click;
                     Image image = new Image();
-                    if (plants[x*y] == null)
-                    {
-                        image = new Image()
-                        {
-                            Source = new BitmapImage(new Uri("Images/Plus.png", UriKind.Relative)),
-                            Height = 50,
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            VerticalAlignment = VerticalAlignment.Center,
 
-                        };
-                    }
+                    image = new Image()
+                    {
+                        Source = new BitmapImage(new Uri("Images/Plus.png", UriKind.Relative)),
+                        Height = 50,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+
+                    };
                     Grid.SetColumn(border, y);
                     Grid.SetRow(border, x);
                     Grid.SetColumn(button, y);
@@ -151,13 +149,16 @@ namespace DashboardWetter
             
             WindowAddPlant windowAddPlant = new WindowAddPlant(button.Name);
             windowAddPlant.ShowDialog();
+            if (windowAddPlant.DialogResult == true) 
+            {
+                int indexX = Convert.ToInt32(button.Name.Split("Pflanze")[1]);
+                int indexY = Convert.ToInt32(button.Name.Split("Pflanze")[2]);
 
-            int indexX = Convert.ToInt32(button.Name.Split("Pflanze")[1]);
-            int indexY = Convert.ToInt32(button.Name.Split("Pflanze")[2]);
+                this.plants[indexX + (indexY * Breite)] = AllPlants.Pflanzen[(windowAddPlant.selectedIndex)];
 
-            this.plants[indexX+(indexY*Breite)] = AllPlants.Pflanzen[(windowAddPlant.selectedIndex)];
+                DrawLabelsPlants();
+            }
 
-            DrawLabelsPlants();
 
             
 

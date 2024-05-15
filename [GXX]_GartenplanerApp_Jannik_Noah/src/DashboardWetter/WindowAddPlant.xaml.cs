@@ -33,6 +33,7 @@ namespace DashboardWetter
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
             this.selectedIndex = PlantDropDown.SelectedIndex;
+            this.DialogResult = true;
             this.Close();
         }
 
