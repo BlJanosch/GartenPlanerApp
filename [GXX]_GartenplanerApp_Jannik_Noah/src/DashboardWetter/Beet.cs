@@ -8,11 +8,13 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using Microsoft.Data.Sqlite;
 
 namespace DashboardWetter
 {
     public class Beet
     {
+        public int UserID;
         public string Name;
         public int Breite;
         public int Laenge;
@@ -20,7 +22,7 @@ namespace DashboardWetter
         // Diese Array wird mit Länge mal Breite Feldern erstellt. Die erste Pflanze im Array ist
         // links oben. Die zweite Pflanze im Array ist im zweiten Feld von oben links. Es geht
         // also immer eine Reihe sozusagen durch und dann geht es in die nächste Reihe.
-        public string[] plants;
+        public Plant[] plants;
 
         Grid BeetGrid = new Grid()
         {
@@ -30,12 +32,13 @@ namespace DashboardWetter
             Margin = new Thickness(0, 10, 0, 10),
         };
 
-        public Beet(string name, int breite, int laenge) 
+        public Beet(int userID, string name, int breite, int laenge) 
         {
             this.Name = name;
             this.Breite = breite;
             this.Laenge = laenge;
             this.plants = new string[breite * laenge];
+            this.UserID = userID;
         }
 
         public void DrawBeet(StackPanel MainArea, Frame MainFrame)
@@ -172,5 +175,43 @@ namespace DashboardWetter
             }
         }
 
+
+        public void SaveBeet()
+        {
+            using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+            {
+                connection.Open();
+
+                SqliteCommand command = connection.CreateCommand();
+
+                string Plants = "";
+                foreach (Plant plant in this.plants)
+                {
+                    Plants += Convert.ToString(plant.ID);
+                }
+                command.CommandText = $"INSERT INTO tblBeet(UserID int, Rows int, Columns int, Name text, Plants text) VALUES({UserID}, {Breite}, {Laenge}, {Name}, {Plants});";
+
+                int tmp = command.ExecuteNonQuery();
+            }
+        }
+
+        public void UpdateBeet()
+        {
+            using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+            {
+                connection.Open();
+
+                SqliteCommand command = connection.CreateCommand();
+
+                string Plants = "";
+                foreach (Plant plant in this.plants)
+                {
+                    Plants += Convert.ToString(plant.ID);
+                }
+                command.CommandText = $"UPDATE tblBeet SET Plants = {Plants} WHERE Name = {Name};";
+
+                int tmp = command.ExecuteNonQuery();
+            }
+        }
     }
 }

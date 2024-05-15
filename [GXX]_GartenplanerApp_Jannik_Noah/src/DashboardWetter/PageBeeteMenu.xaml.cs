@@ -23,11 +23,13 @@ namespace DashboardWetter
 
         BeeteManager beeteManager;
         public Frame MainFrame;
-        public PageBeeteMenu(BeeteManager beeteManager, Frame MainFrame)
+        public User CurrentUser;
+        public PageBeeteMenu(BeeteManager beeteManager, Frame MainFrame, User user)
         {
             InitializeComponent();
             this.beeteManager = beeteManager;
             this.MainFrame = MainFrame;
+            CurrentUser = user;
         }
 
         public void DrawBeeteMenu()
@@ -92,9 +94,9 @@ namespace DashboardWetter
 
             if (windowAddBeet.DialogResult == true)
             {
-                Beet neuesBeet = new Beet((windowAddBeet.TBName.Text != "") ? windowAddBeet.TBName.Text : $"Beet {beeteManager.Beete.Count + 1}", Convert.ToInt32(windowAddBeet.TBBreite.Text), Convert.ToInt32(windowAddBeet.TBLänge.Text));
+                Beet neuesBeet = new Beet(CurrentUser.ID, (windowAddBeet.TBName.Text != "") ? windowAddBeet.TBName.Text : $"Beet {beeteManager.Beete.Count + 1}", Convert.ToInt32(windowAddBeet.TBBreite.Text), Convert.ToInt32(windowAddBeet.TBLänge.Text));
                 beeteManager.AddBeet(neuesBeet);
-                PageBeeteMenu newPage = new PageBeeteMenu(beeteManager, MainFrame);
+                PageBeeteMenu newPage = new PageBeeteMenu(beeteManager, MainFrame, CurrentUser);
                 MainFrame.Content = newPage;
                 newPage.DrawBeeteMenu();
             }
