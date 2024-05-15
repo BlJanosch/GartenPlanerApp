@@ -112,6 +112,7 @@ namespace DashboardWetter
             try
             {
                 MainUser = new User(UserNameBox.Text, User.PasswordToHash(UserPasswordBox.Text), UserLocationBox.Text);
+                MainUser.SaveUser();
                 OpenMeteo.OpenMeteoClient client = new OpenMeteo.OpenMeteoClient();
                 WeatherForecast forecast = await client.QueryAsync(MainUser.Location);
                 if (forecast == null)

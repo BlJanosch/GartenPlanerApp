@@ -30,7 +30,7 @@ namespace DashboardWetter
 
         public string SaveToDB()
         {
-            return $"{Name};{Password};{Location}";
+            return $"{ID};{Name};{Password};{Location}";
         }
 
         public static string PasswordToHash(string Password)
@@ -65,7 +65,7 @@ namespace DashboardWetter
                 command.CommandText = $"INSERT INTO tblUser(Name, Password, Location) VALUES('{Name}', '{Password}', '{Location}');";
 
                 int tmp = command.ExecuteNonQuery();
-                ID = GetUserID();
+                GetUserID();
             }
         }
         public void UpdateUser()
@@ -76,15 +76,14 @@ namespace DashboardWetter
 
                 SqliteCommand command = connection.CreateCommand();
 
-                command.CommandText = $"UPDATE tblUser SET Name = {Name}, Password = {Password}, Location = {Location} WHERE id = {ID};";
+                command.CommandText = $"UPDATE tblUser SET Name = '{Name}', Password = '{Password}', Location = '{Location}' WHERE id = {ID};";
 
                 int tmp = command.ExecuteNonQuery();
             }
         }
 
-        public int GetUserID()
+        public void GetUserID()
         {
-            int id = 0;
             using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
             {
                 connection.Open();
@@ -97,11 +96,10 @@ namespace DashboardWetter
                 {
                     while (reader.Read())
                     {
-                        id = reader.GetInt32(0);
+                        ID = reader.GetInt32(0);
                     }
                 }
             }
-            return id;
         }
     }
 }

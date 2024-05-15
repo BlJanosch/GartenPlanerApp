@@ -100,7 +100,7 @@ namespace DashboardWetter
         {
             DrawUserLogin();
             bool SignedIn = false;
-            string[] UserData = new string[3];
+            string[] UserData = new string[4];
             if (File.Exists(UserDataFile))
             {
                 using (StreamReader reader = new StreamReader(UserDataFile))
@@ -126,8 +126,8 @@ namespace DashboardWetter
                             UserData = reader.ReadLine().Split(";");
                             if (SignedIn)
                             {
-                                MainUser = new User(UserData[0], UserData[1], UserData[2]);
-                                MainUser.SaveUser();
+                                MainUser = new User(UserData[1], UserData[2], UserData[3]);
+                                MainUser.GetUserID();
                                 DrawHome();
                             }
                         }

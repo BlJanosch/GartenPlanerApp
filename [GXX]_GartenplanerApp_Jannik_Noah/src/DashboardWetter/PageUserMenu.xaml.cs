@@ -108,6 +108,7 @@ namespace DashboardWetter
             if (window_ChangePassword.DialogResult == true)
             {
                 MainUser = window_ChangePassword.MainUser;
+                MainUser.UpdateUser();
                 window_ChangePassword.Close();
             }
         }
@@ -119,6 +120,7 @@ namespace DashboardWetter
             if (window_ChangeName.DialogResult == true)
             {
                 MainUser = window_ChangeName.MainUser;
+                MainUser.UpdateUser();
                 window_ChangeName.Close();
             }
             DrawUserMenu();
@@ -131,6 +133,7 @@ namespace DashboardWetter
             if (window_ChangeLocation.DialogResult == true)
             {
                 MainUser = window_ChangeLocation.MainUser;
+                MainUser.UpdateUser();
                 window_ChangeLocation.Close();
             }
         }
