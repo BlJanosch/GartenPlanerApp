@@ -29,7 +29,7 @@ namespace DashboardWetter
             return buttonStyle;
         }
 
-        public static Style ontStyle(double FontSize)
+        public static Style GetFontStyle(double FontSize)
         {
             Style labelStyle = new Style(typeof(Label));
             labelStyle.Setters.Add(new Setter(Label.FontSizeProperty, FontSize));
