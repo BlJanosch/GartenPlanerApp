@@ -19,9 +19,11 @@ namespace DashboardWetter
     /// </summary>
     public partial class WindowAddBeet : Window
     {
-        public WindowAddBeet()
+        public BeeteManager BeeteManager;
+        public WindowAddBeet(BeeteManager beete)
         {
             InitializeComponent();
+            BeeteManager = beete;
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
@@ -46,6 +48,14 @@ namespace DashboardWetter
                 else if (zahl >= 6)
                 {
                     throw new Exception("Achtung! Höchstens 4 Reihen erlaubt!");
+                }
+
+                foreach (Beet beet in BeeteManager.Beete)
+                {
+                    if (TBName.Text == beet.Name)
+                    {
+                        throw new Exception("Dieser Name ist bereits vergeben!");
+                    }
                 }
                 this.DialogResult = true;
                 this.Close();

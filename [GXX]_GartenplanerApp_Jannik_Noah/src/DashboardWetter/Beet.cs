@@ -158,10 +158,7 @@ namespace DashboardWetter
             this.plants[indexX+(indexY*Breite)] = AllPlants.Pflanzen[(windowAddPlant.selectedIndex)];
 
             DrawLabelsPlants();
-
-            
-
-            
+            UpdateBeet();
         }
 
         private void DrawLabelsPlants()
@@ -203,9 +200,12 @@ namespace DashboardWetter
                 string Plants = "";
                 foreach (Plant plant in this.plants)
                 {
-                    Plants += Convert.ToString(plant.ID);
+                    if (plant != null)
+                    {
+                        Plants += Convert.ToString(plant.ID);
+                    }
                 }
-                command.CommandText = $"INSERT INTO tblBeet(UserID, Rows, Columns, Name, Plants) VALUES({UserID}, {Breite}, {Laenge}, {Name}, {Plants});";
+                command.CommandText = $"INSERT INTO tblBeet(UserID, Rows, Columns, Name, Plants) VALUES({UserID}, {Breite}, {Laenge}, '{Name}', '{Plants}');";
 
                 int tmp = command.ExecuteNonQuery();
             }
@@ -220,11 +220,20 @@ namespace DashboardWetter
                 SqliteCommand command = connection.CreateCommand();
 
                 string Plants = "";
+                int counter = 0;
                 foreach (Plant plant in this.plants)
                 {
-                    Plants += Convert.ToString(plant.ID);
+                    if (plant != null && counter == 0)
+                    {
+                        Plants += plant.ID;
+                        counter++;
+                    }
+                    else if (plant != null)
+                    {
+                        Plants += $",{plant.ID}";
+                    }
                 }
-                command.CommandText = $"UPDATE tblBeet SET Plants = {Plants} WHERE Name = {Name};";
+                command.CommandText = $"UPDATE tblBeet SET Plants = '{Plants}' WHERE Name = '{Name}' AND UserID = {UserID};";
 
                 int tmp = command.ExecuteNonQuery();
             }

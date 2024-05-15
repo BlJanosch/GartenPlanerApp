@@ -50,6 +50,7 @@ namespace DashboardWetter
         public BeeteManager beeteManager;
         public PlantManager plantManager;
         public PageUserMenu pageUserMenu;
+        public PageUserLogin pageUserLogin;
 
         public MainWindow()
         {
@@ -182,9 +183,16 @@ namespace DashboardWetter
 
         public void DrawUserLogin()
         {
-            PageUserLogin pageUserLogin = new PageUserLogin(MainFrame, MainUser, UserDataFile);
+            pageUserLogin = new PageUserLogin(MainFrame, MainUser, UserDataFile);
             MainFrame.Content = pageUserLogin;
             pageUserLogin.DrawUserLogin();
+            pageUserLogin.UserLoginOK.Click += UserLoginOK_Click;
+        }
+
+        private void UserLoginOK_Click(object sender, RoutedEventArgs e)
+        {
+            MainUser = pageUserLogin.MainUser;
+            MainUser.GetUserID();
         }
 
         private void BeeteButton_Click(object sender, RoutedEventArgs e)
