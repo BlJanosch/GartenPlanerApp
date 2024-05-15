@@ -22,7 +22,7 @@ namespace DashboardWetter
     {
         PlantManager plantManager;
         public Frame MainFrame;
-        public List<string> names = DataBaseManager.GetAllPlantNames();
+        public PlantManager Plants = DataBaseManager.GetAllPlants();
         public PagePlantMenu(PlantManager plantManager, Frame MainFrame)
         {
             InitializeComponent();
@@ -76,9 +76,9 @@ namespace DashboardWetter
 
             MainArea.Children.Add(label);
             MainArea.Children.Add(wrapPanelBeet);
-            foreach (string plantName in this.names)
+            foreach (Plant Plant in Plants.Pflanzen)
             {
-                listBox.Items.Add(plantName);   
+                listBox.Items.Add(Plant.Name);   
             }
             wrapPanelBeet.Children.Add(border);
             border.Child = grid;

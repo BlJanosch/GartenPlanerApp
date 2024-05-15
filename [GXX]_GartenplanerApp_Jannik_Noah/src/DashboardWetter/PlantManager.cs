@@ -9,5 +9,7 @@ namespace DashboardWetter
     public class PlantManager
     {
         public List<Plant> Pflanzen = new List<Plant>();
+
+        public PlantManager() { }
     }
 }

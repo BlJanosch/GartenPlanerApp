@@ -21,7 +21,7 @@ namespace DashboardWetter
     public partial class WindowAddPlant : Window
     {
         public string Titel;
-        public List<string> names = DataBaseManager.GetAllPlantNames();
+        public PlantManager Plants = DataBaseManager.GetAllPlants();
         public int selectedIndex = -1;
 
         public WindowAddPlant(string Titel)
@@ -39,7 +39,7 @@ namespace DashboardWetter
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             MainWindow.Title = Titel;
-            PlantDropDown.ItemsSource = names;
+            PlantDropDown.ItemsSource = Plants.Pflanzen;
         }
     }
 }
