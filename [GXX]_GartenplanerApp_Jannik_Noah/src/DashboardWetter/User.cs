@@ -5,11 +5,16 @@ using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
+using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
+using static System.Net.Mime.MediaTypeNames;
+using System.Windows.Input;
 
 namespace DashboardWetter
 {
     public class User
     {
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Password { get; set; } 
         public string Location { get; set; }
@@ -47,6 +52,56 @@ namespace DashboardWetter
                 string hashString = builder.ToString();
                 return hashString;
             }
+        }
+
+        public void SaveUser()
+        {
+            using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+            {
+                connection.Open();
+
+                SqliteCommand command = connection.CreateCommand();
+
+                command.CommandText = $"INSERT INTO tblBeet(Name text, Password text, Location text) VALUES({Name}, {Password}, {Location});";
+
+                int tmp = command.ExecuteNonQuery();
+                ID = GetUserID();
+            }
+        }
+        public void UpdateUser()
+        {
+            using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+            {
+                connection.Open();
+
+                SqliteCommand command = connection.CreateCommand();
+
+                command.CommandText = $"UPDATE tblBeet SET Name = {Name}, Password = {Password}, Location = {Location} WHERE id = {ID};";
+
+                int tmp = command.ExecuteNonQuery();
+            }
+        }
+
+        public int GetUserID()
+        {
+            int id;
+            using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+            {
+                connection.Open();
+
+                SqliteCommand command = connection.CreateCommand();
+
+                command.CommandText = $"SELECT id FROM tblUser where Name = {Name}";
+
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        id = reader.GetInt32(0);
+                    }
+                }
+            }
+            return id;
         }
     }
 }

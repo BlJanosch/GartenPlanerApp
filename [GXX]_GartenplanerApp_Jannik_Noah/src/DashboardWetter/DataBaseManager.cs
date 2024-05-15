@@ -64,13 +64,19 @@ namespace DashboardWetter
                     while (reader.Read())
                     {
                         string[] Plants = reader.GetString(5).Split(",");
+                        PlantManager plantManager = GetAllPlants();
                         Beet beet = new Beet(reader.GetString(4), reader.GetInt32(2), reader.GetInt32(3));
+                        foreach (Plant plant in plantManager.Pflanzen)
+                        {
+                            if (Plants.Contains(Convert.ToString(plant.ID)))
+                            {
+                                beet.plants.Append(plant);
+                            }
+                        }
                         Beete.Add(beet);
                     }
                 }
                 return Beete;
-
-                
             }
         }
     }

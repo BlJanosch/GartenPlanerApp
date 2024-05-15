@@ -127,6 +127,7 @@ namespace DashboardWetter
                             if (SignedIn)
                             {
                                 MainUser = new User(UserData[0], UserData[1], UserData[2]);
+                                MainUser.SaveUser();
                                 DrawHome();
                             }
                         }
