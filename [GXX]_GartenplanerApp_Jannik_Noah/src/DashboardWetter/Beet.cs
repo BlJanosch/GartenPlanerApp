@@ -17,10 +17,13 @@ namespace DashboardWetter
         public int Breite;
         public int Laenge;
 
+        public static PlantManager AllPlants = DataBaseManager.GetAllPlants();
+
         // Diese Array wird mit Länge mal Breite Feldern erstellt. Die erste Pflanze im Array ist
         // links oben. Die zweite Pflanze im Array ist im zweiten Feld von oben links. Es geht
         // also immer eine Reihe sozusagen durch und dann geht es in die nächste Reihe.
-        public string[] plants;
+        public Plant[] plants;
+        public Button[] buttons;
 
         Grid BeetGrid = new Grid()
         {
@@ -35,7 +38,8 @@ namespace DashboardWetter
             this.Name = name;
             this.Breite = breite;
             this.Laenge = laenge;
-            this.plants = new string[breite * laenge];
+            this.plants = new Plant[breite * laenge];
+            this.buttons = new Button[breite * laenge];
         }
 
         public void DrawBeet(StackPanel MainArea, Frame MainFrame)
@@ -43,7 +47,13 @@ namespace DashboardWetter
             MainArea.Children.Clear();
             double Size = 80;
 
-
+            BeetGrid = new Grid()
+            {
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Background = Brushes.Transparent,
+                Margin = new Thickness(0, 10, 0, 10),
+            };
 
             for (int i = 0; i < Breite; i++)
             {
@@ -79,7 +89,7 @@ namespace DashboardWetter
                     Button button = new Button()
                     {
                         Opacity = 0.000001,
-                        Name = $"Pflanze{x+(y*Breite)}",
+                        Name = $"Pflanze{x}Pflanze{y}",
                     };
 
                     button.Click += Button_Click;
@@ -99,6 +109,7 @@ namespace DashboardWetter
                     Grid.SetRow(border, y);
                     Grid.SetColumn(button, x);
                     Grid.SetRow(button, y);
+                    buttons[x+(y*Breite)] = button;
                     Grid.SetColumn(image, x);
                     Grid.SetRow(image, y);
                     BeetGrid.Children.Add(border);
@@ -124,9 +135,11 @@ namespace DashboardWetter
             BeetGrid.Height = Breite * Size;  
 
             MainArea.Children.Add(nameLabel);
-            
-            MainArea.Children.Add(BeetGrid);
-            
+            if ((MainArea.Children.Contains(BeetGrid) == false))
+            { 
+                MainArea.Children.Add(BeetGrid);
+            }
+            DrawLabelsPlants();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -136,38 +149,41 @@ namespace DashboardWetter
             WindowAddPlant windowAddPlant = new WindowAddPlant(button.Name);
             windowAddPlant.ShowDialog();
 
-            int index = Convert.ToInt32(button.Name.Split("Pflanze")[1]);
+            int indexX = Convert.ToInt32(button.Name.Split("Pflanze")[1]);
+            int indexY = Convert.ToInt32(button.Name.Split("Pflanze")[2]);
 
-            this.plants[index] = Convert.ToString(windowAddPlant.selectedIndex+1);
+            this.plants[indexX+(indexY*Breite)] = AllPlants.Pflanzen[(windowAddPlant.selectedIndex)];
 
-            DrawLabelsPlants(index);
+            DrawLabelsPlants();
 
             
 
             
         }
 
-        private void DrawLabelsPlants(int index)
+        private void DrawLabelsPlants()
         {
-            foreach (string item in this.plants)
+            for (int x = 0; x < Breite; x++)
             {
-                if (item != null)
+                for (int y = 0; y < Breite; y++)
                 {
-                    Label label = new Label()
+                    if (!(plants[x+(y*Breite)] == null))
                     {
-                        Content = item,
-                    };
-
-                    BeetGrid.Children.Add(label);
-                    foreach (Button Button in BeetGrid.Children)
-                    {
-                        if (Button.Name.Split("Pflanze")[1] == Convert.ToString(index))
+                        Canvas canvas = new Canvas()
                         {
-                            Button.
-                        }
+                            Height = 80,
+                            Width = 80,
+                            Background = Brushes.White,
+                        };
+                        Label labelName = new Label()
+                        {
+                            Content = plants[x+(y*Breite)].Name,
+                        };
+                        canvas.Children.Add(labelName);
+                        BeetGrid.Children.Add(canvas);
+                        Grid.SetColumn(canvas, x);
+                        Grid.SetRow(canvas, y);
                     }
-                    Grid.SetColumn(label, index % Breite);
-                    Grid.SetRow(label, index % Laenge);
                 }
             }
         }

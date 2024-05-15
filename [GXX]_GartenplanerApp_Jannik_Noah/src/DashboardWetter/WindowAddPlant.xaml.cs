@@ -39,7 +39,11 @@ namespace DashboardWetter
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             MainWindow.Title = Titel;
-            PlantDropDown.ItemsSource = Plants.Pflanzen;
+            
+            foreach (Plant plant in Plants.Pflanzen)
+            {
+                PlantDropDown.Items.Add(plant.Name);
+            }
         }
     }
 }

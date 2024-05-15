@@ -70,7 +70,7 @@ namespace DashboardWetter
                 }
                 return Beete;
 
-                CREATE TABLE tblBeet(id integer primary key autoincrement not null, UserID int, Rows int, Columns int, Name text, Plants text);
+                
             }
         }
     }
