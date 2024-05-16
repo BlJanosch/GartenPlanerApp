@@ -151,7 +151,7 @@ namespace DashboardWetter
             
             WindowAddPlant windowAddPlant = new WindowAddPlant(button.Name);
             windowAddPlant.ShowDialog();
-            if (windowAddPlant.DialogResult == true) 
+            if (windowAddPlant.DialogResult == true)
             {
                 if (windowAddPlant.selectedIndex != -1)
                 {
@@ -159,9 +159,10 @@ namespace DashboardWetter
                     int indexY = Convert.ToInt32(button.Name.Split("Pflanze")[2]);
 
                     this.plants[indexX + (indexY * Breite)] = AllPlants.Pflanzen[(windowAddPlant.selectedIndex)];
-
-            DrawLabelsPlants();
-            UpdateBeet();
+                }
+                DrawLabelsPlants();
+                UpdateBeet();
+            }
         }
 
         private void DrawLabelsPlants()
