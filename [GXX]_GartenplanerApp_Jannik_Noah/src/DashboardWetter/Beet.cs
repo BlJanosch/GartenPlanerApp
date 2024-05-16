@@ -151,12 +151,16 @@ namespace DashboardWetter
             windowAddPlant.ShowDialog();
             if (windowAddPlant.DialogResult == true) 
             {
-                int indexX = Convert.ToInt32(button.Name.Split("Pflanze")[1]);
-                int indexY = Convert.ToInt32(button.Name.Split("Pflanze")[2]);
+                if (windowAddPlant.selectedIndex != -1)
+                {
+                    int indexX = Convert.ToInt32(button.Name.Split("Pflanze")[1]);
+                    int indexY = Convert.ToInt32(button.Name.Split("Pflanze")[2]);
 
-                this.plants[indexX + (indexY * Breite)] = AllPlants.Pflanzen[(windowAddPlant.selectedIndex)];
+                    this.plants[indexX + (indexY * Breite)] = AllPlants.Pflanzen[(windowAddPlant.selectedIndex)];
 
-                DrawLabelsPlants();
+                    DrawLabelsPlants();
+                }
+                
             }
 
 
@@ -183,7 +187,21 @@ namespace DashboardWetter
                         {
                             Content = plants[x+(y*Breite)].Name,
                         };
+                        Image image = new Image()
+                        {
+                            Height = 80,
+                            Width = 80,
+                            
+                        };
+
+                        image.Source = new BitmapImage(new Uri($"/Images/plants/plant{plants[x + (y * Breite)].ID-1}.jpg", UriKind.Relative));
+
+                        Canvas.SetTop(image, 10);
+                        Canvas.SetLeft(image, 0);
+
+                        canvas.Children.Add(image);
                         canvas.Children.Add(labelName);
+                        
                         BeetGrid.Children.Add(canvas);
                         Grid.SetColumn(canvas, y);
                         Grid.SetRow(canvas, x);
