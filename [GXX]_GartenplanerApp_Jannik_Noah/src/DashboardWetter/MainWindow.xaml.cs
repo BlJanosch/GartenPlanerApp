@@ -87,6 +87,7 @@ namespace DashboardWetter
                 BeeteButton.IsEnabled = true;
                 PflanzeButton.IsEnabled = true;
                 UserButton.IsEnabled = true;
+                beeteManager.Beete = DataBaseManager.GetAllBeete(MainUser);
             }
             else if (PageName == "PageUserLogin")
             {
@@ -130,13 +131,13 @@ namespace DashboardWetter
                                 MainUser = new User(UserData[1], UserData[2], UserData[3]);
                                 MainUser.GetUserID();
                                 DrawHome();
+                                beeteManager.Beete = DataBaseManager.GetAllBeete(MainUser);
                             }
                         }
                     }
 
                 }
             }
-
         }
 
         private void timer_Uhr_Tick(object? sender, EventArgs e)

@@ -44,7 +44,7 @@ namespace DashboardWetter
             }
         }
 
-        static public List<Beet> GetAllBeete()
+        static public List<Beet> GetAllBeete(User user)
         {
             using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
             {
@@ -61,22 +61,40 @@ namespace DashboardWetter
                 {
                     while (reader.Read())
                     {
-                        string[] Plants = reader.GetString(5).Split(",");
-                        PlantManager plantManager = GetAllPlants();
-
-                        Beet beet = new Beet(reader.GetInt16(1), reader.GetString(4), reader.GetInt32(2), reader.GetInt32(3));
-                        foreach (Plant plant in plantManager.Pflanzen)
+                        if (user.ID == reader.GetInt32(1))
                         {
-                            if (Plants.Contains(Convert.ToString(plant.ID)))
+                            string[] Plants = reader.GetString(5).Split(",");
+                            PlantManager plantManager = GetAllPlants();
+
+                            Beet beet = new Beet(reader.GetInt16(1), reader.GetString(4), reader.GetInt32(2), reader.GetInt32(3));
+                            int counter = 0;
+                            foreach (string element in Plants)
                             {
-                                beet.plants.Append(plant);
+                                if (element != "x")
+                                {
+                                    beet.plants[counter] = GetRigthPlant(element);
+                                }
+                                counter++;
                             }
+                            Beete.Add(beet);
                         }
-                        Beete.Add(beet);
                     }
                 }
                 return Beete;
             }
+        }
+
+        static private Plant GetRigthPlant(string PlantID)
+        {
+            PlantManager AllPlants = GetAllPlants();
+            foreach (Plant plant in AllPlants.Pflanzen)
+            {
+                if (PlantID == Convert.ToString(plant.ID))
+                {
+                    return plant;
+                }
+            }
+            throw new Exception("Diese Pflanze konnt nicht gefunden werden!");
         }
     }
 }

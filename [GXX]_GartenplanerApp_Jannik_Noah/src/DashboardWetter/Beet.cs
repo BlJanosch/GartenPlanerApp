@@ -9,6 +9,8 @@ using System.Windows.Media;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Microsoft.Data.Sqlite;
+using System.Diagnostics.Metrics;
+using System.Numerics;
 
 namespace DashboardWetter
 {
@@ -194,16 +196,24 @@ namespace DashboardWetter
             using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
             {
                 connection.Open();
+                // Planzen richt Laden --> Problem
 
                 SqliteCommand command = connection.CreateCommand();
 
                 string Plants = "";
+                int counter = 0;
                 foreach (Plant plant in this.plants)
                 {
-                    if (plant != null)
+                    if (counter == 0)
                     {
-                        Plants += Convert.ToString(plant.ID);
+                        Plants += "x";
+
                     }
+                    else
+                    {
+                        Plants += ",x";
+                    }
+                    counter++;
                 }
                 command.CommandText = $"INSERT INTO tblBeet(UserID, Rows, Columns, Name, Plants) VALUES({UserID}, {Breite}, {Laenge}, '{Name}', '{Plants}');";
 
@@ -223,15 +233,26 @@ namespace DashboardWetter
                 int counter = 0;
                 foreach (Plant plant in this.plants)
                 {
-                    if (plant != null && counter == 0)
+                    if (counter == 0)
                     {
-                        Plants += plant.ID;
-                        counter++;
+                        if (plant != null)
+                        {
+                            Plants += plant.ID;
+                        }
+                        else
+                        {
+                            Plants += "x";
+                        }
                     }
-                    else if (plant != null)
+                    else
                     {
-                        Plants += $",{plant.ID}";
+                        if (plant != null)
+                        {
+                            Plants += $",{plant.ID}";
+                        }
+                        else { Plants += ",x"; }
                     }
+                    counter++;
                 }
                 command.CommandText = $"UPDATE tblBeet SET Plants = '{Plants}' WHERE Name = '{Name}' AND UserID = {UserID};";
 
