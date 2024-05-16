@@ -15,6 +15,24 @@
     <None Remove="Images\Bild6.png" />
     <None Remove="Images\Home.png" />
     <None Remove="Images\Info_Icon.png" />
+    <None Remove="Images\plants\plant0.jpg" />
+    <None Remove="Images\plants\plant1.jpg" />
+    <None Remove="Images\plants\plant10.jpg" />
+    <None Remove="Images\plants\plant11.jpg" />
+    <None Remove="Images\plants\plant12.jpg" />
+    <None Remove="Images\plants\plant13.jpg" />
+    <None Remove="Images\plants\plant14.jpg" />
+    <None Remove="Images\plants\plant15.jpg" />
+    <None Remove="Images\plants\plant16.jpg" />
+    <None Remove="Images\plants\plant17.jpg" />
+    <None Remove="Images\plants\plant2.jpg" />
+    <None Remove="Images\plants\plant3.jpg" />
+    <None Remove="Images\plants\plant4.jpg" />
+    <None Remove="Images\plants\plant5.jpg" />
+    <None Remove="Images\plants\plant6.jpg" />
+    <None Remove="Images\plants\plant7.jpg" />
+    <None Remove="Images\plants\plant8.jpg" />
+    <None Remove="Images\plants\plant9.jpg" />
     <None Remove="Images\Plus.png" />
     <None Remove="Images\User.png" />
     <None Remove="Images\UserPicture.jpg" />
@@ -24,6 +42,66 @@
     <None Remove="UserData\Login.csv" />
     <None Remove="UserPicture.jpg" />
     <None Remove="userPicture2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\plants\plant3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\plants\plant0.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\plants\plant1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\plants\plant10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\plants\plant11.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\plants\plant12.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\plants\plant13.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\plants\plant14.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\plants\plant15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\plants\plant16.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\plants\plant17.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\plants\plant2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\plants\plant4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\plants\plant5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\plants\plant6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\plants\plant7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\plants\plant8.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\plants\plant9.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

@@ -81,9 +81,9 @@ namespace DashboardWetter
                 BeetGrid.RowDefinitions.Add(row);
             }
 
-            for (int x = 0; x < Laenge; x++)
+            for (int y = 0; y < Laenge; y++)
             {
-                for (int y = 0; y < Breite; y++)
+                for (int x = 0; x < Breite; x++)
                 {
                     Border border = new Border()
                     {
@@ -99,24 +99,22 @@ namespace DashboardWetter
 
                     button.Click += Button_Click;
                     Image image = new Image();
-                    if (plants[x*y] == null)
-                    {
-                        image = new Image()
-                        {
-                            Source = new BitmapImage(new Uri("Images/Plus.png", UriKind.Relative)),
-                            Height = 50,
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            VerticalAlignment = VerticalAlignment.Center,
 
-                        };
-                    }
-                    Grid.SetColumn(border, x);
-                    Grid.SetRow(border, y);
-                    Grid.SetColumn(button, x);
-                    Grid.SetRow(button, y);
+                    image = new Image()
+                    {
+                        Source = new BitmapImage(new Uri("Images/Plus.png", UriKind.Relative)),
+                        Height = 50,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+
+                    };
+                    Grid.SetColumn(border, y);
+                    Grid.SetRow(border, x);
+                    Grid.SetColumn(button, y);
+                    Grid.SetRow(button, x);
                     buttons[x+(y*Breite)] = button;
-                    Grid.SetColumn(image, x);
-                    Grid.SetRow(image, y);
+                    Grid.SetColumn(image, y);
+                    Grid.SetRow(image, x);
                     BeetGrid.Children.Add(border);
                     BeetGrid.Children.Add(image);
                     BeetGrid.Children.Add(button);
@@ -153,11 +151,14 @@ namespace DashboardWetter
             
             WindowAddPlant windowAddPlant = new WindowAddPlant(button.Name);
             windowAddPlant.ShowDialog();
+            if (windowAddPlant.DialogResult == true) 
+            {
+                if (windowAddPlant.selectedIndex != -1)
+                {
+                    int indexX = Convert.ToInt32(button.Name.Split("Pflanze")[1]);
+                    int indexY = Convert.ToInt32(button.Name.Split("Pflanze")[2]);
 
-            int indexX = Convert.ToInt32(button.Name.Split("Pflanze")[1]);
-            int indexY = Convert.ToInt32(button.Name.Split("Pflanze")[2]);
-
-            this.plants[indexX+(indexY*Breite)] = AllPlants.Pflanzen[(windowAddPlant.selectedIndex)];
+                    this.plants[indexX + (indexY * Breite)] = AllPlants.Pflanzen[(windowAddPlant.selectedIndex)];
 
             DrawLabelsPlants();
             UpdateBeet();
@@ -167,7 +168,7 @@ namespace DashboardWetter
         {
             for (int x = 0; x < Breite; x++)
             {
-                for (int y = 0; y < Breite; y++)
+                for (int y = 0; y < Laenge; y++)
                 {
                     if (!(plants[x+(y*Breite)] == null))
                     {
@@ -181,10 +182,24 @@ namespace DashboardWetter
                         {
                             Content = plants[x+(y*Breite)].Name,
                         };
+                        Image image = new Image()
+                        {
+                            Height = 80,
+                            Width = 80,
+                            
+                        };
+
+                        image.Source = new BitmapImage(new Uri($"/Images/plants/plant{plants[x + (y * Breite)].ID-1}.jpg", UriKind.Relative));
+
+                        Canvas.SetTop(image, 10);
+                        Canvas.SetLeft(image, 0);
+
+                        canvas.Children.Add(image);
                         canvas.Children.Add(labelName);
+                        
                         BeetGrid.Children.Add(canvas);
-                        Grid.SetColumn(canvas, x);
-                        Grid.SetRow(canvas, y);
+                        Grid.SetColumn(canvas, y);
+                        Grid.SetRow(canvas, x);
                     }
                 }
             }

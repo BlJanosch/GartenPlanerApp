@@ -8,11 +8,19 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PagePlantMenu">
 
-    <Grid Background="Transparent">
-        <ScrollViewer VerticalScrollBarVisibility="Hidden">
-            <StackPanel x:Name="MainArea">
+    <DockPanel>
+        <Label DockPanel.Dock="Top" Content="Pflanzen" Foreground="White" FontSize="25" HorizontalContentAlignment="Center"></Label>
+        <Grid x:Name="MainArea" Background="LightGreen">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-            </StackPanel>
-        </ScrollViewer>
-    </Grid>
+
+            <ListBox Margin="30" Grid.Row="0" Grid.Column="0" x:Name="ListBoxPlants"  Background="White" BorderBrush="White"></ListBox>
+
+            <Frame Grid.Row="0" Grid.Column="1"  x:Name="FramePlantInfo" ></Frame>
+            
+        </Grid>
+    </DockPanel>
 </Page>
