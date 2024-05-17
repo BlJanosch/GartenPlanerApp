@@ -24,7 +24,7 @@ namespace DashboardWetter
         private User MainUser;
         public string UserDataFile = AppDomain.CurrentDomain.BaseDirectory.Split("\\bin\\")[0] + "\\UserData\\Login.csv";
         public Frame MainFrame;
-        public PageUserLogin pageUserLogin;
+        public PageUserSignIn pageUserSignIn;
         public PageUserMenu(User MainUser, Frame mainFrame)
         {
             InitializeComponent();
@@ -138,8 +138,7 @@ namespace DashboardWetter
             }
         }
 
-        // WICHTIG!!!
-        // DrawUserLogin noch implementieren!!!
+        // UserLoginOrRegister implementieren
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
@@ -148,9 +147,25 @@ namespace DashboardWetter
                 writer.WriteLine("0");
             }
             MainArea.Children.Clear();
-            pageUserLogin = new PageUserLogin(MainFrame, MainUser, UserDataFile);
+            pageUserSignIn = new PageUserSignIn(MainFrame, MainUser);
+            MainFrame.Content = pageUserSignIn;
+            pageUserSignIn.DrawUserLogin();
+            pageUserSignIn.UserLoginOK.Click += UserSignInOK;
+        }
+
+
+        private void UserSignInOK(object sender, RoutedEventArgs e)
+        {
+            MainUser = pageUserSignIn.MainUser;
+            beeteManager.Beete = DataBaseManager.GetAllBeete(MainUser);
+        }
+
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            PageUserLogin pageUserLogin = new PageUserLogin(MainFrame, MainUser, UserDataFile);
             MainFrame.Content = pageUserLogin;
             pageUserLogin.DrawUserLogin();
+            pageUserLogin.UserLoginOK.Click += UserLoginOK_Click;
         }
     }
 }

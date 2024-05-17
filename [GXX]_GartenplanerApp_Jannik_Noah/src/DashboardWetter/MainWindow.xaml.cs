@@ -51,6 +51,7 @@ namespace DashboardWetter
         public PlantManager plantManager;
         public PageUserMenu pageUserMenu;
         public PageUserLogin pageUserLogin;
+        public PageUserSignIn pageUserSignIn;
 
         public MainWindow()
         {
@@ -193,8 +194,16 @@ namespace DashboardWetter
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            // Page für das Anmelden des Users
-            throw new NotImplementedException();
+            pageUserSignIn = new PageUserSignIn(MainFrame, MainUser);
+            MainFrame.Content = pageUserSignIn;
+            pageUserSignIn.DrawUserLogin();
+            pageUserSignIn.UserLoginOK.Click += UserSignInOK;
+        }
+
+        private void UserSignInOK(object sender, RoutedEventArgs e)
+        {
+            MainUser = pageUserSignIn.MainUser;
+            beeteManager.Beete = DataBaseManager.GetAllBeete(MainUser);
         }
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
