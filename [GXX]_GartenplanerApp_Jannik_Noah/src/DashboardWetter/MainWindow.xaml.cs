@@ -100,7 +100,7 @@ namespace DashboardWetter
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DrawUserLogin();
+            DrawUserLoginOrRegister();
             bool SignedIn = false;
             string[] UserData = new string[4];
             if (File.Exists(UserDataFile))
@@ -118,7 +118,7 @@ namespace DashboardWetter
                             else
                             {
 
-                                DrawUserLogin();
+                                DrawUserLoginOrRegister();
                                 SignedIn = true;
                                 break;
                             }
@@ -182,7 +182,22 @@ namespace DashboardWetter
             pageUserMenu.DrawUserMenu();
         }
 
-        public void DrawUserLogin()
+        public void DrawUserLoginOrRegister()
+        {
+            PageLoginOrRegister pageLoginOrRegister = new PageLoginOrRegister(MainFrame, MainUser);
+            MainFrame.Content = pageLoginOrRegister;
+            pageLoginOrRegister.DrawUserLogin();
+            pageLoginOrRegister.RegisterButton.Click += RegisterButton_Click;
+            pageLoginOrRegister.LoginButton.Click += LoginButton_Click;
+        }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Page für das Anmelden des Users
+            throw new NotImplementedException();
+        }
+
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             pageUserLogin = new PageUserLogin(MainFrame, MainUser, UserDataFile);
             MainFrame.Content = pageUserLogin;

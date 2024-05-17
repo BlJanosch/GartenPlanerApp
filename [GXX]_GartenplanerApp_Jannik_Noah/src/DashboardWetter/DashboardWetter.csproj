@@ -34,6 +34,7 @@
     <None Remove="Images\plants\plant8.jpg" />
     <None Remove="Images\plants\plant9.jpg" />
     <None Remove="Images\Plus.png" />
+    <None Remove="Images\TerraScape.png" />
     <None Remove="Images\User.png" />
     <None Remove="Images\UserPicture.jpg" />
     <None Remove="Images\userPicture2.png" />
@@ -120,6 +121,7 @@
     <Resource Include="Images\Home.png" />
     <Resource Include="Images\Info_Icon.png" />
     <Resource Include="Images\Plus.png" />
+    <Resource Include="Images\TerraScape.png" />
     <Resource Include="Images\User.png" />
     <Resource Include="Images\UserPicture.jpg" />
     <Resource Include="Images\userPicture2.png">
