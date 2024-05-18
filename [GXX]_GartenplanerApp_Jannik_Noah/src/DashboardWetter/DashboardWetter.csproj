@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\song.mp3" />
     <None Remove="Bild1.png" />
     <None Remove="Home.png" />
     <None Remove="Images\Beet.png" />
@@ -113,6 +114,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\song.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Home.png" />
     <Resource Include="Images\Beet.png" />
     <Resource Include="Images\Bild1.png" />
@@ -129,7 +133,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\" />
     <Folder Include="UserData\" />
   </ItemGroup>
 

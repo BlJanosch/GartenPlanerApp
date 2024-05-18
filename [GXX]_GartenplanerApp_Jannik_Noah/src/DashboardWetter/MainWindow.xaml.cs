@@ -20,6 +20,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using OpenMeteo;
+using System.Media;
 
 namespace DashboardWetter
 {
@@ -28,6 +29,7 @@ namespace DashboardWetter
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         public string Wetter;
         public DispatcherTimer timer_Uhr = new DispatcherTimer();
         public Label UhrDashBoard;
@@ -51,10 +53,14 @@ namespace DashboardWetter
         public PlantManager plantManager;
         public PageUserMenu pageUserMenu;
         public PageUserLogin pageUserLogin;
+        public SoundPlayer soundPlayer;
 
         public MainWindow()
         {
             InitializeComponent();
+            this.soundPlayer = new SoundPlayer("song.wav");
+            this.soundPlayer.PlayLooping();
+            
             UhrDashBoard = new Label();
             TemperaturNow = new Label();
             RegenNow = new Label();
@@ -177,7 +183,7 @@ namespace DashboardWetter
 
         public void DrawUserMenu()
         {
-            pageUserMenu = new PageUserMenu(MainUser, MainFrame);
+            pageUserMenu = new PageUserMenu(MainUser, MainFrame, this.soundPlayer);
             MainFrame.Content = pageUserMenu;
             pageUserMenu.DrawUserMenu();
         }

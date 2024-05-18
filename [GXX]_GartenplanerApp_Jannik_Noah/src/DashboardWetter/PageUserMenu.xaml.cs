@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,11 +26,15 @@ namespace DashboardWetter
         public string UserDataFile = AppDomain.CurrentDomain.BaseDirectory.Split("\\bin\\")[0] + "\\UserData\\Login.csv";
         public Frame MainFrame;
         public PageUserLogin pageUserLogin;
-        public PageUserMenu(User MainUser, Frame mainFrame)
+        private SoundPlayer soundPlayer;
+        private Button buttonPlay;
+        private Button buttonMute;
+        public PageUserMenu(User MainUser, Frame mainFrame, SoundPlayer soundPlayer)
         {
             InitializeComponent();
             this.MainUser = MainUser;
             MainFrame = mainFrame;
+            this.soundPlayer = soundPlayer;
         }
 
         public PageUserMenu()
@@ -89,16 +94,56 @@ namespace DashboardWetter
                 Margin = new Thickness(0, 20, 0, 20),
             };
 
+            Button buttonMute = new Button()
+            {
+                Content = "Mute",
+                Style = Styles.GetUserLoginButtonStyle(),
+
+            };
+
+            buttonMute.Click += ButtonMute_Click;
+            this.buttonMute = buttonMute;
+
+            Button buttonPlay = new Button()
+            {
+                Content = "Play",
+                Style = Styles.GetUserLoginButtonStyle(),
+                
+            };
+
+            buttonPlay.Click += ButtonPlay_Click;
+            this.buttonPlay = buttonPlay;
+
             ChangePassword.Click += ChangePassword_Click;
             ChangeUserName.Click += ChangeUserName_Click;
             ChangeLocation.Click += ChangeLocation_Click;
             Logout.Click += Logout_Click;
             MainArea.Children.Add(Profilbuch);
             MainArea.Children.Add(UserName);
+
+            MainArea.Children.Add(buttonPlay);
+            MainArea.Children.Add(buttonMute);
+
             MainArea.Children.Add(ChangeUserName);
             MainArea.Children.Add(ChangePassword);
             MainArea.Children.Add(ChangeLocation);
             MainArea.Children.Add(Logout);
+
+        }
+
+        private void ButtonPlay_Click(object sender, RoutedEventArgs e)
+        {
+            //this.buttonPlay.IsEnabled = false;
+            //this.buttonMute.IsEnabled = true;
+            soundPlayer.PlayLooping();
+            
+        }
+
+        private void ButtonMute_Click(object sender, RoutedEventArgs e)
+        {
+            //this.buttonMute.IsEnabled = false;
+            //this.buttonPlay.IsEnabled = true;
+            soundPlayer.Stop();
         }
 
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
