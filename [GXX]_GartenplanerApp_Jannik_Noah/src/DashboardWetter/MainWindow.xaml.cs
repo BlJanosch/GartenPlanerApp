@@ -80,9 +80,9 @@ namespace DashboardWetter
             string PageName = MainFrame.Content.GetType().Name;
             if (PageName == "PageHome")
             {
-                if (pageUserMenu != null && pageUserMenu.pageUserLogin != null)
+                if (pageUserMenu != null && pageUserMenu.pageLoginOrRegister != null)
                 {
-                    MainUser = pageUserMenu.pageUserLogin.MainUser;
+                    MainUser = pageUserMenu.pageLoginOrRegister.MainUser;
                 }
                 HomeButton.IsEnabled = true;
                 BeeteButton.IsEnabled = true;
@@ -90,7 +90,7 @@ namespace DashboardWetter
                 UserButton.IsEnabled = true;
                 beeteManager.Beete = DataBaseManager.GetAllBeete(MainUser);
             }
-            else if (PageName == "PageUserLogin")
+            else if (PageName == "PageUserLogin" || PageName == "PageLoginOrRegister")
             {
                 HomeButton.IsEnabled = false;
                 BeeteButton.IsEnabled = false;
@@ -169,18 +169,36 @@ namespace DashboardWetter
 
         public void DrawBeeteMenu()
         {
-            PageBeeteMenu pageBeeteMenu = new PageBeeteMenu(beeteManager, MainFrame, MainUser);
-            MainFrame.Content = pageBeeteMenu;
-            pageBeeteMenu.DrawBeeteMenu();
+            try
+            {
+                PageBeeteMenu pageBeeteMenu = new PageBeeteMenu(pageUserMenu.beeteManager, MainFrame, pageUserMenu.MainUser);
+                MainFrame.Content = pageBeeteMenu;
+                pageBeeteMenu.DrawBeeteMenu();
+            }
+            catch
+            {
+                PageBeeteMenu pageBeeteMenu = new PageBeeteMenu(beeteManager, MainFrame, MainUser);
+                MainFrame.Content = pageBeeteMenu;
+                pageBeeteMenu.DrawBeeteMenu();
+            }
         }
 
 
 
         public void DrawUserMenu()
         {
+
             pageUserMenu = new PageUserMenu(MainUser, MainFrame);
             MainFrame.Content = pageUserMenu;
             pageUserMenu.DrawUserMenu();
+            pageUserMenu.Finished += PageUserMenu_Finished;
+        }
+
+        private void PageUserMenu_Finished(object sender, EventArgs e)
+        {
+            MainUser = pageUserMenu.MainUser;
+            beeteManager.Beete = DataBaseManager.GetAllBeete(MainUser);
+            DrawHome();
         }
 
         public void DrawUserLoginOrRegister()
@@ -204,6 +222,7 @@ namespace DashboardWetter
         {
             MainUser = pageUserSignIn.MainUser;
             beeteManager.Beete = DataBaseManager.GetAllBeete(MainUser);
+            DrawHome();
         }
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)

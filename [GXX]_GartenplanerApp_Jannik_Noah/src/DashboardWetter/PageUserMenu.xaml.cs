@@ -21,10 +21,17 @@ namespace DashboardWetter
     /// </summary>
     public partial class PageUserMenu : Page
     {
-        private User MainUser;
+        public User MainUser;
         public string UserDataFile = AppDomain.CurrentDomain.BaseDirectory.Split("\\bin\\")[0] + "\\UserData\\Login.csv";
         public Frame MainFrame;
+        public PageLoginOrRegister pageLoginOrRegister;
         public PageUserSignIn pageUserSignIn;
+        public PageUserLogin pageUserLogin;
+        public BeeteManager beeteManager = new BeeteManager();
+
+        // Test-Event
+        public delegate void FinishedHandler(object sender, EventArgs e);
+        public event FinishedHandler Finished;
         public PageUserMenu(User MainUser, Frame mainFrame)
         {
             InitializeComponent();
@@ -138,8 +145,6 @@ namespace DashboardWetter
             }
         }
 
-        // UserLoginOrRegister implementieren
-
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             using (StreamWriter writer = new StreamWriter(UserDataFile, false))
@@ -147,25 +152,41 @@ namespace DashboardWetter
                 writer.WriteLine("0");
             }
             MainArea.Children.Clear();
+            pageLoginOrRegister = new PageLoginOrRegister(MainFrame, MainUser);
+            MainFrame.Content = pageLoginOrRegister;
+            pageLoginOrRegister.DrawUserLogin();
+            pageLoginOrRegister.LoginButton.Click += LoginButton2_Click;
+            pageLoginOrRegister.RegisterButton.Click += RegisterButton2_Click;
+        }
+
+        private void RegisterButton2_Click(object sender, RoutedEventArgs e)
+        {
+            pageUserLogin = new PageUserLogin(MainFrame, MainUser, UserDataFile);
+            MainFrame.Content = pageUserLogin;
+            pageUserLogin.DrawUserLogin();
+            pageUserLogin.UserLoginOK.Click += UserLoginOK_Click1;
+        }
+
+        private void UserLoginOK_Click1(object sender, RoutedEventArgs e)
+        {
+            MainUser = pageUserLogin.MainUser;
+            beeteManager.Beete = DataBaseManager.GetAllBeete(MainUser);
+            Finished?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void LoginButton2_Click(object sender, RoutedEventArgs e)
+        {
             pageUserSignIn = new PageUserSignIn(MainFrame, MainUser);
             MainFrame.Content = pageUserSignIn;
             pageUserSignIn.DrawUserLogin();
-            pageUserSignIn.UserLoginOK.Click += UserSignInOK;
+            pageUserSignIn.UserLoginOK.Click += UserLoginOK_Click;
         }
 
-
-        private void UserSignInOK(object sender, RoutedEventArgs e)
+        private void UserLoginOK_Click(object sender, RoutedEventArgs e)
         {
             MainUser = pageUserSignIn.MainUser;
             beeteManager.Beete = DataBaseManager.GetAllBeete(MainUser);
-        }
-
-        private void RegisterButton_Click(object sender, RoutedEventArgs e)
-        {
-            PageUserLogin pageUserLogin = new PageUserLogin(MainFrame, MainUser, UserDataFile);
-            MainFrame.Content = pageUserLogin;
-            pageUserLogin.DrawUserLogin();
-            pageUserLogin.UserLoginOK.Click += UserLoginOK_Click;
+            Finished?.Invoke(this, EventArgs.Empty);
         }
     }
 }
