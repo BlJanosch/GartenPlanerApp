@@ -54,6 +54,7 @@ namespace DashboardWetter
         public PageUserMenu pageUserMenu;
         public PageUserLogin pageUserLogin;
         public SoundPlayer soundPlayer;
+        public PageUserSignIn pageUserSignIn;
 
         public MainWindow()
         {
@@ -85,9 +86,9 @@ namespace DashboardWetter
             string PageName = MainFrame.Content.GetType().Name;
             if (PageName == "PageHome")
             {
-                if (pageUserMenu != null && pageUserMenu.pageUserLogin != null)
+                if (pageUserMenu != null && pageUserMenu.pageLoginOrRegister != null)
                 {
-                    MainUser = pageUserMenu.pageUserLogin.MainUser;
+                    MainUser = pageUserMenu.pageLoginOrRegister.MainUser;
                 }
                 HomeButton.IsEnabled = true;
                 BeeteButton.IsEnabled = true;
@@ -95,7 +96,7 @@ namespace DashboardWetter
                 UserButton.IsEnabled = true;
                 beeteManager.Beete = DataBaseManager.GetAllBeete(MainUser);
             }
-            else if (PageName == "PageUserLogin")
+            else if (PageName == "PageUserLogin" || PageName == "PageLoginOrRegister")
             {
                 HomeButton.IsEnabled = false;
                 BeeteButton.IsEnabled = false;
@@ -106,7 +107,7 @@ namespace DashboardWetter
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DrawUserLogin();
+            DrawUserLoginOrRegister();
             bool SignedIn = false;
             string[] UserData = new string[4];
             if (File.Exists(UserDataFile))
@@ -124,7 +125,7 @@ namespace DashboardWetter
                             else
                             {
 
-                                DrawUserLogin();
+                                DrawUserLoginOrRegister();
                                 SignedIn = true;
                                 break;
                             }
@@ -174,9 +175,18 @@ namespace DashboardWetter
 
         public void DrawBeeteMenu()
         {
-            PageBeeteMenu pageBeeteMenu = new PageBeeteMenu(beeteManager, MainFrame, MainUser);
-            MainFrame.Content = pageBeeteMenu;
-            pageBeeteMenu.DrawBeeteMenu();
+            try
+            {
+                PageBeeteMenu pageBeeteMenu = new PageBeeteMenu(pageUserMenu.beeteManager, MainFrame, pageUserMenu.MainUser);
+                MainFrame.Content = pageBeeteMenu;
+                pageBeeteMenu.DrawBeeteMenu();
+            }
+            catch
+            {
+                PageBeeteMenu pageBeeteMenu = new PageBeeteMenu(beeteManager, MainFrame, MainUser);
+                MainFrame.Content = pageBeeteMenu;
+                pageBeeteMenu.DrawBeeteMenu();
+            }
         }
 
 
@@ -186,9 +196,41 @@ namespace DashboardWetter
             pageUserMenu = new PageUserMenu(MainUser, MainFrame, this.soundPlayer);
             MainFrame.Content = pageUserMenu;
             pageUserMenu.DrawUserMenu();
+            pageUserMenu.Finished += PageUserMenu_Finished;
         }
 
-        public void DrawUserLogin()
+        private void PageUserMenu_Finished(object sender, EventArgs e)
+        {
+            MainUser = pageUserMenu.MainUser;
+            beeteManager.Beete = DataBaseManager.GetAllBeete(MainUser);
+            DrawHome();
+        }
+
+        public void DrawUserLoginOrRegister()
+        {
+            PageLoginOrRegister pageLoginOrRegister = new PageLoginOrRegister(MainFrame, MainUser);
+            MainFrame.Content = pageLoginOrRegister;
+            pageLoginOrRegister.DrawUserLogin();
+            pageLoginOrRegister.RegisterButton.Click += RegisterButton_Click;
+            pageLoginOrRegister.LoginButton.Click += LoginButton_Click;
+        }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            pageUserSignIn = new PageUserSignIn(MainFrame, MainUser);
+            MainFrame.Content = pageUserSignIn;
+            pageUserSignIn.DrawUserLogin();
+            pageUserSignIn.UserLoginOK.Click += UserSignInOK;
+        }
+
+        private void UserSignInOK(object sender, RoutedEventArgs e)
+        {
+            MainUser = pageUserSignIn.MainUser;
+            beeteManager.Beete = DataBaseManager.GetAllBeete(MainUser);
+            DrawHome();
+        }
+
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             pageUserLogin = new PageUserLogin(MainFrame, MainUser, UserDataFile);
             MainFrame.Content = pageUserLogin;

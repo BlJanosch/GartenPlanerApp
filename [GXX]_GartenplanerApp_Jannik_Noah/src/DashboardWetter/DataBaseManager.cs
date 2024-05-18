@@ -96,5 +96,33 @@ namespace DashboardWetter
             }
             throw new Exception("Diese Pflanze konnt nicht gefunden werden!");
         }
+
+        static public User GetUser(string name, string password)
+        {
+            using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+            {
+
+                connection.Open();
+
+                SqliteCommand command = connection.CreateCommand();
+
+                command.CommandText = @"SELECT * FROM tblUser";
+
+                User user = new User();
+
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.GetString(1) == name && reader.GetString(2) == User.PasswordToHash(password))
+                        {
+                            user = new User(reader.GetString(1), reader.GetString(2), reader.GetString(3));
+                            user.GetUserID();
+                        }
+                    }
+                }
+                return user;
+            }
+        }
     }
 }
