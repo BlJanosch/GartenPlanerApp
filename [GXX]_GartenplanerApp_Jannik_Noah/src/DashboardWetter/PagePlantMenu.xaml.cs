@@ -41,8 +41,10 @@ namespace DashboardWetter
             
             foreach (Plant Plant in Plants.Pflanzen)
             {
-                listBox.Items.Add(Plant.Name);
-                
+                Label content = new Label();
+                content.Content = Plant.Name;
+                content.Style = Styles.GetFontStyle(15);
+                listBox.Items.Add(content);
             }
 
             

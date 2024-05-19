@@ -9,17 +9,17 @@
       Title="PagePlantMenu">
 
     <DockPanel>
-        <Label DockPanel.Dock="Top" Content="Pflanzen" Foreground="White" FontSize="25" HorizontalContentAlignment="Center"></Label>
-        <Grid x:Name="MainArea" Background="LightGreen">
+        <Label DockPanel.Dock="Top" Content="Pflanzen" Foreground="White" FontSize="40" FontFamily="Ahorni" FontWeight="Bold" HorizontalContentAlignment="Center"></Label>
+        <Grid x:Name="MainArea" Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="5*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
+            <Border Background="#262626" Opacity="0.8" Margin="15" CornerRadius="10"></Border>
+            <ListBox Margin="30" Grid.Row="0" Grid.Column="0" x:Name="ListBoxPlants" BorderBrush="Transparent"  Background="Transparent" ScrollViewer.VerticalScrollBarVisibility="Hidden"></ListBox>
 
-            <ListBox Margin="30" Grid.Row="0" Grid.Column="0" x:Name="ListBoxPlants"  Background="White" BorderBrush="White"></ListBox>
-
-            <Frame Grid.Row="0" Grid.Column="1"  x:Name="FramePlantInfo" ></Frame>
+            <Frame Grid.Row="0" Grid.Column="1" x:Name="FramePlantInfo" ></Frame>
             
         </Grid>
     </DockPanel>

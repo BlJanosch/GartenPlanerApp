@@ -193,7 +193,7 @@ namespace DashboardWetter
 
         public void DrawUserMenu()
         {
-            pageUserMenu = new PageUserMenu(MainUser, MainFrame);
+            pageUserMenu = new PageUserMenu(MainUser, MainFrame, soundPlayer);
             MainFrame.Content = pageUserMenu;
             pageUserMenu.DrawUserMenu();
             pageUserMenu.Finished += PageUserMenu_Finished;

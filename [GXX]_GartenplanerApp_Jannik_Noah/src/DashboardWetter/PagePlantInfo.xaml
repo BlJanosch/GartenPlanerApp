@@ -8,22 +8,22 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PagePlantInfo">
 
-    <DockPanel Margin="10">
-        
-        <Label x:Name="LabelPlantName" Background="DarkGray" DockPanel.Dock="Top" Content="Kohlrabi" FontSize="25" HorizontalContentAlignment="Center" FontWeight="Bold"></Label>
+    <Border  Background="#262626" Opacity="0.8" CornerRadius="10" Margin="10,15,10,15">
+        <DockPanel>
+            <Label x:Name="LabelPlantName" DockPanel.Dock="Top" Content="Kohlrabi" FontSize="25" FontFamily="Ahorni" Foreground="White" HorizontalContentAlignment="Center" FontWeight="Bold"></Label>
 
-        <Grid>
-            
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+            <Grid>
 
-            <TextBlock Grid.Column="0" x:Name="TextBlockInfos" TextWrapping="Wrap" FontSize="14" FontWeight="Medium" FontFamily="Franklin Gothic Book"></TextBlock>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <Image x:Name="Image" Grid.Column="1" />
+                <TextBlock Grid.Column="0" x:Name="TextBlockInfos" TextWrapping="Wrap" FontSize="14" FontWeight="Medium" FontFamily="Franklin Gothic Book"></TextBlock>
 
-        </Grid>
-        
-    </DockPanel>
+                <Image x:Name="Image" Grid.Column="1" />
+            </Grid>
+        </DockPanel>
+                
+    </Border>
 </Page>

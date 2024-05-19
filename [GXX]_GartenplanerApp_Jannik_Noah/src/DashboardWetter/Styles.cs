@@ -31,7 +31,7 @@ namespace DashboardWetter
 
         public static Style GetFontStyle(double FontSize)
         {
-            Style labelStyle = new Style(typeof(Label));
+            Style labelStyle = new Style();
             labelStyle.Setters.Add(new Setter(Label.FontSizeProperty, FontSize));
             labelStyle.Setters.Add(new Setter(Label.FontFamilyProperty, new FontFamily("Aharoni")));
             labelStyle.Setters.Add(new Setter(Label.FontWeightProperty, FontWeights.Bold));
