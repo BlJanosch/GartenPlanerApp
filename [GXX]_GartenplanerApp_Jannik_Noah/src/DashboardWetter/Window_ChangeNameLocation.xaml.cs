@@ -39,7 +39,23 @@ namespace DashboardWetter
             {
                 if (ChangeWhat == "Name")
                 {
-                    MainUser.Name = TextBoxNew.Text;
+                    try
+                    {
+                        var Users = DataBaseManager.GetAllUser();
+                        foreach (User user in Users)
+                        {
+                            if (user.Name == TextBoxNew.Text)
+                            {
+                                throw new Exception("Dieser Name ist bereits vergeben!");
+                            }
+                        }
+                        MainUser.Name = TextBoxNew.Text;
+                        this.DialogResult = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
                 else if (ChangeWhat == "Location")
                 {
@@ -55,12 +71,12 @@ namespace DashboardWetter
                         writer.WriteLine("1");
                         writer.WriteLine(MainUser.SaveToDB());
                     }
+                    this.DialogResult = true;
                 }
                 else
                 {
                     throw new Exception("Falscher Veränderungstyp wurde mitgegeben!");
                 }
-                this.DialogResult = true;
             }
             catch (Exception ex)
             {
