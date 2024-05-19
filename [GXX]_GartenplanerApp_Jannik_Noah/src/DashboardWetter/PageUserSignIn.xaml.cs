@@ -93,7 +93,15 @@ namespace DashboardWetter
 
         private async void UserLoginOK_Click(object sender, RoutedEventArgs e)
         {
-            MainUser = DataBaseManager.GetUser(UserNameBox.Text, UserPasswordBox.Text);
+            try
+            {
+                MainUser = DataBaseManager.GetUser(UserNameBox.Text, UserPasswordBox.Text);
+            }
+            catch (Exception ex)
+            {
+                MainUser = null;
+                MessageBox.Show("Bitte überprüfen Sie ihre Eingabe", "Falsche Eingabe", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

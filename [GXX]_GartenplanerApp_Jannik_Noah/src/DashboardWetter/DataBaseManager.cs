@@ -118,10 +118,11 @@ namespace DashboardWetter
                         {
                             user = new User(reader.GetString(1), reader.GetString(2), reader.GetString(3));
                             user.GetUserID();
+                            return user;
                         }
                     }
                 }
-                return user;
+                throw new Exception("User not found!");
             }
         }
     }
