@@ -38,7 +38,7 @@ namespace DashboardWetter
         private Button buttonPlay;
         private Button buttonMute;
 
-        public PageUserMenu(User MainUser, Frame mainFrame)
+        public PageUserMenu(User MainUser, Frame mainFrame, SoundPlayer soundPlayer)
         {
             InitializeComponent();
             this.MainUser = MainUser;
