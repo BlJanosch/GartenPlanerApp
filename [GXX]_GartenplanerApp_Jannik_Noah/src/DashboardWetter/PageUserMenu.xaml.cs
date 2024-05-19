@@ -29,6 +29,7 @@ namespace DashboardWetter
         public PageUserSignIn pageUserSignIn;
         public PageUserLogin pageUserLogin;
         public BeeteManager beeteManager = new BeeteManager();
+        public bool UserLogout = false;
 
         // Test-Event
         public delegate void FinishedHandler(object sender, EventArgs e);
@@ -194,6 +195,7 @@ namespace DashboardWetter
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
+            UserLogout = true;
             using (StreamWriter writer = new StreamWriter(UserDataFile, false))
             {
                 writer.WriteLine("0");

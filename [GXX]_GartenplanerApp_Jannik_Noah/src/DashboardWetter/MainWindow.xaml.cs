@@ -107,6 +107,7 @@ namespace DashboardWetter
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            DrawUserLoginOrRegister();
             bool SignedIn = false;
             string[] UserData = new string[4];
             if (File.Exists(UserDataFile))
@@ -176,6 +177,10 @@ namespace DashboardWetter
         {
             try
             {
+                if (!pageUserMenu.UserLogout)
+                {
+                    throw new Exception();
+                }
                 PageBeeteMenu pageBeeteMenu = new PageBeeteMenu(pageUserMenu.beeteManager, MainFrame, pageUserMenu.MainUser);
                 MainFrame.Content = pageBeeteMenu;
                 pageBeeteMenu.DrawBeeteMenu();
