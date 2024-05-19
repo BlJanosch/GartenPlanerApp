@@ -28,6 +28,7 @@ namespace DashboardWetter
         public Button UserLoginOK;
         public Frame MainFrame;
         public User MainUser;
+        public string UserDataFile = AppDomain.CurrentDomain.BaseDirectory.Split("\\bin\\")[0] + "\\UserData\\Login.csv";
         public PageUserSignIn(Frame mainFrame, User mainUser)
         {
             this.MainFrame = mainFrame;
@@ -93,7 +94,31 @@ namespace DashboardWetter
 
         private async void UserLoginOK_Click(object sender, RoutedEventArgs e)
         {
-            MainUser = DataBaseManager.GetUser(UserNameBox.Text, UserPasswordBox.Text);
+            try
+            {
+                MainUser = DataBaseManager.GetUser(UserNameBox.Text, UserPasswordBox.Text);
+                if (File.Exists(UserDataFile))
+                {
+                    using (StreamWriter writer = new StreamWriter(UserDataFile, false))
+                    {
+                        writer.WriteLine("1");
+                        writer.WriteLine(MainUser.SaveToDB());
+                    }
+                }
+                else
+                {
+                    using (StreamWriter writer = new StreamWriter(UserDataFile))
+                    {
+                        writer.WriteLine("1");
+                        writer.WriteLine(MainUser.SaveToDB());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MainUser = null;
+                MessageBox.Show("Bitte überprüfen Sie ihre Eingabe", "Falsche Eingabe", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

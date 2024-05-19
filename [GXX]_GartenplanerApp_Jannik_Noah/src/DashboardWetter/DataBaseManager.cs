@@ -118,10 +118,37 @@ namespace DashboardWetter
                         {
                             user = new User(reader.GetString(1), reader.GetString(2), reader.GetString(3));
                             user.GetUserID();
+                            return user;
                         }
                     }
                 }
-                return user;
+                throw new Exception("User not found!");
+            }
+        }
+
+        static public List<User> GetAllUser()
+        {
+            using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+            {
+
+                connection.Open();
+
+                SqliteCommand command = connection.CreateCommand();
+
+                command.CommandText = @"SELECT * FROM tblUser";
+
+                List<User> Users = new List<User>();
+
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        User user = new User(reader.GetString(1), reader.GetString(2), reader.GetString(3));
+                        user.GetUserID();
+                        Users.Add(user);
+                    }
+                }
+                return Users;
             }
         }
     }

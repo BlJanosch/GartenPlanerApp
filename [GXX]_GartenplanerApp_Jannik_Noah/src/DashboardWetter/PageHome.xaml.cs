@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -224,16 +225,26 @@ namespace DashboardWetter
 
         private async void getWeather()
         {
-            OpenMeteo.OpenMeteoClient client = new OpenMeteo.OpenMeteoClient();
-            WeatherForecast forecast = await client.QueryAsync(MainUser.Location);
+            try
+            {
+                OpenMeteo.OpenMeteoClient client = new OpenMeteo.OpenMeteoClient();
+                WeatherForecast forecast = await client.QueryAsync(MainUser.Location);
 
-            int id = Convert.ToInt32(forecast.Current.Weathercode);
-            WetterDashBoard.Content = client.WeathercodeToString(id);
-            TemperaturNow.Content = $"Temperatur {forecast.Current.Temperature} C°";
-            RegenNow.Content = $"Regen {forecast.Current.Rain} %";
-            SchneeNow.Content = $"Schnee {forecast.Current.Snowfall} %";
-            WolkenNow.Content = $"Wolken {forecast.Current.Cloudcover} %";
-
+                int id = Convert.ToInt32(forecast.Current.Weathercode);
+                WetterDashBoard.Content = client.WeathercodeToString(id);
+                TemperaturNow.Content = $"Temperatur {forecast.Current.Temperature} C°";
+                RegenNow.Content = $"Regen {forecast.Current.Rain} %";
+                SchneeNow.Content = $"Schnee {forecast.Current.Snowfall} %";
+                WolkenNow.Content = $"Wolken {forecast.Current.Cloudcover} %";
+            }
+            catch
+            {
+                WetterDashBoard.Content = "N/A";
+                TemperaturNow.Content = "N/A";
+                RegenNow.Content = "N/A";
+                SchneeNow.Content = "N/A";
+                WolkenNow.Content = "N/A";
+            }
         }
     }
 }

@@ -109,8 +109,18 @@ namespace DashboardWetter
 
         private async void UserLoginOK_Click(object sender, RoutedEventArgs e)
         {
+            bool nameTest = true;
             try
             {
+                var Users = DataBaseManager.GetAllUser();
+                foreach (User user in Users)
+                {
+                    if (user.Name == UserNameBox.Text)
+                    {
+                        throw new NullReferenceException();
+                    }
+                }
+
                 MainUser = new User(UserNameBox.Text, User.PasswordToHash(UserPasswordBox.Text), UserLocationBox.Text);
                 MainUser.SaveUser();
                 OpenMeteo.OpenMeteoClient client = new OpenMeteo.OpenMeteoClient();
@@ -136,9 +146,17 @@ namespace DashboardWetter
                         writer.WriteLine(MainUser.SaveToDB());
                     }
                 }
-                PageHome pageHome = new PageHome(MainUser);
-                MainFrame.Content = pageHome;
-                pageHome.DrawHome();
+                if (nameTest)
+                {
+                    PageHome pageHome = new PageHome(MainUser);
+                    MainFrame.Content = pageHome;
+                    pageHome.DrawHome();
+                }
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Dieser Name ist bereits vergeben!", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                nameTest = false;
             }
             catch
             {
