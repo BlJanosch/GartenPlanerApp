@@ -86,10 +86,6 @@ namespace DashboardWetter
             string PageName = MainFrame.Content.GetType().Name;
             if (PageName == "PageHome")
             {
-                if (pageUserMenu != null && pageUserMenu.pageLoginOrRegister != null)
-                {
-                    MainUser = pageUserMenu.pageLoginOrRegister.MainUser;
-                }
                 HomeButton.IsEnabled = true;
                 BeeteButton.IsEnabled = true;
                 PflanzeButton.IsEnabled = true;
