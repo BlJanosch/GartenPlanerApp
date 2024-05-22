@@ -112,10 +112,15 @@ namespace DashboardWetter
             InitializeComponent();
         }
 
-        public BeetControl(string headingText, string imagePath)
+        public BeetControl(string headingText, string imagePath, Brush colorLeft, Brush colorRight, Brush colorTop, Brush colorBottom)
         {
             InitializeComponent();
 
+
+            ColorBottom = colorBottom;
+            ColorLeft = colorLeft;
+            ColorRight = colorRight;
+            ColorTop = colorTop;
             LabelHeading.Content = headingText;
             SetImage(imagePath);
         }
@@ -125,8 +130,8 @@ namespace DashboardWetter
             Image image = new Image()
             {
 
-                Height = 55,
-                Width = 55,
+                Height = 48,
+                Width = 48,
 
             };
 
@@ -134,7 +139,7 @@ namespace DashboardWetter
 
             CanvasMain.Children.Add(image);
             Canvas.SetTop(image, 0);
-            Canvas.SetLeft(image, 0);
+            Canvas.SetLeft(image, 10);
         }
     }
 }
