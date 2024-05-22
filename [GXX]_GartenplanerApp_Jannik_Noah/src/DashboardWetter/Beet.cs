@@ -201,7 +201,7 @@ namespace DashboardWetter
                         
                         BeetGrid.Children.Add(canvas);*/
 
-                        BeetControl canvas = new BeetControl(plants[x + (y * Breite)].Name, $"/Images/plants/plant{plants[x + (y * Breite)].ID - 1}.jpg")
+                        BeetControl canvas = new BeetControl(plants[x + (y * Breite)].Name, $"/Images/plants/plant{plants[x + (y * Breite)].ID - 1}.png")
                         {
                             Width = 80,
                             Height = 80
