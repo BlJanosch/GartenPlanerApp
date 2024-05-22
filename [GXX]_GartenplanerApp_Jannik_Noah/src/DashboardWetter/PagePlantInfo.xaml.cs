@@ -33,7 +33,7 @@ namespace DashboardWetter
         public void DrawPlantInfo()
         {
             LabelPlantName.Content = plantManager.Pflanzen[plantIndex].Name;
-
+            LabelPlantName.Margin = new Thickness(0, 10, 0, 0);
            
             TextBlockInfos.Text = $"\nSAAT\nSaatzeit: {plantManager.Pflanzen[plantIndex].Saatzeit}\nSaatverfahren: {plantManager.Pflanzen[plantIndex].Saatverfahren}\nSaattiefe: {plantManager.Pflanzen[plantIndex].Saattiefe}\nPflanzabstand: {plantManager.Pflanzen[plantIndex].Pflanzenabstand}\n\nPFLEGE\n{plantManager.Pflanzen[plantIndex].Pflege}\n\nTemperatur: {plantManager.Pflanzen[plantIndex].Temperatur}\nWasserbedarf: {plantManager.Pflanzen[plantIndex].Wasserbedarf}\nNährstoffbedarf: {plantManager.Pflanzen[plantIndex].Nährstoffbedarf}\nErnte: {plantManager.Pflanzen[plantIndex].Ernte}\nHäufige Krankheiten: {plantManager.Pflanzen[plantIndex].Krankheiten}\n";
             TextBlockInfos.FontFamily = new FontFamily("Ahorni");
@@ -41,7 +41,7 @@ namespace DashboardWetter
             TextBlockInfos.Foreground = Brushes.White;  
             TextBlockInfos.FontWeight = FontWeights.Bold;
             TextBlockInfos.Margin = new Thickness(10, 0, 0, 0);
-            Image.Source = new BitmapImage(new Uri($"/Images/plants/plant{plantIndex}.jpg", UriKind.Relative));
+            Image.Source = new BitmapImage(new Uri($"/Images/plants/plant{plantIndex}.png", UriKind.Relative));
 
         }
     }
