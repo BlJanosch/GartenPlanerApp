@@ -173,7 +173,7 @@ namespace DashboardWetter
                 {
                     if (!(plants[x+(y*Breite)] == null))
                     {
-                        Canvas canvas = new Canvas()
+                        /*Canvas canvas = new Canvas()
                         {
                             Height = 80,
                             Width = 80,
@@ -185,6 +185,7 @@ namespace DashboardWetter
                         };
                         Image image = new Image()
                         {
+
                             Height = 80,
                             Width = 80,
                             
@@ -198,7 +199,16 @@ namespace DashboardWetter
                         canvas.Children.Add(image);
                         canvas.Children.Add(labelName);
                         
+                        BeetGrid.Children.Add(canvas);*/
+
+                        BeetControl canvas = new BeetControl(plants[x + (y * Breite)].Name, $"/Images/plants/plant{plants[x + (y * Breite)].ID - 1}.jpg")
+                        {
+                            Width = 80,
+                            Height = 80
+                        };
+
                         BeetGrid.Children.Add(canvas);
+
                         Grid.SetColumn(canvas, y);
                         Grid.SetRow(canvas, x);
                     }

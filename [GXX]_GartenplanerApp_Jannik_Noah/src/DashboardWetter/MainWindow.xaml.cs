@@ -171,6 +171,8 @@ namespace DashboardWetter
 
         public void DrawBeeteMenu()
         {
+            //if (pageUserMenu == null || !pageUserMenu.UserLogout)
+
             try
             {
                 if (!pageUserMenu.UserLogout)
