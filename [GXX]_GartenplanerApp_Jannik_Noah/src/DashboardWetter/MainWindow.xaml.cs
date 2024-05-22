@@ -59,8 +59,8 @@ namespace DashboardWetter
         public MainWindow()
         {
             InitializeComponent();
-            //this.soundPlayer = new SoundPlayer("Assets/song.mp3");
-            //this.soundPlayer.PlayLooping();
+            this.soundPlayer = new SoundPlayer("Assets/song.wav");
+            this.soundPlayer.PlayLooping();
             
             UhrDashBoard = new Label();
             TemperaturNow = new Label();
