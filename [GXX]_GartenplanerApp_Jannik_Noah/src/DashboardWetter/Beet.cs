@@ -191,7 +191,7 @@ namespace DashboardWetter
                             
                         };
 
-                        image.Source = new BitmapImage(new Uri($"/Images/plants/plant{plants[x + (y * Breite)].ID-1}.jpg", UriKind.Relative));
+                        image.Source = new BitmapImage(new Uri($"/Images/plants/plant{plants[x + (y * Breite)].ID-1}.png", UriKind.Relative));
 
                         Canvas.SetTop(image, 10);
                         Canvas.SetLeft(image, 0);

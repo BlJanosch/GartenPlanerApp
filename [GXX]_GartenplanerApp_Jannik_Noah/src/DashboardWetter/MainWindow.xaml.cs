@@ -60,7 +60,7 @@ namespace DashboardWetter
         {
             InitializeComponent();
             this.soundPlayer = new SoundPlayer("Assets/song.wav");
-            this.soundPlayer.PlayLooping();
+            //this.soundPlayer.PlayLooping();
             
             UhrDashBoard = new Label();
             TemperaturNow = new Label();
@@ -245,8 +245,18 @@ namespace DashboardWetter
 
         private void UserLoginOK_Click(object sender, RoutedEventArgs e)
         {
-            MainUser = pageUserLogin.MainUser;
-            MainUser.GetUserID();
+            try
+            {
+                MainUser = pageUserLogin.MainUser;
+                MainUser.GetUserID();
+            }
+            catch
+            {
+                pageUserLogin = new PageUserLogin(MainFrame, MainUser, UserDataFile);
+                MainFrame.Content = pageUserLogin;
+                pageUserLogin.DrawUserLogin();
+                pageUserLogin.UserLoginOK.Click += UserLoginOK_Click;
+            }
         }
 
         private void BeeteButton_Click(object sender, RoutedEventArgs e)

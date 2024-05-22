@@ -17,23 +17,41 @@
     <None Remove="Images\Home.png" />
     <None Remove="Images\Info_Icon.png" />
     <None Remove="Images\plants\plant0.jpg" />
+    <None Remove="Images\plants\plant0.png" />
     <None Remove="Images\plants\plant1.jpg" />
+    <None Remove="Images\plants\plant1.png" />
     <None Remove="Images\plants\plant10.jpg" />
+    <None Remove="Images\plants\plant10.png" />
     <None Remove="Images\plants\plant11.jpg" />
+    <None Remove="Images\plants\plant11.png" />
     <None Remove="Images\plants\plant12.jpg" />
+    <None Remove="Images\plants\plant12.png" />
     <None Remove="Images\plants\plant13.jpg" />
+    <None Remove="Images\plants\plant13.png" />
     <None Remove="Images\plants\plant14.jpg" />
+    <None Remove="Images\plants\plant14.png" />
     <None Remove="Images\plants\plant15.jpg" />
+    <None Remove="Images\plants\plant15.png" />
     <None Remove="Images\plants\plant16.jpg" />
+    <None Remove="Images\plants\plant16.png" />
     <None Remove="Images\plants\plant17.jpg" />
+    <None Remove="Images\plants\plant17.png" />
     <None Remove="Images\plants\plant2.jpg" />
+    <None Remove="Images\plants\plant2.png" />
     <None Remove="Images\plants\plant3.jpg" />
+    <None Remove="Images\plants\plant3.png" />
     <None Remove="Images\plants\plant4.jpg" />
+    <None Remove="Images\plants\plant4.png" />
     <None Remove="Images\plants\plant5.jpg" />
+    <None Remove="Images\plants\plant5.png" />
     <None Remove="Images\plants\plant6.jpg" />
+    <None Remove="Images\plants\plant6.png" />
     <None Remove="Images\plants\plant7.jpg" />
+    <None Remove="Images\plants\plant7.png" />
     <None Remove="Images\plants\plant8.jpg" />
+    <None Remove="Images\plants\plant8.png" />
     <None Remove="Images\plants\plant9.jpg" />
+    <None Remove="Images\plants\plant9.png" />
     <None Remove="Images\Plus.png" />
     <None Remove="Images\TerraScape.png" />
     <None Remove="Images\User.png" />
@@ -107,6 +125,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\plants\plant16.png" />
+    <Resource Include="Images\plants\plant17.png" />
+    <Resource Include="Images\plants\plant3.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.4" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="8.0.4" />
     <PackageReference Include="OpenMeteo.dotnet" Version="2.0.0" />
@@ -124,6 +148,21 @@
     <Resource Include="Images\Bild6.png" />
     <Resource Include="Images\Home.png" />
     <Resource Include="Images\Info_Icon.png" />
+    <Resource Include="Images\plants\plant0.png" />
+    <Resource Include="Images\plants\plant1.png" />
+    <Resource Include="Images\plants\plant10.png" />
+    <Resource Include="Images\plants\plant11.png" />
+    <Resource Include="Images\plants\plant12.png" />
+    <Resource Include="Images\plants\plant13.png" />
+    <Resource Include="Images\plants\plant14.png" />
+    <Resource Include="Images\plants\plant15.png" />
+    <Resource Include="Images\plants\plant2.png" />
+    <Resource Include="Images\plants\plant4.png" />
+    <Resource Include="Images\plants\plant5.png" />
+    <Resource Include="Images\plants\plant6.png" />
+    <Resource Include="Images\plants\plant7.png" />
+    <Resource Include="Images\plants\plant8.png" />
+    <Resource Include="Images\plants\plant9.png" />
     <Resource Include="Images\Plus.png" />
     <Resource Include="Images\TerraScape.png" />
     <Resource Include="Images\User.png" />
