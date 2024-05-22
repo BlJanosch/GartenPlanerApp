@@ -243,8 +243,18 @@ namespace DashboardWetter
 
         private void UserLoginOK_Click(object sender, RoutedEventArgs e)
         {
-            MainUser = pageUserLogin.MainUser;
-            MainUser.GetUserID();
+            try
+            {
+                MainUser = pageUserLogin.MainUser;
+                MainUser.GetUserID();
+            }
+            catch
+            {
+                pageUserLogin = new PageUserLogin(MainFrame, MainUser, UserDataFile);
+                MainFrame.Content = pageUserLogin;
+                pageUserLogin.DrawUserLogin();
+                pageUserLogin.UserLoginOK.Click += UserLoginOK_Click;
+            }
         }
 
         private void BeeteButton_Click(object sender, RoutedEventArgs e)

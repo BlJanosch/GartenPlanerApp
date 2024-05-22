@@ -109,7 +109,6 @@ namespace DashboardWetter
 
         private async void UserLoginOK_Click(object sender, RoutedEventArgs e)
         {
-            bool nameTest = true;
             try
             {
                 var Users = DataBaseManager.GetAllUser();
@@ -117,6 +116,7 @@ namespace DashboardWetter
                 {
                     if (user.Name == UserNameBox.Text)
                     {
+                        MainUser = null;
                         throw new NullReferenceException();
                     }
                 }
@@ -146,17 +146,14 @@ namespace DashboardWetter
                         writer.WriteLine(MainUser.SaveToDB());
                     }
                 }
-                if (nameTest)
-                {
-                    PageHome pageHome = new PageHome(MainUser);
-                    MainFrame.Content = pageHome;
-                    pageHome.DrawHome();
-                }
+                PageHome pageHome = new PageHome(MainUser);
+                MainFrame.Content = pageHome;
+                pageHome.DrawHome();
+
             }
             catch (NullReferenceException)
             {
                 MessageBox.Show("Dieser Name ist bereits vergeben!", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-                nameTest = false;
             }
             catch
             {
