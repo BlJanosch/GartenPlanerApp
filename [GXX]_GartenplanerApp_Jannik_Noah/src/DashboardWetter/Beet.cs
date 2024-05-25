@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using Microsoft.Data.Sqlite;
 using System.Diagnostics.Metrics;
 using System.Numerics;
+using System.Linq.Expressions;
 
 namespace DashboardWetter
 {
@@ -18,8 +19,8 @@ namespace DashboardWetter
     {
         public int UserID;
         public string Name;
+        public int Hoehe;
         public int Breite;
-        public int Laenge;
 
         public static PlantManager AllPlants = DataBaseManager.GetAllPlants();
 
@@ -37,13 +38,13 @@ namespace DashboardWetter
             Margin = new Thickness(0, 10, 0, 10),
         };
 
-        public Beet(int userID, string name, int breite, int laenge) 
+        public Beet(int userID, string name, int hoehe, int breite) 
         {
             this.Name = name;
+            this.Hoehe = hoehe;
             this.Breite = breite;
-            this.Laenge = laenge;
-            this.plants = new Plant[breite * laenge];
-            this.buttons = new Button[breite * laenge];
+            this.plants = new Plant[hoehe * breite];
+            this.buttons = new Button[hoehe * breite];
             this.UserID = userID;
         }
 
@@ -60,6 +61,13 @@ namespace DashboardWetter
                 Margin = new Thickness(0, 10, 0, 10),
             };
 
+            for (int i = 0; i < Hoehe; i++)
+            {
+                ColumnDefinition column = new ColumnDefinition();
+                column.Width = new GridLength(Size);
+                BeetGrid.ColumnDefinitions.Add(column);
+            }
+
             for (int i = 0; i < Breite; i++)
             {
                 ColumnDefinition column = new ColumnDefinition();
@@ -67,23 +75,16 @@ namespace DashboardWetter
                 BeetGrid.ColumnDefinitions.Add(column);
             }
 
-            for (int i = 0; i < Laenge; i++)
-            {
-                ColumnDefinition column = new ColumnDefinition();
-                column.Width = new GridLength(Size);
-                BeetGrid.ColumnDefinitions.Add(column);
-            }
-
-            for (int i = 0; i <= Breite; i++)
+            for (int i = 0; i <= Hoehe; i++)
             {
                 RowDefinition row = new RowDefinition();
                 row.Height = new GridLength(Size);
                 BeetGrid.RowDefinitions.Add(row);
             }
 
-            for (int y = 0; y < Laenge; y++)
+            for (int col = 0; col < Breite; col++)
             {
-                for (int x = 0; x < Breite; x++)
+                for (int row = 0; row < Hoehe; row++)
                 {
                     Border border = new Border()
                     {
@@ -94,7 +95,7 @@ namespace DashboardWetter
                     Button button = new Button()
                     {
                         Opacity = 0.000001,
-                        Name = $"Pflanze{x}Pflanze{y}",
+                        Name = $"Pflanze{col}Pflanze{row}",
                     };
 
                     button.Click += Button_Click;
@@ -108,13 +109,13 @@ namespace DashboardWetter
                         VerticalAlignment = VerticalAlignment.Center,
 
                     };
-                    Grid.SetColumn(border, y);
-                    Grid.SetRow(border, x);
-                    Grid.SetColumn(button, y);
-                    Grid.SetRow(button, x);
-                    buttons[x+(y*Breite)] = button;
-                    Grid.SetColumn(image, y);
-                    Grid.SetRow(image, x);
+                    Grid.SetColumn(border, col);
+                    Grid.SetRow(border, row);
+                    Grid.SetColumn(button, col);
+                    Grid.SetRow(button, row);
+                    buttons[col+(row*Breite)] = button;
+                    Grid.SetColumn(image, col);
+                    Grid.SetRow(image, row);
                     BeetGrid.Children.Add(border);
                     BeetGrid.Children.Add(image);
                     BeetGrid.Children.Add(button);
@@ -134,8 +135,8 @@ namespace DashboardWetter
                 Margin = new Thickness(0, 10, 0, 0),
             };
 
-            BeetGrid.Width = Laenge * Size;
-            BeetGrid.Height = Breite * Size;  
+            BeetGrid.Width = Breite * Size;
+            BeetGrid.Height = Hoehe * Size;  
 
             MainArea.Children.Add(nameLabel);
             if ((MainArea.Children.Contains(BeetGrid) == false))
@@ -155,10 +156,10 @@ namespace DashboardWetter
             {
                 if (windowAddPlant.selectedIndex != -1)
                 {
-                    int indexX = Convert.ToInt32(button.Name.Split("Pflanze")[1]);
-                    int indexY = Convert.ToInt32(button.Name.Split("Pflanze")[2]);
+                    int indexCol = Convert.ToInt32(button.Name.Split("Pflanze")[1]);
+                    int indexRow = Convert.ToInt32(button.Name.Split("Pflanze")[2]);
 
-                    this.plants[indexX + (indexY * Breite)] = AllPlants.Pflanzen[(windowAddPlant.selectedIndex)];
+                    this.plants[indexCol + (indexRow * Breite)] = AllPlants.Pflanzen[(windowAddPlant.selectedIndex)];
                 }
                 DrawLabelsPlants();
                 UpdateBeet();
@@ -167,13 +168,13 @@ namespace DashboardWetter
 
         private void DrawLabelsPlants()
         {
-            for (int x = 0; x < Breite; x++)
+            for (int col = 0; col < Breite; col++)
             {
-                for (int y = 0; y < Laenge; y++)
+                for (int row = 0; row < Hoehe; row++)
                 {
-                    if (!(plants[x+(y*Breite)] == null))
+                    if (!(plants[ToLinear(col,row)] == null))
                     {
-                        Canvas canvas = new Canvas()
+                        /*Canvas canvas = new Canvas()
                         {
                             Height = 80,
                             Width = 80,
@@ -185,6 +186,7 @@ namespace DashboardWetter
                         };
                         Image image = new Image()
                         {
+
                             Height = 80,
                             Width = 80,
                             
@@ -198,14 +200,95 @@ namespace DashboardWetter
                         canvas.Children.Add(image);
                         canvas.Children.Add(labelName);
                         
+                        BeetGrid.Children.Add(canvas);*/
+
+                        BeetControl canvas = new BeetControl(plants[col + (row * Breite)].Name, $"/Images/plants/plant{plants[col + (row * Breite)].ID - 1}.png", GetBrushLeft(col, row), GetBrushRight(col, row), GetBrushTop(col, row), GetBrushBottom(col, row))
+                        {
+                            Width = 80,
+                            Height = 80
+                        };
+
                         BeetGrid.Children.Add(canvas);
-                        Grid.SetColumn(canvas, y);
-                        Grid.SetRow(canvas, x);
+
+                        Grid.SetColumn(canvas, col);
+                        Grid.SetRow(canvas, row);
                     }
                 }
             }
         }
 
+        private int ToLinear(int col, int row)
+        {
+            return col + row * Breite;
+        }
+
+        public Brush GetBrushLeft(int x, int y)
+        {
+            try
+            {
+                if (plants[ToLinear(x, y)].schlechteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x - 1, y)].ID)))
+                {
+                    return Brushes.Red;
+                }
+                else if (plants[ToLinear(x, y)].guteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x - 1, y)].ID)))
+                {
+                    return Brushes.Green;
+                }
+            }
+            catch { }
+            return Brushes.Black;
+        }
+
+        public Brush GetBrushRight(int x, int y)
+        {
+            try
+            {
+                if (plants[ToLinear(x, y)].schlechteNachbarn.Contains(plants[ToLinear(x + 1, y)].ID))
+                {
+                    return Brushes.Red;
+                }
+                else if (plants[ToLinear(x, y)].guteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x + 1, y)].ID)))
+                {
+                    return Brushes.Green;
+                }
+            }
+            catch { }
+            return Brushes.Black;
+        }
+
+        public Brush GetBrushTop(int x, int y)
+        {
+            try
+            {
+                if (plants[ToLinear(x, y)].schlechteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x, y-1)].ID)))
+                {
+                    return Brushes.Red;
+                }
+                else if (plants[ToLinear(x, y)].guteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x, y-1)].ID)))
+                {
+                    return Brushes.Green;
+                }
+            }
+            catch { }
+            return Brushes.Black;
+        }
+
+        public Brush GetBrushBottom(int x, int y)
+        {
+            try
+            {
+                if (plants[ToLinear(x, y)].schlechteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x, y+1)].ID)))
+                {
+                    return Brushes.Red;
+                }
+                else if (plants[ToLinear(x, y)].guteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x, y+1)].ID)))
+                {
+                    return Brushes.Green;
+                }
+            }
+            catch { }
+            return Brushes.Black;
+        }
 
         public void SaveBeet()
         {
@@ -231,7 +314,7 @@ namespace DashboardWetter
                     }
                     counter++;
                 }
-                command.CommandText = $"INSERT INTO tblBeet(UserID, Rows, Columns, Name, Plants) VALUES({UserID}, {Breite}, {Laenge}, '{Name}', '{Plants}');";
+                command.CommandText = $"INSERT INTO tblBeet(UserID, Rows, Columns, Name, Plants) VALUES({UserID}, {Hoehe}, {Breite}, '{Name}', '{Plants}');";
 
                 int tmp = command.ExecuteNonQuery();
             }

@@ -77,21 +77,21 @@ namespace DashboardWetter
                 VerticalAlignment= VerticalAlignment.Center,
             };
 
-            for (int i = 0; i < beet.Laenge; i++)
+            for (int i = 0; i < beet.Breite; i++)
             {
                 ColumnDefinition column = new ColumnDefinition();
                 beetViewGrid.ColumnDefinitions.Add(column);
             }
 
-            for (int i = 0; i < beet.Breite; i++)
+            for (int i = 0; i < beet.Hoehe; i++)
             {
                 RowDefinition row = new RowDefinition();
                 beetViewGrid.RowDefinitions.Add(row);
             }
 
-            for (int i = 0; i < beet.Laenge; i++)
+            for (int i = 0; i < beet.Breite; i++)
             {
-                for (int j = 0; j < beet.Breite; j++)
+                for (int j = 0; j < beet.Hoehe; j++)
                 {
                     Border Border = new Border()
                     {
