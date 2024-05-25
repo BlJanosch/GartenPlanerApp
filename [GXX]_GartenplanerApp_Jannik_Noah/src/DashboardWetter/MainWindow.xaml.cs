@@ -21,6 +21,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using OpenMeteo;
 using System.Media;
+using DashbordWetter;
 
 namespace DashboardWetter
 {
@@ -103,6 +104,10 @@ namespace DashboardWetter
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            test a = new test();
+            a.ShowDialog();
+
+
             DrawUserLoginOrRegister();
             bool SignedIn = false;
             string[] UserData = new string[4];

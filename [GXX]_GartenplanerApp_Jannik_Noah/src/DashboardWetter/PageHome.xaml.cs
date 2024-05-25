@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Syncfusion.UI.Xaml.ProgressBar;
 using System.Windows.Threading;
 
 namespace DashboardWetter
@@ -166,15 +167,25 @@ namespace DashboardWetter
 
             Label label1 = new Label() { Content = "Chemie", Style = Styles.GetFontStyle(20), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
 
-            Ellipse ellipse1 = new Ellipse() { Height = 120, Width = 120, StrokeThickness = 2, Stroke = Brushes.Black, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
-            Ellipse ellipse2 = new Ellipse() { Height = 100, Width = 100, StrokeThickness = 2, Stroke = Brushes.Black, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
-
-            Label label2 = new Label() { Name = "ChemieLabel", Content = "N/A", Style = Styles.GetFontStyle(20), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
+            SfCircularProgressBar circular = new SfCircularProgressBar();
+            circular.Progress = 90;
+            circular.Width = 347;
+            circular.ProgressColor = Brushes.Green;
+            circular.TrackColor = Brushes.DarkGray;
+            circular.FontFamily = new FontFamily("Ahorni");
+            circular.FontWeight = FontWeights.Bold;
+            circular.HorizontalAlignment = HorizontalAlignment.Center;
+            circular.VerticalAlignment = VerticalAlignment.Center;
+            circular.Foreground = Brushes.White;
+            circular.FontSize = 20;
+            RangeColorCollection rangeColors = new RangeColorCollection();
+            rangeColors.Add(new RangeColor() { Color = Colors.BlanchedAlmond, Start = 5, End = 30 });
+            rangeColors.Add(new RangeColor() { Color = Colors.Coral, Start = 30, End = 60 });
+            rangeColors.Add(new RangeColor() { Color = Colors.Crimson, Start = 60, End = 100 });
+            circular.RangeColors = rangeColors;
 
             innerGrid1.Children.Add(label1);
-            innerGrid1.Children.Add(ellipse1);
-            innerGrid1.Children.Add(ellipse2);
-            innerGrid1.Children.Add(label2);
+            innerGrid1.Children.Add(circular);
 
             border1.Child = innerGrid1;
 
