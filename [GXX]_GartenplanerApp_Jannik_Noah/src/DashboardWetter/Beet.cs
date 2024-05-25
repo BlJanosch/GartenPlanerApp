@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Linq;
-using System.Text;
-using System.Windows.Shapes;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows;
 using System.Windows.Media.Imaging;
-using Microsoft.Data.Sqlite;
-using System.Diagnostics.Metrics;
-using System.Numerics;
-using System.Linq.Expressions;
 
 namespace DashboardWetter
 {
@@ -21,6 +14,9 @@ namespace DashboardWetter
         public string Name;
         public int Hoehe;
         public int Breite;
+        private double GoodConections = 0;
+        private double BadConnections = 0;
+        public double Chemie;
 
         public static PlantManager AllPlants = DataBaseManager.GetAllPlants();
 
@@ -38,7 +34,7 @@ namespace DashboardWetter
             Margin = new Thickness(0, 10, 0, 10),
         };
 
-        public Beet(int userID, string name, int hoehe, int breite) 
+        public Beet(int userID, string name, int hoehe, int breite, double goodConnections, double badConnections) 
         {
             this.Name = name;
             this.Hoehe = hoehe;
@@ -46,6 +42,8 @@ namespace DashboardWetter
             this.plants = new Plant[hoehe * breite];
             this.buttons = new Button[hoehe * breite];
             this.UserID = userID;
+            this.GoodConections = goodConnections;
+            this.BadConnections = badConnections;
         }
 
         public void DrawBeet(StackPanel MainArea, Frame MainFrame)
@@ -163,11 +161,14 @@ namespace DashboardWetter
                 }
                 DrawLabelsPlants();
                 UpdateBeet();
+                Chemie = GetChemie();
             }
         }
 
         private void DrawLabelsPlants()
         {
+            GoodConections = 0;
+            BadConnections = 0;
             for (int col = 0; col < Breite; col++)
             {
                 for (int row = 0; row < Hoehe; row++)
@@ -207,7 +208,7 @@ namespace DashboardWetter
                             Width = 80,
                             Height = 80
                         };
-
+         
                         BeetGrid.Children.Add(canvas);
 
                         Grid.SetColumn(canvas, col);
@@ -228,10 +229,12 @@ namespace DashboardWetter
             {
                 if (plants[ToLinear(x, y)].schlechteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x - 1, y)].ID)))
                 {
+                    BadConnections++;
                     return Brushes.Red;
                 }
                 else if (plants[ToLinear(x, y)].guteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x - 1, y)].ID)))
                 {
+                    GoodConections++;
                     return Brushes.Green;
                 }
             }
@@ -245,10 +248,12 @@ namespace DashboardWetter
             {
                 if (plants[ToLinear(x, y)].schlechteNachbarn.Contains(plants[ToLinear(x + 1, y)].ID))
                 {
+                    BadConnections++;
                     return Brushes.Red;
                 }
                 else if (plants[ToLinear(x, y)].guteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x + 1, y)].ID)))
                 {
+                    GoodConections++;
                     return Brushes.Green;
                 }
             }
@@ -262,10 +267,12 @@ namespace DashboardWetter
             {
                 if (plants[ToLinear(x, y)].schlechteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x, y-1)].ID)))
                 {
+                    BadConnections++;
                     return Brushes.Red;
                 }
                 else if (plants[ToLinear(x, y)].guteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x, y-1)].ID)))
                 {
+                    GoodConections++;
                     return Brushes.Green;
                 }
             }
@@ -279,10 +286,12 @@ namespace DashboardWetter
             {
                 if (plants[ToLinear(x, y)].schlechteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x, y+1)].ID)))
                 {
+                    BadConnections++;
                     return Brushes.Red;
                 }
                 else if (plants[ToLinear(x, y)].guteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x, y+1)].ID)))
                 {
+                    GoodConections++;
                     return Brushes.Green;
                 }
             }
@@ -295,7 +304,6 @@ namespace DashboardWetter
             using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
             {
                 connection.Open();
-                // Planzen richt Laden --> Problem
 
                 SqliteCommand command = connection.CreateCommand();
 
@@ -314,7 +322,7 @@ namespace DashboardWetter
                     }
                     counter++;
                 }
-                command.CommandText = $"INSERT INTO tblBeet(UserID, Rows, Columns, Name, Plants) VALUES({UserID}, {Hoehe}, {Breite}, '{Name}', '{Plants}');";
+                command.CommandText = $"INSERT INTO tblBeet(UserID, Rows, Columns, Name, Plants, guteVerbindungen, schlechteVerbindungen) VALUES({UserID}, {Hoehe}, {Breite}, '{Name}', '{Plants}', {GoodConections}, {BadConnections});";
 
                 int tmp = command.ExecuteNonQuery();
             }
@@ -353,10 +361,16 @@ namespace DashboardWetter
                     }
                     counter++;
                 }
-                command.CommandText = $"UPDATE tblBeet SET Plants = '{Plants}' WHERE Name = '{Name}' AND UserID = {UserID};";
+                command.CommandText = $"UPDATE tblBeet SET Plants = '{Plants}', guteVerbindungen = {GoodConections}, schlechteVerbindungen = {BadConnections} WHERE Name = '{Name}' AND UserID = {UserID};";
 
                 int tmp = command.ExecuteNonQuery();
             }
+        }
+
+        public double GetChemie()
+        {
+            double Max = Hoehe * Breite * 4 - (2 * Hoehe) - (2 * Breite);
+            return GoodConections / Max * 100;
         }
     }
 }

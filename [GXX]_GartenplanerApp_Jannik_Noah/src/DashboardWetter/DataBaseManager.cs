@@ -66,7 +66,8 @@ namespace DashboardWetter
                             string[] Plants = reader.GetString(5).Split(",");
                             PlantManager plantManager = GetAllPlants();
 
-                            Beet beet = new Beet(reader.GetInt16(1), reader.GetString(4), reader.GetInt32(2), reader.GetInt32(3));
+                            Beet beet = new Beet(reader.GetInt16(1), reader.GetString(4), reader.GetInt32(2), reader.GetInt32(3), reader.GetDouble(5), reader.GetDouble(6));
+                            beet.Chemie = beet.GetChemie();
                             int counter = 0;
                             foreach (string element in Plants)
                             {

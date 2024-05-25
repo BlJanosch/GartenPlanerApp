@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using Syncfusion.UI.Xaml.ProgressBar;
 
 namespace DashboardWetter
 {
@@ -15,6 +16,8 @@ namespace DashboardWetter
         public Beet beet;
         public StackPanel MainArea;
         public Frame MainFrame;
+        private string CurrentMode;
+        private Grid grid;
         public BeetShortInfo(Beet beet, StackPanel mainArea, Frame frame)
         {
             this.beet = beet;
@@ -23,6 +26,7 @@ namespace DashboardWetter
         }
         public Border GetShortInfo()
         {
+            CurrentMode = "Beet";
             Border border = new Border()
             {
                 Background = Brushes.Black,
@@ -34,7 +38,7 @@ namespace DashboardWetter
                 Margin = new Thickness(5, 5, 5, 5),
             };
 
-            Grid grid = new Grid()
+            grid = new Grid()
             {
                 Margin = new Thickness(10)
             };
@@ -60,6 +64,17 @@ namespace DashboardWetter
             };
             infoButton.Click += infoButton_Click;
 
+            Button changeButton = new Button()
+            {
+                Height = 20,
+                Width = 20,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(10, 5, 0, 0),
+                Opacity = 0.000001
+            };
+            changeButton.Click += ChangeButton_Click;
+
             Image infoImage = new Image()
             {
                 Source = new BitmapImage(new Uri("Images/Info_Icon.png", UriKind.Relative)),
@@ -69,12 +84,60 @@ namespace DashboardWetter
                 Margin = new Thickness(0, 5, 0, 0)
             };
 
+            Image changeImage = new Image()
+            {
+                Source = new BitmapImage(new Uri("Images/Change.png", UriKind.Relative)),
+                Height = 20,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(10, 5, 0, 0)
+            };
+
+
+            grid.Children.Add(nameLabel);
+            grid.Children.Add(infoImage);
+            grid.Children.Add(infoButton);
+            grid.Children.Add(changeImage);
+            grid.Children.Add(changeButton);
+
+
+            grid.Children.Add(DrawBeet());
+
+
+            border.Child = grid;
+
+            return border;
+        }
+
+        private void ChangeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentMode == "Beet")
+            {
+                grid.Children.RemoveAt(grid.Children.Count - 1);
+                grid.Children.Add(DrawChemie());
+                CurrentMode = "Chemie";
+            }
+            else if (CurrentMode == "Chemie")
+            {
+                grid.Children.RemoveAt(grid.Children.Count - 1);
+                grid.Children.Add(DrawBeet());
+                CurrentMode = "Beet";
+            }
+        }
+
+        private void infoButton_Click(object sender, RoutedEventArgs e)
+        {
+            beet.DrawBeet(MainArea, MainFrame);
+        }
+
+        private Grid DrawBeet()
+        {
             Grid beetViewGrid = new Grid()
             {
                 Height = 100,
                 Width = 180,
                 Background = Brushes.Brown,
-                VerticalAlignment= VerticalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
             };
 
             for (int i = 0; i < beet.Breite; i++)
@@ -99,24 +162,33 @@ namespace DashboardWetter
                         BorderBrush = Brushes.Black,
                     };
                     Grid.SetColumn(Border, i);
-                    Grid.SetRow(Border, j); 
+                    Grid.SetRow(Border, j);
                     beetViewGrid.Children.Add(Border);
                 }
             }
-
-            grid.Children.Add(nameLabel);
-            grid.Children.Add(infoImage);
-            grid.Children.Add(infoButton);
-            grid.Children.Add(beetViewGrid);
-
-            border.Child = grid;
-
-            return border;
+            return beetViewGrid;
         }
 
-        private void infoButton_Click(object sender, RoutedEventArgs e)
+        private SfCircularProgressBar DrawChemie()
         {
-            beet.DrawBeet(MainArea, MainFrame);
+            SfCircularProgressBar circular = new SfCircularProgressBar();
+            circular.Progress = beet.Chemie;
+            circular.Width = 180;
+            circular.ProgressColor = Brushes.Green;
+            circular.TrackColor = Brushes.DarkGray;
+            circular.FontFamily = new FontFamily("Ahorni");
+            circular.FontWeight = FontWeights.Bold;
+            circular.HorizontalAlignment = HorizontalAlignment.Center;
+            circular.VerticalAlignment = VerticalAlignment.Center;
+            circular.Foreground = Brushes.White;
+            circular.FontSize = 20;
+            RangeColorCollection rangeColors = new RangeColorCollection();
+            rangeColors.Add(new RangeColor() { IsGradient = true, Color = Colors.Red, Start = 0, End = 25 });
+            rangeColors.Add(new RangeColor() { IsGradient = true, Color = Colors.Orange, Start = 25, End = 50 });
+            rangeColors.Add(new RangeColor() { IsGradient = true, Color = Colors.LightGreen, Start = 50, End = 75 });
+            rangeColors.Add(new RangeColor() { IsGradient = true, Color = Colors.DarkGreen, Start = 75, End = 100 });
+            circular.RangeColors = rangeColors;
+            return circular;
         }
     }
 }
