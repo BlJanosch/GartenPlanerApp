@@ -174,6 +174,7 @@ namespace DashboardWetter
             SfCircularProgressBar circular = new SfCircularProgressBar();
             circular.Progress = beet.Chemie;
             circular.Width = 180;
+            circular.Maximum = 100;
             circular.ProgressColor = Brushes.Green;
             circular.TrackColor = Brushes.DarkGray;
             circular.FontFamily = new FontFamily("Ahorni");
@@ -186,7 +187,7 @@ namespace DashboardWetter
             rangeColors.Add(new RangeColor() { IsGradient = true, Color = Colors.Red, Start = 0, End = 25 });
             rangeColors.Add(new RangeColor() { IsGradient = true, Color = Colors.Orange, Start = 25, End = 50 });
             rangeColors.Add(new RangeColor() { IsGradient = true, Color = Colors.LightGreen, Start = 50, End = 75 });
-            rangeColors.Add(new RangeColor() { IsGradient = true, Color = Colors.DarkGreen, Start = 75, End = 100 });
+            rangeColors.Add(new RangeColor() { Color = Colors.DarkGreen, Start = 75, End = 100 });
             circular.RangeColors = rangeColors;
             return circular;
         }
