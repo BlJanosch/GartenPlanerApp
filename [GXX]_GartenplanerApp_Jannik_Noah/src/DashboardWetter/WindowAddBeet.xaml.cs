@@ -36,7 +36,7 @@ namespace DashboardWetter
                 {
                     throw new Exception("Bitte keine negativen Zahlen eingeben!");
                 }
-                else if (zahl >= 9) 
+                else if (zahl > 10) 
                 {
                     throw new Exception("Achtung! Höchstens 10 Spalten erlaubt!");
                 }
@@ -45,9 +45,9 @@ namespace DashboardWetter
                 {
                     throw new Exception("Bitte keine negativen Zahlen eingeben!");
                 }
-                else if (zahl >= 6)
+                else if (zahl > 5)
                 {
-                    throw new Exception("Achtung! Höchstens 4 Reihen erlaubt!");
+                    throw new Exception("Achtung! Höchstens 5 Reihen erlaubt!");
                 }
 
                 foreach (Beet beet in BeeteManager.Beete)

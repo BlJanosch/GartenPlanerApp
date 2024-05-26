@@ -127,7 +127,8 @@ namespace DashboardWetter
 
         private void infoButton_Click(object sender, RoutedEventArgs e)
         {
-            beet.DrawBeet(MainArea, MainFrame);
+            beet.DrawBeet(MainArea);
+            beet.MainArea = MainArea;
         }
 
         private Grid DrawBeet()

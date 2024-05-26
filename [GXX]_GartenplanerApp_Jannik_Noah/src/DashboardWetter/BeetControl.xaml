@@ -19,9 +19,13 @@
             </Grid.RowDefinitions>
             
             <Label x:Name="LabelHeading" Content="Test" HorizontalContentAlignment="Center" FontSize="8.5"/>
+            
             <Canvas x:Name="CanvasMain" Grid.Row="1">
-                <Button Canvas.Bottom="5" Canvas.Right="5" x:Name="ButtonDelete" Width="16" Height="16"></Button>
+                <Button Canvas.Bottom="5" Canvas.Right="5" x:Name="ButtonDelete" Width="16" Height="16" Click="ButtonDelete_Click">
+                    <Image x:Name="ImgButtonDelete" Source="Images/Delete.png"></Image>
+                </Button>
             </Canvas>
+
         </Grid>
     </DockPanel>
 </UserControl>

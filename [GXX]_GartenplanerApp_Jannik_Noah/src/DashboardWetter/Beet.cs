@@ -17,6 +17,7 @@ namespace DashboardWetter
         private double GoodConections = 0;
         private double BadConnections = 0;
         public double Chemie;
+        public StackPanel MainArea;
 
         public static PlantManager AllPlants = DataBaseManager.GetAllPlants();
 
@@ -46,7 +47,7 @@ namespace DashboardWetter
             this.BadConnections = badConnections;
         }
 
-        public void DrawBeet(StackPanel MainArea, Frame MainFrame)
+        public void DrawBeet(StackPanel MainArea)
         {
             MainArea.Children.Clear();
             double Size = 80;
@@ -165,7 +166,27 @@ namespace DashboardWetter
             }
         }
 
-        private void DrawLabelsPlants()
+        public void DeleteElement(int col, int row)
+        {
+            /*
+            Panel parentPanel = (Panel)this.Parent;
+            parentPanel.Children.Remove(this);
+            this.beet.plants[col + (row * this.beet.Breite)] = null;
+            this.beet.DrawLabelsPlants();
+            this.beet.UpdateBeet();
+            */
+
+
+            
+            this.plants[ToLinear(col, row)] = null;
+            this.UpdateBeet();
+            this.DrawBeet(MainArea);
+            this.DrawLabelsPlants();
+            
+
+        }
+
+        public void DrawLabelsPlants()
         {
             GoodConections = 0;
             BadConnections = 0;
@@ -203,7 +224,7 @@ namespace DashboardWetter
                         
                         BeetGrid.Children.Add(canvas);*/
 
-                        BeetControl canvas = new BeetControl(plants[col + (row * Breite)].Name, $"/Images/plants/plant{plants[col + (row * Breite)].ID - 1}.png", GetBrushLeft(col, row), GetBrushRight(col, row), GetBrushTop(col, row), GetBrushBottom(col, row))
+                        BeetControl canvas = new BeetControl(this, col, row, plants[col + (row * Breite)].Name, $"/Images/plants/plant{plants[col + (row * Breite)].ID - 1}.png", GetBrushLeft(col, row), GetBrushRight(col, row), GetBrushTop(col, row), GetBrushBottom(col, row))
                         {
                             Width = 80,
                             Height = 80

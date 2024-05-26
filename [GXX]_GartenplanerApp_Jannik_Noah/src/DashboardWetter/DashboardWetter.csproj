@@ -15,6 +15,7 @@
     <None Remove="Images\Bild1.png" />
     <None Remove="Images\Bild6.png" />
     <None Remove="Images\Change.png" />
+    <None Remove="Images\Delete.png" />
     <None Remove="Images\Home.png" />
     <None Remove="Images\Info_Icon.png" />
     <None Remove="Images\plants\plant0.png" />
@@ -49,6 +50,9 @@
 
   <ItemGroup>
     <Resource Include="Images\Change.png" />
+    <Content Include="Images\Delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Images\plants\plant16.png" />
     <Resource Include="Images\plants\plant17.png" />
     <Resource Include="Images\plants\plant3.png" />
