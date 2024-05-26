@@ -141,5 +141,7 @@ namespace DashboardWetter
             Canvas.SetTop(image, 0);
             Canvas.SetLeft(image, 10);
         }
+
+        
     }
 }
