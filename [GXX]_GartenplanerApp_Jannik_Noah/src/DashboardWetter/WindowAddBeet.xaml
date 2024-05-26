@@ -9,9 +9,10 @@
     <Grid Background="#262626">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="1.8*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -23,7 +24,18 @@
         <TextBox x:Name="TBBreite" Grid.Column="1" Grid.Row="1" Background="#262626" VerticalContentAlignment="Center" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White"></TextBox>
         <Label FontSize="15" FontFamily="Aharoni" Grid.Row="2" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center">Name</Label>
         <TextBox x:Name="TBName" Grid.Column="1" Grid.Row="2" Background="#262626" VerticalContentAlignment="Center" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White"></TextBox>
-        <Button Grid.Column="1" Grid.Row="3" Width="85" Height="30" HorizontalAlignment="Left" IsCancel="True" Background="#265026" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" Margin="5,0,0,0" >Abbrechen</Button>
-        <Button Grid.Column="1" Grid.Row="3" Width="85" Height="30" HorizontalAlignment="Right" Background="#265026" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" Margin="0,0,5,0" x:Name="ButtonOK" Click="ButtonOK_Click" IsDefault="True">OK</Button>
+        <Label FontSize="15" FontFamily="Aharoni" Grid.Row="3" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center">Bewässerung</Label>
+        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="BewässerungBox" VerticalContentAlignment="Center">
+            <ComboBoxItem  FontSize="15" FontFamily="Aharoni" FontWeight="Bold">jeden Tag</ComboBoxItem>
+            <ComboBoxItem  FontSize="15" FontFamily="Aharoni" FontWeight="Bold">jeden zweiten Tag</ComboBoxItem>
+            <ComboBoxItem  FontSize="15" FontFamily="Aharoni" FontWeight="Bold">jeden dritten Tag</ComboBoxItem>
+            <ComboBoxItem  FontSize="15" FontFamily="Aharoni" FontWeight="Bold">jeden vierten Tag</ComboBoxItem>
+            <ComboBoxItem  FontSize="15" FontFamily="Aharoni" FontWeight="Bold">jeden fünften Tag</ComboBoxItem>
+            <ComboBoxItem  FontSize="15" FontFamily="Aharoni" FontWeight="Bold">jeden sechsten Tag</ComboBoxItem>
+            <ComboBoxItem  FontSize="15" FontFamily="Aharoni" FontWeight="Bold">jeden Woche</ComboBoxItem>
+            <ComboBoxItem  FontSize="15" FontFamily="Aharoni" FontWeight="Bold">jeden zwei Woche</ComboBoxItem>
+        </ComboBox>
+        <Button Grid.Column="1" Grid.Row="4" Width="85" Height="30" HorizontalAlignment="Left" IsCancel="True" Background="#265026" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" Margin="5,0,0,0">Abbrechen</Button>
+        <Button Grid.Column="1" Grid.Row="4" Width="85" Height="30" HorizontalAlignment="Right" Background="#265026" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" Margin="0,0,5,0" x:Name="ButtonOK" Click="ButtonOK_Click" IsDefault="True">OK</Button>
     </Grid>
 </Window>

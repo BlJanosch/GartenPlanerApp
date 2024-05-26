@@ -59,12 +59,12 @@ namespace DashboardWetter
 
             Ellipse Profilbuch = new Ellipse()
             {
-                Height = 150,
-                Width = 150,
+                Height = 200,
+                Width = 200,
             };
             Profilbuch.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#262626"));
             Profilbuch.StrokeThickness = 2;
-            Profilbuch.Margin = new Thickness(0, 30, 0, 0);
+            Profilbuch.Margin = new Thickness(0, 20, 0, 0);
             ImageBrush imageBrush = new ImageBrush();
             imageBrush.ImageSource = new BitmapImage(UriHelper.GetRessourceUri("Images/TerraScape.png"));
             imageBrush.Stretch = Stretch.UniformToFill;

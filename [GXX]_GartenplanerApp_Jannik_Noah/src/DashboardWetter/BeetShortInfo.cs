@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using Syncfusion.UI.Xaml.ProgressBar;
+using System.Windows.Threading;
 
 namespace DashboardWetter
 {
@@ -18,6 +19,8 @@ namespace DashboardWetter
         public Frame MainFrame;
         private string CurrentMode;
         private Grid grid;
+        public SfCircularProgressBar circularWater;
+        public DispatcherTimer timer_Uhr = new DispatcherTimer();
         public BeetShortInfo(Beet beet, StackPanel mainArea, Frame frame)
         {
             this.beet = beet;
@@ -106,7 +109,21 @@ namespace DashboardWetter
 
             border.Child = grid;
 
+            timer_Uhr.Interval = TimeSpan.FromMilliseconds(10);
+            timer_Uhr.Tick += Timer_Uhr_Tick; ;
+            timer_Uhr.Start();
+
             return border;
+        }
+
+        private void Timer_Uhr_Tick(object? sender, EventArgs e)
+        {
+            try
+            {
+                beet.TimeDifference = beet.LastTimeWatered.AddHours(beet.BewässerungsInterval) - DateTime.Now;
+                circularWater.Progress = beet.TimeDifference.TotalHours / beet.BewässerungsInterval * 100;
+            }
+            catch { }
         }
 
         private void ChangeButton_Click(object sender, RoutedEventArgs e)
@@ -118,6 +135,12 @@ namespace DashboardWetter
                 CurrentMode = "Chemie";
             }
             else if (CurrentMode == "Chemie")
+            {
+                grid.Children.RemoveAt(grid.Children.Count - 1);
+                grid.Children.Add(DrawWater());
+                CurrentMode = "Water";
+            }
+            else if (CurrentMode == "Water")
             {
                 grid.Children.RemoveAt(grid.Children.Count - 1);
                 grid.Children.Add(DrawBeet());
@@ -176,7 +199,7 @@ namespace DashboardWetter
             circular.Progress = beet.Chemie;
             circular.Width = 180;
             circular.Maximum = 100;
-            circular.ProgressColor = Brushes.Green;
+            circular.ProgressColor = Brushes.White;
             circular.TrackColor = Brushes.DarkGray;
             circular.FontFamily = new FontFamily("Ahorni");
             circular.FontWeight = FontWeights.Bold;
@@ -191,6 +214,28 @@ namespace DashboardWetter
             rangeColors.Add(new RangeColor() { Color = Colors.DarkGreen, Start = 75, End = 100 });
             circular.RangeColors = rangeColors;
             return circular;
+        }
+        private SfCircularProgressBar DrawWater()
+        {
+            circularWater = new SfCircularProgressBar();
+            circularWater.Progress = beet.TimeDifference.TotalHours / beet.BewässerungsInterval * 100;
+            circularWater.Width = 180;
+            circularWater.Maximum = 100;
+            circularWater.ProgressColor = Brushes.White;
+            circularWater.TrackColor = Brushes.DarkGray;
+            circularWater.FontFamily = new FontFamily("Ahorni");
+            circularWater.FontWeight = FontWeights.Bold;
+            circularWater.HorizontalAlignment = HorizontalAlignment.Center;
+            circularWater.VerticalAlignment = VerticalAlignment.Center;
+            circularWater.Foreground = Brushes.White;
+            circularWater.FontSize = 20;
+            RangeColorCollection rangeColors = new RangeColorCollection();
+            rangeColors.Add(new RangeColor() { IsGradient = true, Color = Colors.LightSkyBlue, Start = 0, End = 25 });
+            rangeColors.Add(new RangeColor() { IsGradient = true, Color = Colors.LightBlue, Start = 25, End = 50 });
+            rangeColors.Add(new RangeColor() { IsGradient = true, Color = Colors.Blue, Start = 50, End = 75 });
+            rangeColors.Add(new RangeColor() { Color = Colors.DarkBlue, Start = 75, End = 100 });
+            circularWater.RangeColors = rangeColors;
+            return circularWater;
         }
     }
 }
