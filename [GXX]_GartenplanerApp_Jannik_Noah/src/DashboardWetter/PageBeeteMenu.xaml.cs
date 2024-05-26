@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace DashboardWetter
 {
@@ -85,7 +86,9 @@ namespace DashboardWetter
             border.Child = grid;
             grid.Children.Add(imagePlus);
             grid.Children.Add(buttonAddBeet);
+
         }
+
 
         private void ButtonAddBeet_Click(object sender, RoutedEventArgs e)
         {
@@ -94,7 +97,20 @@ namespace DashboardWetter
 
             if (windowAddBeet.DialogResult == true)
             {
-                Beet neuesBeet = new Beet(CurrentUser.ID, (windowAddBeet.TBName.Text != "") ? windowAddBeet.TBName.Text : $"Beet {beeteManager.Beete.Count + 1}", Convert.ToInt32(windowAddBeet.TBBreite.Text), Convert.ToInt32(windowAddBeet.TBLänge.Text), 0, 0);
+                int bewässerung;
+                if (windowAddBeet.BewässerungBox.SelectedIndex == 6)
+                {
+                    bewässerung = 168;
+                }
+                else if (windowAddBeet.BewässerungBox.SelectedIndex == 7)
+                {
+                    bewässerung = 336;
+                }
+                else
+                {
+                    bewässerung = (windowAddBeet.BewässerungBox.SelectedIndex + 1) * 24;
+                }
+                Beet neuesBeet = new Beet(CurrentUser.ID, (windowAddBeet.TBName.Text != "") ? windowAddBeet.TBName.Text : $"Beet {beeteManager.Beete.Count + 1}", Convert.ToInt32(windowAddBeet.TBBreite.Text), Convert.ToInt32(windowAddBeet.TBLänge.Text), 0, 0, bewässerung, DateTime.Now);
                 neuesBeet.SaveBeet();
                 beeteManager.AddBeet(neuesBeet);
                 PageBeeteMenu newPage = new PageBeeteMenu(beeteManager, MainFrame, CurrentUser);

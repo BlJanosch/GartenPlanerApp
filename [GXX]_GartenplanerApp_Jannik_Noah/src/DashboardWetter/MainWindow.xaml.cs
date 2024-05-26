@@ -30,7 +30,6 @@ namespace DashboardWetter
     {
         
         public string Wetter;
-        public DispatcherTimer timer_Uhr = new DispatcherTimer();
         public Label UhrDashBoard;
         public Label TemperaturNow;
         public Label RegenNow;
@@ -140,11 +139,6 @@ namespace DashboardWetter
 
                 }
             }
-        }
-
-        private void timer_Uhr_Tick(object? sender, EventArgs e)
-        {
-            UhrDashBoard.Content = DateTime.Now.ToString("hh:mm:ss");
         }
 
         private void UserButton_Click(object sender, RoutedEventArgs e)

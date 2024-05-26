@@ -17,6 +17,9 @@ namespace DashboardWetter
         private double GoodConections = 0;
         private double BadConnections = 0;
         public double Chemie;
+        public int BewässerungsInterval;
+        public DateTime LastTimeWatered;
+        public TimeSpan TimeDifference;
 
         public static PlantManager AllPlants = DataBaseManager.GetAllPlants();
 
@@ -34,7 +37,7 @@ namespace DashboardWetter
             Margin = new Thickness(0, 10, 0, 10),
         };
 
-        public Beet(int userID, string name, int hoehe, int breite, double goodConnections, double badConnections) 
+        public Beet(int userID, string name, int hoehe, int breite, double goodConnections, double badConnections, int bewässerungsInterval, DateTime lastTimeWatered) 
         {
             this.Name = name;
             this.Hoehe = hoehe;
@@ -44,6 +47,8 @@ namespace DashboardWetter
             this.UserID = userID;
             this.GoodConections = goodConnections;
             this.BadConnections = badConnections;
+            this.BewässerungsInterval = bewässerungsInterval;
+            this.LastTimeWatered = lastTimeWatered;
         }
 
         public void DrawBeet(StackPanel MainArea, Frame MainFrame)
@@ -322,7 +327,7 @@ namespace DashboardWetter
                     }
                     counter++;
                 }
-                command.CommandText = $"INSERT INTO tblBeet(UserID, Rows, Columns, Name, Plants, guteVerbindungen, schlechteVerbindungen) VALUES({UserID}, {Hoehe}, {Breite}, '{Name}', '{Plants}', {GoodConections}, {BadConnections});";
+                command.CommandText = $"INSERT INTO tblBeet(UserID, Rows, Columns, Name, Plants, guteVerbindungen, schlechteVerbindungen, BewässerungsInterval, LetztesMalBewässert) VALUES({UserID}, {Hoehe}, {Breite}, '{Name}', '{Plants}', {GoodConections}, {BadConnections}, {BewässerungsInterval}, '{LastTimeWatered}');";
 
                 int tmp = command.ExecuteNonQuery();
             }
@@ -361,7 +366,7 @@ namespace DashboardWetter
                     }
                     counter++;
                 }
-                command.CommandText = $"UPDATE tblBeet SET Plants = '{Plants}', guteVerbindungen = {GoodConections}, schlechteVerbindungen = {BadConnections} WHERE Name = '{Name}' AND UserID = {UserID};";
+                command.CommandText = $"UPDATE tblBeet SET Plants = '{Plants}', guteVerbindungen = {GoodConections}, schlechteVerbindungen = {BadConnections}, LetztesMalBewässert = '{LastTimeWatered}' WHERE Name = '{Name}' AND UserID = {UserID};";
 
                 int tmp = command.ExecuteNonQuery();
             }

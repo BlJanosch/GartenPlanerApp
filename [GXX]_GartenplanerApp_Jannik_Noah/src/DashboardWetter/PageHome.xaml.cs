@@ -37,6 +37,8 @@ namespace DashboardWetter
         public Label WetterDashBoard;
         public Label UhrDashBoard;
         public string Wetter;
+        public SfCircularProgressBar circularWater;
+        public SfCircularProgressBar circularChemie;
 
         public PageHome(User MainUser)
         {
@@ -167,25 +169,26 @@ namespace DashboardWetter
 
             Label label1 = new Label() { Content = "Chemie", Style = Styles.GetFontStyle(20), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
 
-            SfCircularProgressBar circular = new SfCircularProgressBar();
-            circular.Progress = 90;
-            circular.Width = 347;
-            circular.ProgressColor = Brushes.Green;
-            circular.TrackColor = Brushes.DarkGray;
-            circular.FontFamily = new FontFamily("Ahorni");
-            circular.FontWeight = FontWeights.Bold;
-            circular.HorizontalAlignment = HorizontalAlignment.Center;
-            circular.VerticalAlignment = VerticalAlignment.Center;
-            circular.Foreground = Brushes.White;
-            circular.FontSize = 20;
-            RangeColorCollection rangeColors = new RangeColorCollection();
-            rangeColors.Add(new RangeColor() { Color = Colors.BlanchedAlmond, Start = 5, End = 30 });
-            rangeColors.Add(new RangeColor() { Color = Colors.Coral, Start = 30, End = 60 });
-            rangeColors.Add(new RangeColor() { Color = Colors.Crimson, Start = 60, End = 100 });
-            circular.RangeColors = rangeColors;
+            circularChemie = new SfCircularProgressBar();
+            circularChemie.Progress = CalculateChemie();
+            circularChemie.Width = 347;
+            circularChemie.ProgressColor = Brushes.White;
+            circularChemie.TrackColor = Brushes.DarkGray;
+            circularChemie.FontFamily = new FontFamily("Ahorni");
+            circularChemie.FontWeight = FontWeights.Bold;
+            circularChemie.HorizontalAlignment = HorizontalAlignment.Center;
+            circularChemie.VerticalAlignment = VerticalAlignment.Center;
+            circularChemie.Foreground = Brushes.White;
+            circularChemie.FontSize = 20;
+            RangeColorCollection rangeColorsChemie = new RangeColorCollection();
+            rangeColorsChemie.Add(new RangeColor() { IsGradient = true, Color = Colors.Red, Start = 0, End = 25 });
+            rangeColorsChemie.Add(new RangeColor() { IsGradient = true, Color = Colors.Orange, Start = 25, End = 50 });
+            rangeColorsChemie.Add(new RangeColor() { IsGradient = true, Color = Colors.LightGreen, Start = 50, End = 75 });
+            rangeColorsChemie.Add(new RangeColor() { Color = Colors.DarkGreen, Start = 75, End = 100 });
+            circularChemie.RangeColors = rangeColorsChemie;
 
             innerGrid1.Children.Add(label1);
-            innerGrid1.Children.Add(circular);
+            innerGrid1.Children.Add(circularChemie);
 
             border1.Child = innerGrid1;
 
@@ -205,15 +208,27 @@ namespace DashboardWetter
 
             Label label3 = new Label() { Content = "Wasser", Style = Styles.GetFontStyle(20), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
 
-            Ellipse ellipse3 = new Ellipse() { Height = 120, Width = 120, StrokeThickness = 2, Stroke = Brushes.Black, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
-            Ellipse ellipse4 = new Ellipse() { Height = 100, Width = 100, StrokeThickness = 2, Stroke = Brushes.Black, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
-
-            Label label4 = new Label() { Name = "WasserLabel", Content = "N/A", Style = Styles.GetFontStyle(20), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
+            circularWater = new SfCircularProgressBar();
+            circularWater.Progress = CalculateWater();
+            circularWater.Width = 347;
+            circularWater.ProgressColor = Brushes.White;
+            circularWater.TrackColor = Brushes.DarkGray;
+            circularWater.FontFamily = new FontFamily("Ahorni");
+            circularWater.FontWeight = FontWeights.Bold;
+            circularWater.HorizontalAlignment = HorizontalAlignment.Center;
+            circularWater.VerticalAlignment = VerticalAlignment.Center;
+            circularWater.Foreground = Brushes.White;
+            circularWater.FontSize = 20;
+            RangeColorCollection rangeColorsWater = new RangeColorCollection();
+            rangeColorsWater.Add(new RangeColor() { IsGradient = true, Color = Colors.LightSkyBlue, Start = 0, End = 25 });
+            rangeColorsWater.Add(new RangeColor() { IsGradient = true, Color = Colors.LightBlue, Start = 25, End = 50 });
+            rangeColorsWater.Add(new RangeColor() { IsGradient = true, Color = Colors.Blue, Start = 50, End = 75 });
+            rangeColorsWater.Add(new RangeColor() { Color = Colors.DarkBlue, Start = 75, End = 100 });
+            circularWater.RangeColors = rangeColorsWater;
 
             innerGrid2.Children.Add(label3);
-            innerGrid2.Children.Add(ellipse3);
-            innerGrid2.Children.Add(ellipse4);
-            innerGrid2.Children.Add(label4);
+            innerGrid2.Children.Add(circularWater);
+
 
             border2.Child = innerGrid2;
 
@@ -232,6 +247,8 @@ namespace DashboardWetter
         private void timer_Uhr_Tick(object? sender, EventArgs e)
         {
             UhrDashBoard.Content = DateTime.Now.ToString("hh:mm:ss");
+            circularWater.Progress = CalculateWater();
+            circularChemie.Progress = CalculateChemie();
         }
 
         private async void getWeather()
@@ -256,6 +273,29 @@ namespace DashboardWetter
                 SchneeNow.Content = "N/A";
                 WolkenNow.Content = "N/A";
             }
+        }
+
+        private double CalculateWater()
+        {
+            double sum = 0;
+            List<Beet> Beete = DataBaseManager.GetAllBeete(MainUser);
+            foreach (Beet beet in Beete)
+            {
+                beet.TimeDifference = beet.LastTimeWatered.AddHours(beet.BewässerungsInterval) - DateTime.Now; ;
+                sum += beet.TimeDifference.TotalHours / beet.BewässerungsInterval * 100;
+            }
+            return sum/Beete.Count;
+        }
+
+        private double CalculateChemie()
+        {
+            double sum = 0;
+            List<Beet> Beete = DataBaseManager.GetAllBeete(MainUser);
+            foreach (Beet beet in Beete)
+            {
+                sum += beet.Chemie;
+            }
+            return sum / Beete.Count;
         }
     }
 }
