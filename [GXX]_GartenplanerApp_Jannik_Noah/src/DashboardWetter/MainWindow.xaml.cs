@@ -19,7 +19,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using OpenMeteo;
 using System.Media;
 
 namespace DashboardWetter
@@ -171,7 +170,6 @@ namespace DashboardWetter
 
         public void DrawBeeteMenu()
         {
-            //if (pageUserMenu == null || !pageUserMenu.UserLogout)
 
             try
             {

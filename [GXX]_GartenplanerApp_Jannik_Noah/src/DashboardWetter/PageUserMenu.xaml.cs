@@ -66,7 +66,7 @@ namespace DashboardWetter
             Profilbuch.StrokeThickness = 2;
             Profilbuch.Margin = new Thickness(0, 30, 0, 0);
             ImageBrush imageBrush = new ImageBrush();
-            imageBrush.ImageSource = new BitmapImage(UriHelper.GetRessourceUri("Images/userPicture2.png"));
+            imageBrush.ImageSource = new BitmapImage(UriHelper.GetRessourceUri("Images/TerraScape.png"));
             imageBrush.Stretch = Stretch.UniformToFill;
             imageBrush.TileMode = TileMode.None;
             Profilbuch.Fill = imageBrush;
