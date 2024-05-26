@@ -39,6 +39,9 @@ namespace DashboardWetter
         public string Wetter;
         public SfCircularProgressBar circularWater;
         public SfCircularProgressBar circularChemie;
+        public Grid subGrid;
+        public bool WaterWarningSet = false;
+        public bool ChemieWarningSet = false;
 
         public PageHome(User MainUser)
         {
@@ -92,7 +95,7 @@ namespace DashboardWetter
             innerGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             innerGrid.RowDefinitions.Add(new RowDefinition());
 
-            Grid subGrid = new Grid();
+            subGrid = new Grid();
             Grid.SetRow(subGrid, 1);
 
             subGrid.ColumnDefinitions.Add(new ColumnDefinition());
@@ -114,6 +117,9 @@ namespace DashboardWetter
             Label Zurzeit = new Label() { Content = "Zurzeit", Style = Styles.GetFontStyle(15), HorizontalAlignment = HorizontalAlignment.Center };
             Label Ganztaegig = new Label() { Content = "Standort", Style = Styles.GetFontStyle(15), HorizontalAlignment = HorizontalAlignment.Center };
             Grid.SetColumn(Ganztaegig, 1);
+            Label Warnings = new Label() { Content = "Warnungen", Style = Styles.GetFontStyle(15), HorizontalAlignment = HorizontalAlignment.Center };
+            Grid.SetRow(Warnings, 2);
+            Grid.SetColumn(Warnings, 1);
 
             TemperaturNow = new Label() { Name = "TemperaturNowLabel", Style = Styles.GetFontStyle(12), Content = "Temperatur", HorizontalAlignment = HorizontalAlignment.Center };
             Grid.SetRow(TemperaturNow, 1);
@@ -136,6 +142,7 @@ namespace DashboardWetter
             subGrid.Children.Add(SchneeNow);
             subGrid.Children.Add(WolkenNow);
             subGrid.Children.Add(CurrentLocation);
+            subGrid.Children.Add(Warnings);
 
             innerGrid.Children.Add(subGrid);
 
@@ -249,6 +256,36 @@ namespace DashboardWetter
             UhrDashBoard.Content = DateTime.Now.ToString("hh:mm:ss");
             circularWater.Progress = CalculateWater();
             circularChemie.Progress = CalculateChemie();
+            if (CalculateChemie() < 50 && !ChemieWarningSet)
+            {
+                Label Warning = new Label() { Style = Styles.GetFontStyle(12), Content = "Chemie Stand unter 50% gefallen!", HorizontalAlignment = HorizontalAlignment.Center };
+                Grid.SetRow(Warning, subGrid.Children.Count - 5);
+                Grid.SetColumn(Warning, 1);
+                subGrid.Children.Add(Warning);
+                ChemieWarningSet = true;
+            }
+            else if (CalculateWater() < 50 && !WaterWarningSet)
+            {
+                Label Warning = new Label() { Style = Styles.GetFontStyle(12), Content = "Wasser Stand unter 50% gefallen!", HorizontalAlignment = HorizontalAlignment.Center };
+                Grid.SetRow(Warning, subGrid.Children.Count - 5);
+                Grid.SetColumn(Warning, 1);
+                subGrid.Children.Add(Warning);
+                WaterWarningSet = true;
+            }
+            else if (CalculateChemie() > 50 && ChemieWarningSet)
+            {
+                subGrid.Children.RemoveAt(subGrid.Children.Count - 1);
+                subGrid.Children.RemoveAt(subGrid.Children.Count - 2);
+                ChemieWarningSet = false;
+                WaterWarningSet = false;
+            }
+            else if (CalculateWater() > 50 && WaterWarningSet)
+            {
+                subGrid.Children.RemoveAt(subGrid.Children.Count - 1);
+                subGrid.Children.RemoveAt(subGrid.Children.Count - 2);
+                ChemieWarningSet = false;
+                WaterWarningSet = false;
+            }
         }
 
         private async void getWeather()
