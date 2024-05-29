@@ -403,8 +403,9 @@ namespace DashboardWetter
 
         public double GetChemie()
         {
-            double Max = Hoehe * Breite * 4 - (2 * Hoehe) - (2 * Breite);
-            return GoodConections / Max * 100;
+            double Max = (((Breite*2)-1)*Hoehe-1)+(Breite-1);
+            return GoodConections-BadConnections / Max * 100;
+
         }
     }
 }
