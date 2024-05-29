@@ -10,6 +10,7 @@ namespace DashboardWetter
 {
     public class Beet
     {
+        public int ID;
         public int UserID;
         public string Name;
         public int Hoehe;
@@ -38,8 +39,9 @@ namespace DashboardWetter
             Margin = new Thickness(0, 10, 0, 10),
         };
 
-        public Beet(int userID, string name, int hoehe, int breite, double goodConnections, double badConnections, int bewässerungsInterval, DateTime lastTimeWatered) 
+        public Beet(int ID, int userID, string name, int hoehe, int breite, double goodConnections, double badConnections, int bewässerungsInterval, DateTime lastTimeWatered) 
         {
+            this.ID = ID;
             this.Name = name;
             this.Hoehe = hoehe;
             this.Breite = breite;
@@ -253,15 +255,18 @@ namespace DashboardWetter
         {
             try
             {
-                if (plants[ToLinear(x, y)].schlechteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x - 1, y)].ID)))
+                if (ToLinear(x, y) % Breite != 0)
                 {
-                    BadConnections++;
-                    return Brushes.Red;
-                }
-                else if (plants[ToLinear(x, y)].guteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x - 1, y)].ID)))
-                {
-                    GoodConections++;
-                    return Brushes.Green;
+                    if (plants[ToLinear(x, y)].schlechteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x - 1, y)].ID)))
+                    {
+                        BadConnections++;
+                        return Brushes.Red;
+                    }
+                    else if (plants[ToLinear(x, y)].guteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x - 1, y)].ID)))
+                    {
+                        GoodConections++;
+                        return Brushes.Green;
+                    }
                 }
             }
             catch { }
@@ -272,15 +277,18 @@ namespace DashboardWetter
         {
             try
             {
-                if (plants[ToLinear(x, y)].schlechteNachbarn.Contains(plants[ToLinear(x + 1, y)].ID))
+                if (ToLinear(x, y) % Breite != Breite - 1)
                 {
-                    BadConnections++;
-                    return Brushes.Red;
-                }
-                else if (plants[ToLinear(x, y)].guteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x + 1, y)].ID)))
-                {
-                    GoodConections++;
-                    return Brushes.Green;
+                    if (plants[ToLinear(x, y)].schlechteNachbarn.Contains(plants[ToLinear(x + 1, y)].ID))
+                    {
+                        BadConnections++;
+                        return Brushes.Red;
+                    }
+                    else if (plants[ToLinear(x, y)].guteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x + 1, y)].ID)))
+                    {
+                        GoodConections++;
+                        return Brushes.Green;
+                    }
                 }
             }
             catch { }
