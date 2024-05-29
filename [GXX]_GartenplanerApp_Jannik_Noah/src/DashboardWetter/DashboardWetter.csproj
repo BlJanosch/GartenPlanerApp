@@ -41,6 +41,7 @@
     <None Remove="Images\User.png" />
     <None Remove="Images\UserPicture.jpg" />
     <None Remove="Images\userPicture2.png" />
+    <None Remove="Images\WaterDrop.png" />
     <None Remove="Images\Wetter.png" />
     <None Remove="User.png" />
     <None Remove="UserData\Login.csv" />
@@ -99,6 +100,7 @@
     <Resource Include="Images\userPicture2.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\WaterDrop.png" />
     <Resource Include="Images\Wetter.png" />
   </ItemGroup>
 
