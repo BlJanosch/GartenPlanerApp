@@ -321,7 +321,12 @@ namespace DashboardWetter
                 beet.TimeDifference = beet.LastTimeWatered.AddHours(beet.BewässerungsInterval) - DateTime.Now; ;
                 sum += beet.TimeDifference.TotalHours / beet.BewässerungsInterval * 100;
             }
-            return sum/Beete.Count;
+            double result = sum / Beete.Count;
+            if (result <= 0)
+            {
+                return 0;
+            }
+            return result;
         }
 
         private double CalculateChemie()

@@ -121,7 +121,15 @@ namespace DashboardWetter
             try
             {
                 beet.TimeDifference = beet.LastTimeWatered.AddHours(beet.BewässerungsInterval) - DateTime.Now;
-                circularWater.Progress = beet.TimeDifference.TotalHours / beet.BewässerungsInterval * 100;
+                double WaterResult = beet.TimeDifference.TotalHours / beet.BewässerungsInterval * 100;
+                if (WaterResult <= 0)
+                {
+                    circularWater.Progress = 0;
+                }
+                else
+                {
+                    circularWater.Progress = WaterResult;
+                }
             }
             catch { }
         }
@@ -217,7 +225,15 @@ namespace DashboardWetter
         private SfCircularProgressBar DrawWater()
         {
             circularWater = new SfCircularProgressBar();
-            circularWater.Progress = beet.TimeDifference.TotalHours / beet.BewässerungsInterval * 100;
+            double WaterResult = beet.TimeDifference.TotalHours / beet.BewässerungsInterval * 100;
+            if (WaterResult <= 0)
+            {
+                circularWater.Progress = 0;
+            }
+            else
+            {
+                circularWater.Progress = WaterResult;
+            }
             circularWater.Width = 180;
             circularWater.Maximum = 100;
             circularWater.ProgressColor = Brushes.White;
