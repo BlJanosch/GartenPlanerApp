@@ -125,9 +125,9 @@ namespace DashboardWetter
                     BeetGrid.Children.Add(border);
                     BeetGrid.Children.Add(image);
                     BeetGrid.Children.Add(button);
+
                 }
             }
-            
 
             Label nameLabel = new Label()
             {

@@ -12,6 +12,7 @@ using System.Windows.Threading;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 using Microsoft.Data.Sqlite;
+using System.Numerics;
 
 namespace DashboardWetter
 {
@@ -91,10 +92,30 @@ namespace DashboardWetter
                 Width = 20,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Bottom,
-                Margin = new Thickness(10, 5, 0, 0),
+                Margin = new Thickness(0, 0, 10, 5),
                 Opacity = 0.000001
             };
             DeleteButton.Click += DeleteButton_Click;
+
+            Button BewässerungButton = new Button()
+            {
+                Height = 20,
+                Width = 20,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Margin = new Thickness(10, 0, 0, 5),
+                Opacity = 0.000001
+            };
+            BewässerungButton.Click += BewässerungButton_Click;
+
+            Image BewässerungImage = new Image()
+            {
+                Source = new BitmapImage(new Uri("Images/WaterDrop.png", UriKind.Relative)),
+                Height = 20,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Margin = new Thickness(10, 0, 0, 5)
+            };
 
             Image DeleteImage = new Image()
             {
@@ -102,7 +123,7 @@ namespace DashboardWetter
                 Height = 20,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Bottom,
-                Margin = new Thickness(0, 5, 0, 0)
+                Margin = new Thickness(0, 0, 10, 5)
             };
 
             Image infoImage = new Image()
@@ -131,6 +152,8 @@ namespace DashboardWetter
             grid.Children.Add(changeButton);
             grid.Children.Add(DeleteImage);
             grid.Children.Add(DeleteButton);
+            grid.Children.Add(BewässerungImage);
+            grid.Children.Add(BewässerungButton);
 
 
             grid.Children.Add(DrawBeet());
@@ -143,6 +166,22 @@ namespace DashboardWetter
             timer_Uhr.Start();
 
             return border;
+        }
+
+        private void BewässerungButton_Click(object sender, RoutedEventArgs e)
+        {
+            using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+            {
+                connection.Open();
+
+                SqliteCommand command = connection.CreateCommand();
+
+                beet.LastTimeWatered = DateTime.Now;
+
+                command.CommandText = $"UPDATE tblBeet SET LetztesMalBewässert = '{beet.LastTimeWatered}' WHERE Name = '{beet.Name}' AND UserID = {beet.UserID};";
+
+                int tmp = command.ExecuteNonQuery();
+            }
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -178,7 +217,15 @@ namespace DashboardWetter
             try
             {
                 beet.TimeDifference = beet.LastTimeWatered.AddHours(beet.BewässerungsInterval) - DateTime.Now;
-                circularWater.Progress = beet.TimeDifference.TotalHours / beet.BewässerungsInterval * 100;
+                double WaterResult = beet.TimeDifference.TotalHours / beet.BewässerungsInterval * 100;
+                if (WaterResult <= 0)
+                {
+                    circularWater.Progress = 0;
+                }
+                else
+                {
+                    circularWater.Progress = WaterResult;
+                }
             }
             catch { }
         }
@@ -275,7 +322,15 @@ namespace DashboardWetter
         private SfCircularProgressBar DrawWater()
         {
             circularWater = new SfCircularProgressBar();
-            circularWater.Progress = beet.TimeDifference.TotalHours / beet.BewässerungsInterval * 100;
+            double WaterResult = beet.TimeDifference.TotalHours / beet.BewässerungsInterval * 100;
+            if (WaterResult <= 0)
+            {
+                circularWater.Progress = 0;
+            }
+            else
+            {
+                circularWater.Progress = WaterResult;
+            }
             circularWater.Width = 180;
             circularWater.Maximum = 100;
             circularWater.ProgressColor = Brushes.White;

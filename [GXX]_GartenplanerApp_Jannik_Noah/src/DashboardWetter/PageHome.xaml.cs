@@ -258,7 +258,7 @@ namespace DashboardWetter
             circularChemie.Progress = CalculateChemie();
             if (CalculateChemie() < 50 && !ChemieWarningSet)
             {
-                Label Warning = new Label() { Style = Styles.GetFontStyle(12), Content = "Chemie Stand unter 50% gefallen!", HorizontalAlignment = HorizontalAlignment.Center };
+                Label Warning = new Label() { Style = Styles.GetFontStyle(12), Content = "Chemiestand unter 50% gefallen!", HorizontalAlignment = HorizontalAlignment.Center };
                 Grid.SetRow(Warning, subGrid.Children.Count - 5);
                 Grid.SetColumn(Warning, 1);
                 subGrid.Children.Add(Warning);
@@ -266,7 +266,12 @@ namespace DashboardWetter
             }
             else if (CalculateWater() < 50 && !WaterWarningSet)
             {
-                Label Warning = new Label() { Style = Styles.GetFontStyle(12), Content = "Wasser Stand unter 50% gefallen!", HorizontalAlignment = HorizontalAlignment.Center };
+                Label Warning = new Label() { Style = Styles.GetFontStyle(12), Content = "Wasserstand unter 50% gefallen!", HorizontalAlignment = HorizontalAlignment.Center };
+                if (CalculateWater() < 10)
+                {
+                    Warning.Foreground = Brushes.Red;
+                    Warning.Content = "Wasserstand unter 10% gefallen!";
+                }
                 Grid.SetRow(Warning, subGrid.Children.Count - 5);
                 Grid.SetColumn(Warning, 1);
                 subGrid.Children.Add(Warning);
@@ -321,7 +326,12 @@ namespace DashboardWetter
                 beet.TimeDifference = beet.LastTimeWatered.AddHours(beet.BewässerungsInterval) - DateTime.Now; ;
                 sum += beet.TimeDifference.TotalHours / beet.BewässerungsInterval * 100;
             }
-            return sum/Beete.Count;
+            double result = sum / Beete.Count;
+            if (result <= 0)
+            {
+                return 0;
+            }
+            return result;
         }
 
         private double CalculateChemie()
