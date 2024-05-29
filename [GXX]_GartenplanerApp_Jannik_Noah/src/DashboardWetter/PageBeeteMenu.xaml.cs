@@ -79,7 +79,7 @@ namespace DashboardWetter
             MainArea.Children.Add(wrapPanelBeet);
             foreach (Beet beet in beeteManager.Beete)
             {
-                BeetShortInfo shortInfo = new BeetShortInfo(beet, MainArea, MainFrame);
+                BeetShortInfo shortInfo = new BeetShortInfo(beet, MainArea, MainFrame, beeteManager, this);
                 wrapPanelBeet.Children.Add(shortInfo.GetShortInfo());
             }
             wrapPanelBeet.Children.Add(border);
@@ -110,13 +110,18 @@ namespace DashboardWetter
                 {
                     bewässerung = (windowAddBeet.BewässerungBox.SelectedIndex + 1) * 24;
                 }
-                Beet neuesBeet = new Beet(CurrentUser.ID, (windowAddBeet.TBName.Text != "") ? windowAddBeet.TBName.Text : $"Beet {beeteManager.Beete.Count + 1}", Convert.ToInt32(windowAddBeet.TBBreite.Text), Convert.ToInt32(windowAddBeet.TBLänge.Text), 0, 0, bewässerung, DateTime.Now);
+                Beet neuesBeet = new Beet(beeteManager.Beete.Count, CurrentUser.ID, (windowAddBeet.TBName.Text != "") ? windowAddBeet.TBName.Text : $"Beet {beeteManager.Beete.Count + 1}", Convert.ToInt32(windowAddBeet.TBBreite.Text), Convert.ToInt32(windowAddBeet.TBLänge.Text), 0, 0, bewässerung, DateTime.Now); ; ;
                 neuesBeet.SaveBeet();
                 beeteManager.AddBeet(neuesBeet);
                 PageBeeteMenu newPage = new PageBeeteMenu(beeteManager, MainFrame, CurrentUser);
                 MainFrame.Content = newPage;
                 newPage.DrawBeeteMenu();
             }
+        }
+
+        public void DrawNew()
+        {
+
         }
     }
 }

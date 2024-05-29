@@ -9,6 +9,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using Syncfusion.UI.Xaml.ProgressBar;
 using System.Windows.Threading;
+using System.Runtime.CompilerServices;
+using System.Xml.Linq;
+using Microsoft.Data.Sqlite;
 
 namespace DashboardWetter
 {
@@ -21,11 +24,15 @@ namespace DashboardWetter
         private Grid grid;
         public SfCircularProgressBar circularWater;
         public DispatcherTimer timer_Uhr = new DispatcherTimer();
-        public BeetShortInfo(Beet beet, StackPanel mainArea, Frame frame)
+        private BeeteManager beeteManager;
+        private PageBeeteMenu pageBeeteMenu;
+        public BeetShortInfo(Beet beet, StackPanel mainArea, Frame frame, BeeteManager beeteManager, PageBeeteMenu pageBeeteMenu)
         {
+            this.pageBeeteMenu = pageBeeteMenu;
             this.beet = beet;
             this.MainArea = mainArea;
             this.MainFrame = frame;
+            this.beeteManager = beeteManager;
         }
         public Border GetShortInfo()
         {
@@ -78,6 +85,26 @@ namespace DashboardWetter
             };
             changeButton.Click += ChangeButton_Click;
 
+            Button DeleteButton = new Button()
+            {
+                Height = 20,
+                Width = 20,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Margin = new Thickness(10, 5, 0, 0),
+                Opacity = 0.000001
+            };
+            DeleteButton.Click += DeleteButton_Click;
+
+            Image DeleteImage = new Image()
+            {
+                Source = new BitmapImage(new Uri("Images/Delete.png", UriKind.Relative)),
+                Height = 20,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Margin = new Thickness(0, 5, 0, 0)
+            };
+
             Image infoImage = new Image()
             {
                 Source = new BitmapImage(new Uri("Images/Info_Icon.png", UriKind.Relative)),
@@ -102,6 +129,8 @@ namespace DashboardWetter
             grid.Children.Add(infoButton);
             grid.Children.Add(changeImage);
             grid.Children.Add(changeButton);
+            grid.Children.Add(DeleteImage);
+            grid.Children.Add(DeleteButton);
 
 
             grid.Children.Add(DrawBeet());
@@ -114,6 +143,34 @@ namespace DashboardWetter
             timer_Uhr.Start();
 
             return border;
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            foreach (Beet beet in this.beeteManager.Beete)
+            {
+                if (beet.Name == this.beet.Name && beet.UserID == this.beet.UserID)
+                {
+                    this.beeteManager.Beete.Remove(beet);
+                    break;
+                }
+            }
+            
+
+            using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+            {
+                connection.Open();
+
+                SqliteCommand command = connection.CreateCommand();
+
+                command.CommandText = $"DELETE FROM tblBeet WHERE Name = '{this.beet.Name}' AND UserID = {this.beet.UserID};";
+
+                int tmp = command.ExecuteNonQuery();
+            }
+
+            pageBeeteMenu.DrawBeeteMenu();
+
         }
 
         private void Timer_Uhr_Tick(object? sender, EventArgs e)
@@ -158,7 +215,8 @@ namespace DashboardWetter
 
         private void infoButton_Click(object sender, RoutedEventArgs e)
         {
-            beet.DrawBeet(MainArea, MainFrame);
+            beet.DrawBeet(MainArea);
+            beet.MainArea = MainArea;
         }
 
         private Grid DrawBeet()

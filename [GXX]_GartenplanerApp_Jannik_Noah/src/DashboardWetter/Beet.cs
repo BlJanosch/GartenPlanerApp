@@ -10,6 +10,7 @@ namespace DashboardWetter
 {
     public class Beet
     {
+        public int ID;
         public int UserID;
         public string Name;
         public int Hoehe;
@@ -20,6 +21,7 @@ namespace DashboardWetter
         public int BewässerungsInterval;
         public DateTime LastTimeWatered;
         public TimeSpan TimeDifference;
+        public StackPanel MainArea;
 
         public static PlantManager AllPlants = DataBaseManager.GetAllPlants();
 
@@ -37,8 +39,9 @@ namespace DashboardWetter
             Margin = new Thickness(0, 10, 0, 10),
         };
 
-        public Beet(int userID, string name, int hoehe, int breite, double goodConnections, double badConnections, int bewässerungsInterval, DateTime lastTimeWatered) 
+        public Beet(int ID, int userID, string name, int hoehe, int breite, double goodConnections, double badConnections, int bewässerungsInterval, DateTime lastTimeWatered) 
         {
+            this.ID = ID;
             this.Name = name;
             this.Hoehe = hoehe;
             this.Breite = breite;
@@ -51,7 +54,7 @@ namespace DashboardWetter
             this.LastTimeWatered = lastTimeWatered;
         }
 
-        public void DrawBeet(StackPanel MainArea, Frame MainFrame)
+        public void DrawBeet(StackPanel MainArea)
         {
             MainArea.Children.Clear();
             double Size = 80;
@@ -170,7 +173,27 @@ namespace DashboardWetter
             }
         }
 
-        private void DrawLabelsPlants()
+        public void DeleteElement(int col, int row)
+        {
+            /*
+            Panel parentPanel = (Panel)this.Parent;
+            parentPanel.Children.Remove(this);
+            this.beet.plants[col + (row * this.beet.Breite)] = null;
+            this.beet.DrawLabelsPlants();
+            this.beet.UpdateBeet();
+            */
+
+
+            
+            this.plants[ToLinear(col, row)] = null;
+            this.UpdateBeet();
+            this.DrawBeet(MainArea);
+            this.DrawLabelsPlants();
+            
+
+        }
+
+        public void DrawLabelsPlants()
         {
             GoodConections = 0;
             BadConnections = 0;
@@ -208,7 +231,7 @@ namespace DashboardWetter
                         
                         BeetGrid.Children.Add(canvas);*/
 
-                        BeetControl canvas = new BeetControl(plants[col + (row * Breite)].Name, $"/Images/plants/plant{plants[col + (row * Breite)].ID - 1}.png", GetBrushLeft(col, row), GetBrushRight(col, row), GetBrushTop(col, row), GetBrushBottom(col, row))
+                        BeetControl canvas = new BeetControl(this, col, row, plants[col + (row * Breite)].Name, $"/Images/plants/plant{plants[col + (row * Breite)].ID - 1}.png", GetBrushLeft(col, row), GetBrushRight(col, row), GetBrushTop(col, row), GetBrushBottom(col, row))
                         {
                             Width = 80,
                             Height = 80
@@ -232,15 +255,18 @@ namespace DashboardWetter
         {
             try
             {
-                if (plants[ToLinear(x, y)].schlechteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x - 1, y)].ID)))
+                if (ToLinear(x, y) % Breite != 0)
                 {
-                    BadConnections++;
-                    return Brushes.Red;
-                }
-                else if (plants[ToLinear(x, y)].guteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x - 1, y)].ID)))
-                {
-                    GoodConections++;
-                    return Brushes.Green;
+                    if (plants[ToLinear(x, y)].schlechteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x - 1, y)].ID)))
+                    {
+                        BadConnections++;
+                        return Brushes.Red;
+                    }
+                    else if (plants[ToLinear(x, y)].guteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x - 1, y)].ID)))
+                    {
+                        GoodConections++;
+                        return Brushes.Green;
+                    }
                 }
             }
             catch { }
@@ -251,15 +277,18 @@ namespace DashboardWetter
         {
             try
             {
-                if (plants[ToLinear(x, y)].schlechteNachbarn.Contains(plants[ToLinear(x + 1, y)].ID))
+                if (ToLinear(x, y) % Breite != Breite - 1)
                 {
-                    BadConnections++;
-                    return Brushes.Red;
-                }
-                else if (plants[ToLinear(x, y)].guteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x + 1, y)].ID)))
-                {
-                    GoodConections++;
-                    return Brushes.Green;
+                    if (plants[ToLinear(x, y)].schlechteNachbarn.Contains(plants[ToLinear(x + 1, y)].ID))
+                    {
+                        BadConnections++;
+                        return Brushes.Red;
+                    }
+                    else if (plants[ToLinear(x, y)].guteNachbarn.Contains(Convert.ToChar(plants[ToLinear(x + 1, y)].ID)))
+                    {
+                        GoodConections++;
+                        return Brushes.Green;
+                    }
                 }
             }
             catch { }

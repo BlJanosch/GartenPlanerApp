@@ -107,16 +107,22 @@ namespace DashboardWetter
             }
         }
 
+        private Beet beet;
+        private int col;
+        private int row;
+
         public BeetControl()
         {
             InitializeComponent();
         }
 
-        public BeetControl(string headingText, string imagePath, Brush colorLeft, Brush colorRight, Brush colorTop, Brush colorBottom)
+        public BeetControl(Beet beet, int col, int row, string headingText, string imagePath, Brush colorLeft, Brush colorRight, Brush colorTop, Brush colorBottom)
         {
             InitializeComponent();
 
-
+            this.row = row;
+            this.col = col;
+            this.beet = beet;
             ColorBottom = colorBottom;
             ColorLeft = colorLeft;
             ColorRight = colorRight;
@@ -137,11 +143,33 @@ namespace DashboardWetter
 
             image.Source = new BitmapImage(new Uri(path, UriKind.Relative));
 
+            /* <Button ></Button>
+
+            Button ButtonDelete = new Button()
+            {
+                Width = 16,
+                Height = 16,
+                
+            };
+            ButtonDelete.Click += ButtonDelete_Click;
+            Canvas.SetBottom(ButtonDelete, 5);
+            Canvas.SetRight(ButtonDelete, 5);
+            */
+            
+
+
             CanvasMain.Children.Add(image);
+            
             Canvas.SetTop(image, 0);
             Canvas.SetLeft(image, 10);
+
         }
 
-        
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        {
+
+            this.beet.DeleteElement(col, row);
+
+        }
     }
 }

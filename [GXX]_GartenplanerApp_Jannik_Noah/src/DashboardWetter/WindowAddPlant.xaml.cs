@@ -20,14 +20,14 @@ namespace DashboardWetter
     /// </summary>
     public partial class WindowAddPlant : Window
     {
-        public string Titel;
+        public string titel;
         public PlantManager Plants = DataBaseManager.GetAllPlants();
         public int selectedIndex = -1;
 
-        public WindowAddPlant(string Titel)
+        public WindowAddPlant(string titel)
         {
             InitializeComponent();
-            this.Titel = Titel;
+            this.titel = titel;
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
@@ -39,7 +39,7 @@ namespace DashboardWetter
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            MainWindow.Title = Titel;
+            MainWindow.Title = titel;
             
             foreach (Plant plant in Plants.Pflanzen)
             {
