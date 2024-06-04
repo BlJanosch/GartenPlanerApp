@@ -392,7 +392,7 @@ namespace DashboardWetter
             {
                 Title = "",
                 Values = Values,
-                LabelPoint = point => $"{Values[(int) point.X]} mm",
+                LabelPoint = point => $"{Math.Round(Values[(int) point.X], 2)} mm",
             };
             chart.Series = new SeriesCollection { lineSeries };
 
