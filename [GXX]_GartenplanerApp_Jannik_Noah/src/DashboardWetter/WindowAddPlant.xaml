@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashboardWetter"
         mc:Ignorable="d"
-        Title="Pflanze auswählen" WindowStartupLocation="CenterScreen" Height="110" Width="300" Loaded="Window_Loaded" x:Name="MainWindow">
+        Title="Pflanze auswählen" WindowStartupLocation="CenterScreen" Height="200" Width="300" Loaded="Window_Loaded" x:Name="MainWindow">
     <Grid Background="#262626">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -14,10 +14,26 @@
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Label FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center">Pflanze</Label>
         <ComboBox x:Name="PlantDropDown" Grid.Column="1" VerticalContentAlignment="Center" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="Black" BorderBrush="Transparent" Background="#262626"></ComboBox>
         <Button Grid.Column="1" Grid.Row="3" Width="85" Height="30" HorizontalAlignment="Left" IsCancel="True" Background="#265026" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" Margin="5,0,0,0" >Abbrechen</Button>
         <Button Grid.Column="1" Grid.Row="3" Width="85" Height="30" HorizontalAlignment="Right" Background="#265026" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" Margin="0,0,5,0" x:Name="ButtonOK" Click="ButtonOK_Click" IsDefault="True">OK</Button>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Foreground="White" HorizontalContentAlignment="Center">1 Feld</Label>
+            <RadioButton x:Name="RadioButtonEinFeld" Grid.Column="0" Margin="28 24 22 16" IsChecked="True"></RadioButton>
+            <Label Grid.Column="1" Foreground="White" FontSize="10" HorizontalContentAlignment="Center">Ganze Reihe</Label>
+            <RadioButton x:Name="RadioButtonGanzeReihe" Grid.Column="1" Margin="28 24 22 16"></RadioButton>
+            <Label Grid.Column="2" Foreground="White" FontSize="10" HorizontalContentAlignment="Center">Ganze Spalte</Label>
+            <RadioButton x:Name="RadioButtonGanzeSpalte" Grid.Column="2" Margin="28 24 22 16"></RadioButton>
+        </Grid>
+        
     </Grid>
 </Window>

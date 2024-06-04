@@ -27,6 +27,47 @@ namespace DashboardWetter
         public DispatcherTimer timer_Uhr = new DispatcherTimer();
         private BeeteManager beeteManager;
         private PageBeeteMenu pageBeeteMenu;
+
+        private Button BeetBestellenButton;
+        private Canvas canvas;
+        private Image BestellButtonImage;
+
+        public void CreateItems()
+        {
+            BeetBestellenButton = new Button()
+            {
+                Height = 20,
+                Width = 20,
+                Background = Brushes.Transparent,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Margin = new Thickness(10, 0, 0, 5),
+                Opacity = 0.00001,
+            };
+            BeetBestellenButton.Click += BeetBestellenButton_Click;
+
+            canvas = new Canvas()
+            {
+                Height = 20,
+                Width = 20,
+                Background = Brushes.White,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Margin = new Thickness(10, 0, 0, 5),
+                Opacity = 1
+            };
+
+            BestellButtonImage = new Image()
+            {
+                Source = new BitmapImage(new Uri("Images/wagen.png", UriKind.Relative)),
+                Height = 20,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Margin = new Thickness(10, 0, 0, 5)
+            };
+        }
+
+
         public BeetShortInfo(Beet beet, StackPanel mainArea, Frame frame, BeeteManager beeteManager, PageBeeteMenu pageBeeteMenu)
         {
             this.pageBeeteMenu = pageBeeteMenu;
@@ -34,6 +75,7 @@ namespace DashboardWetter
             this.MainArea = mainArea;
             this.MainFrame = frame;
             this.beeteManager = beeteManager;
+            CreateItems();
         }
         public Border GetShortInfo()
         {
@@ -108,6 +150,8 @@ namespace DashboardWetter
             };
             BewässerungButton.Click += BewässerungButton_Click;
 
+            
+
             Image BewässerungImage = new Image()
             {
                 Source = new BitmapImage(new Uri("Images/WaterDrop.png", UriKind.Relative)),
@@ -154,6 +198,11 @@ namespace DashboardWetter
             grid.Children.Add(DeleteButton);
             grid.Children.Add(BewässerungImage);
             grid.Children.Add(BewässerungButton);
+            grid.Children.Add(canvas);
+            grid.Children.Add(BestellButtonImage);
+            grid.Children.Add(BeetBestellenButton);
+
+
 
 
             grid.Children.Add(DrawBeet());
@@ -168,19 +217,31 @@ namespace DashboardWetter
             return border;
         }
 
+        private void BeetBestellenButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowBestellen windowBestellen = new WindowBestellen(beet.Name, beet.plants);
+            windowBestellen.ShowDialog();
+        }
+
         private void BewässerungButton_Click(object sender, RoutedEventArgs e)
         {
-            using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
-            {
-                connection.Open();
+            WindowBewässern windowBewässern = new WindowBewässern(beet.BewässerungsInterval, beet.LastTimeWatered);
+            windowBewässern.ShowDialog();
 
-                SqliteCommand command = connection.CreateCommand();
+            if (windowBewässern.DialogResult == true)
+            { 
+                using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+                {
+                    connection.Open();
 
-                beet.LastTimeWatered = DateTime.Now;
+                    SqliteCommand command = connection.CreateCommand();
 
-                command.CommandText = $"UPDATE tblBeet SET LetztesMalBewässert = '{beet.LastTimeWatered}' WHERE Name = '{beet.Name}' AND UserID = {beet.UserID};";
+                    beet.LastTimeWatered = DateTime.Now;
 
-                int tmp = command.ExecuteNonQuery();
+                    command.CommandText = $"UPDATE tblBeet SET LetztesMalBewässert = '{beet.LastTimeWatered}' WHERE Name = '{beet.Name}' AND UserID = {beet.UserID};";
+
+                    int tmp = command.ExecuteNonQuery();
+                }
             }
         }
 
@@ -234,9 +295,13 @@ namespace DashboardWetter
         {
             if (CurrentMode == "Beet")
             {
+                grid.Children.Remove(BeetBestellenButton);
+                grid.Children.Remove(BestellButtonImage);
+                grid.Children.Remove(canvas);
                 grid.Children.RemoveAt(grid.Children.Count - 1);
                 grid.Children.Add(DrawChemie());
                 CurrentMode = "Chemie";
+
             }
             else if (CurrentMode == "Chemie")
             {
@@ -249,6 +314,10 @@ namespace DashboardWetter
                 grid.Children.RemoveAt(grid.Children.Count - 1);
                 grid.Children.Add(DrawBeet());
                 CurrentMode = "Beet";
+                grid.Children.Add(canvas);
+                grid.Children.Add(BestellButtonImage);
+                grid.Children.Add(BeetBestellenButton);
+
             }
         }
 

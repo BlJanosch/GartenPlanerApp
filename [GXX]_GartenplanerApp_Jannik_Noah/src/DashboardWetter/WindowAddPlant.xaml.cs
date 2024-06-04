@@ -23,6 +23,7 @@ namespace DashboardWetter
         public string titel;
         public PlantManager Plants = DataBaseManager.GetAllPlants();
         public int selectedIndex = -1;
+        
 
         public WindowAddPlant(string titel)
         {
@@ -33,6 +34,7 @@ namespace DashboardWetter
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
             this.selectedIndex = PlantDropDown.SelectedIndex;
+            
             this.DialogResult = true;
             this.Close();
         }
