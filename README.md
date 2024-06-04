@@ -4,8 +4,7 @@ With this Program you can design your own beds how you like! You can add differe
 ## Dashboard
 A general overview with the most important infos and warning messages.
 
-![Dashboard Image](https://github.com/BlJanosch/GartenPlanerApp/assets/167287612/db7c929f-7244-4bb2-85b4-fcfa011bef20)
-
+![Dashboard Image](https://github.com/BlJanosch/GartenPlanerApp/assets/167287612/fd4b44e5-a86c-41d7-8ddc-81f458750e78)
 
 ## Beds-Menu
 From here you can create your own beds and let your creativity run free.
