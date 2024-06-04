@@ -160,12 +160,40 @@ namespace DashboardWetter
             windowAddPlant.ShowDialog();
             if (windowAddPlant.DialogResult == true)
             {
-                if (windowAddPlant.selectedIndex != -1)
+                if (windowAddPlant.RadioButtonEinFeld.IsChecked == true)
                 {
-                    int indexCol = Convert.ToInt32(button.Name.Split("Pflanze")[1]);
-                    int indexRow = Convert.ToInt32(button.Name.Split("Pflanze")[2]);
+                    if (windowAddPlant.selectedIndex != -1)
+                    {
+                        int indexCol = Convert.ToInt32(button.Name.Split("Pflanze")[1]);
+                        int indexRow = Convert.ToInt32(button.Name.Split("Pflanze")[2]);
 
-                    this.plants[indexCol + (indexRow * Breite)] = AllPlants.Pflanzen[(windowAddPlant.selectedIndex)];
+                        this.plants[indexCol + (indexRow * Breite)] = AllPlants.Pflanzen[(windowAddPlant.selectedIndex)];
+                    }
+                }
+                else if (windowAddPlant.RadioButtonGanzeReihe.IsChecked == true)
+                {
+                    if (windowAddPlant.selectedIndex != -1)
+                    {
+                        int indexRow = Convert.ToInt32(button.Name.Split("Pflanze")[2]);
+
+                        for (int i = 0; i<Breite; i++)
+                        {
+                            this.plants[i+(indexRow*Breite)] = AllPlants.Pflanzen[(windowAddPlant.selectedIndex)];
+                        }
+                    }
+                }
+                else if (windowAddPlant.RadioButtonGanzeSpalte.IsChecked == true)
+                {
+                    if (windowAddPlant.selectedIndex != -1)
+                    {
+                        int indexCol = Convert.ToInt32(button.Name.Split("Pflanze")[1]);
+                        int indexRow = Convert.ToInt32(button.Name.Split("Pflanze")[2]);
+
+                        for (int i = 0; i<(Hoehe); i+=1)
+                        {
+                            this.plants[indexCol + (Breite*i)] = AllPlants.Pflanzen[(windowAddPlant.selectedIndex)];
+                        }
+                    }
                 }
                 DrawLabelsPlants();
                 UpdateBeet();
@@ -403,8 +431,10 @@ namespace DashboardWetter
 
         public double GetChemie()
         {
-            double Max = Hoehe * Breite * 4 - (2 * Hoehe) - (2 * Breite);
-            return GoodConections / Max * 100;
+            
+            double Max = ((((Breite*2)-1)*(Hoehe-1))+(Breite-1))*2;
+            return ((((GoodConections - (BadConnections * 2) - (Max-GoodConections-BadConnections))/ Max * 100) + 300) / 400) * 100;
+
         }
     }
 }
