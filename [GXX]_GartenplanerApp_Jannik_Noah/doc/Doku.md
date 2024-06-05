@@ -60,6 +60,24 @@
 |Alter User Bug behoben|Jannik|19.05.2024|
 |Merge Konflikt behoben|Jannik|19.05.2024|
 |Plant Menu neu Designed|Jannik|19.05.2024|
+|Sound Probleme behoben|Noah|21.05.2024|
+|Fixed User Login Bug & Bilder Transparent|Jannik|22.05.2024|
+|Custom Control hinzugefügt & Chemie Funktion hinzugefügt|Noah|22.05.2024|
+|Chmie Progess Bar hinzugefügt|Jannik|25.05.2024|
+|Verschiedene Anischten bei den Beeten hinzugefügt|Jannik|25.05.2024|
+|Profilbild geändert|Jannik|25.05.2024|
+|Löschen Button hinzugefügt (ohne Funktion)|Noah|26.05.2024|
+|Wasserstand und durchschnittliche Werte von Chemie & Wasser hinzugefügt|Jannik|26.05.2024|
+|Warnnachrichten hinzugefügt|Jannik|26.05.2024|
+|Pflanzen löschen|Noah|26.05.2024|
+|Beete löschen|Noah|26.05.2024|
+|Wasserstand kann nicht unter 0% gehen|Jannik|26.05.2024|
+|Bewässerungs-Funktion hinzugefügt|Jannik|26.05.2024|
+|Formel von Chemie verändert|Noah|26.05.2024|
+|Logging Klasse hinzugefügt|Noah|04.06.2024|
+|PDF Export Funktion hinzugefügt|Noah|04.06.2024|
+|Bewässerungs-Funktion verändert|Noah|04.06.2024|
+|Regenvorhersage Diagramm hinzugefügt & Automatische Bewässerung (Beta-Version)|Jannik|04.06.2024|
 
 ## Tagebuch
 
@@ -149,5 +167,55 @@ Merge Konflikt wurde behoben.
 Bug wurde gefixed --> Nach dem Registrieren bzw. Anmelden wurde beim Programm immer noch der alte User benutzt.
 Merge Konflikt wurde behoben.
 Plant Menü wurde neu Designed (noch nicht ganz fertig).
+
+### 21.05.2024
+Sound Probleme behoben.
+
+### 22.05.2024
+Fixed Bug --> Man konnte gleichen Name (wie schon vorhanden) beim User Login verwenden. Daher wird jetzt eine Exception (MessageBox) geworfen und man muss die Daten neu eingeben.
+Die Bilder von den Pflanzen wurden noch transparent gemacht.
+Neues Funktion --> Custom Control für die Beete wurde hinzugefügt sowie eine neue Chemie Funktion für die Beete.
+
+### 25.05.2024
+Neue Progess Bar mit der Chemie --> Nuget Packet "Syncfusion.SfProgressBar.WPF"
+Verschiedene Ansichten bei den Beeten sind nun verfügbar (Standard: einfach nur die Vorschau vom Beet, Chemie: zeigt, wie gut die Pflanzen zueinander passen, Wasser: zeigt den aktuellen Wasserstand an)
+Fixed Bug --> Good & BadConnections wurden nicht richtig aus der DB ausgelesen.
+Profilbild von Benutzer wurde geändert.
+
+### 26.05.2024
+Beete und Pflanzen können von nun an gelöschte werden.
+Jetzt kann der Wasserstand der Beete angezeigt werden und auf dem Dashboard findet man die Durchschnittswerte von Wasser und Chemie.
+Es werden Warnungen angezeigt (auf dem Dashboard unter Warnungen), wenn die Chemie oder das Wasser unter einen gewissen Wert gefallen sind.
+
+### 29.05.2024
+Der Wasserstand kann nicht mehr unter 0% sinken und man kann die Beete jetzt eigenständig mit einem Button bewässern (im Beet-Menü).
+Die Formel für die Berechnung der Chemie der Beete wurde geändert.
+
+### 04.06.2024
+Logging Klasse und eine PDF Export Funktion wurde hinzugefügt und die Bewässerungs-Funktion verändert.
+Ein Regenvorhersagen-Diagramm ist nun auf dem Dashboard ersichtlich und eine Automatische Bewässerungs-Funktion wurde hinzugefügt. Diese sollte, wenn es in den nächsten 24h eine gewisse Menge Wasser regnet, die Beete automatisch bewässern. Die Funktion befindet sich jedoch noch in der **Beta Phase** und es kann noch zu Problemen kommen.
+
+## Nuget Packages
++ LiveCharts.Wpf
+    + Für die Regenvorhersage
+    + https://www.nuget.org/packages/LiveCharts.Wpf/0.9.7?_src=template
++ Microsoft.Data.Sqlite & Microsoft.Data.Sqlite.Core
+    + Für die DB-Anbindung
+    + https://www.nuget.org/packages/Microsoft.Data.Sqlite/8.0.4?_src=template
++ OpenMeteo.dotnet
+    + Für die Wetter-Daten
+    + https://www.nuget.org/packages/OpenMeteo.dotnet/2.0.0?_src=template
++ QuestPDF
+    + Für die PDF-Export-Funktion
+    + https://www.nuget.org/packages/QuestPDF/2024.3.10?_src=template
++ Serilog & Serilog.Sinks.Console & Serilog.Sinks.File
+    + Für das Logging
+    + https://www.nuget.org/packages/Serilog.Sinks.Console/5.0.1?_src=template
++ Syncfusion.SfProgressBar.WPF
+    + Für die Progess Bar von Chemie und Wasser
+    + https://www.nuget.org/packages/Syncfusion.SfProgressBar.WPF/25.2.5?_src=template
++ System.Data.SQLite & System.Data.SQLite.Core
+    + Für die DB-Anbindung
+    + https://www.nuget.org/packages/System.Data.SQLite/1.0.118?_src=template
 
 
