@@ -39,7 +39,7 @@ namespace DashboardWetter
                         plantManager.Pflanzen.Add(plant);
                     }
                 }
-
+                Loggerclass.log.Information($"Alle Pflanzen konnten erfolgreich abgerufen werden.");
                 return plantManager;
             }
         }
@@ -81,6 +81,7 @@ namespace DashboardWetter
                         }
                     }
                 }
+                Loggerclass.log.Information($"Alle Beete wurden erfolgreich abgerufen.");
                 return Beete;
             }
         }
@@ -95,7 +96,7 @@ namespace DashboardWetter
                     return plant;
                 }
             }
-            Loggerclass.log.Information("Didn't find Plant in Database");
+            Loggerclass.log.Information("Pflanze konnte nicht in der DB gefunden werden!");
             throw new Exception("Diese Pflanze konnt nicht gefunden werden!");
         }
 
@@ -124,8 +125,8 @@ namespace DashboardWetter
                         }
                     }
                 }
-                Loggerclass.log.Information("User not Found in Database");
-                throw new Exception("User not found!");
+                Loggerclass.log.Information("Benutzer konnte in der DB nicht gefunden werden!");
+                throw new Exception("Benutzer konnte in der DB nicht gefunden werden!");
             }
         }
 
@@ -151,6 +152,7 @@ namespace DashboardWetter
                         Users.Add(user);
                     }
                 }
+                Loggerclass.log.Information("Alle Benutzer konnten abgerufen werden.");
                 return Users;
             }
         }

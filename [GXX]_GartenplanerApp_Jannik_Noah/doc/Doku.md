@@ -78,6 +78,10 @@
 |PDF Export Funktion hinzugefügt|Noah|04.06.2024|
 |Bewässerungs-Funktion verändert|Noah|04.06.2024|
 |Regenvorhersage Diagramm hinzugefügt & Automatische Bewässerung (Beta-Version)|Jannik|04.06.2024|
+|log.txt in Assets Ordner speichern|Noah|05.06.2024|
+|Fixed Bug --> Offline Warnung wird angezeigt wenn System Offline ist|Jannik|05.06.2024|
+|Logging|Jannik & Noah|05.06.2024|
+|Fixed Bug --> Standort kann nicht gefunden werden|Jannik|05.06.2024|
 
 ## Tagebuch
 
@@ -194,6 +198,12 @@ Die Formel für die Berechnung der Chemie der Beete wurde geändert.
 ### 04.06.2024
 Logging Klasse und eine PDF Export Funktion wurde hinzugefügt und die Bewässerungs-Funktion verändert.
 Ein Regenvorhersagen-Diagramm ist nun auf dem Dashboard ersichtlich und eine Automatische Bewässerungs-Funktion wurde hinzugefügt. Diese sollte, wenn es in den nächsten 24h eine gewisse Menge Wasser regnet, die Beete automatisch bewässern. Die Funktion befindet sich jedoch noch in der **Beta Phase** und es kann noch zu Problemen kommen.
+
+### 05.06.2024
+Das Logging File (log.txt) wird nun im Assets Ordner gespeichert.
+Fixed Bug --> Wenn man offline war, wurde eine Exception geworfen, da die Daten von der Wetter API nicht abgerufen werden konnten. Jetzt wird, wenn man offline ist, einen Warnung angezeigt.
+Zusätliches wurde ein allen Files Logging hinzugefügt.
+Fixed Bug --> Der Standort beim Login konnte nicht gefunden werden.
 
 ## Nuget Packages
 + LiveCharts.Wpf

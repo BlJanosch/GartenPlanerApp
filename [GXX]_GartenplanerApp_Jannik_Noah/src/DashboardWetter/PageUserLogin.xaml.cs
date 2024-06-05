@@ -24,7 +24,7 @@ namespace DashboardWetter
     {
 
         public TextBox UserNameBox;
-        public TextBox UserPasswordBox;
+        public PasswordBox UserPasswordBox;
         public TextBox UserLocationBox;
         public Button UserLoginOK;
         public Frame MainFrame;
@@ -80,15 +80,12 @@ namespace DashboardWetter
 
             UserNameBox = new TextBox();
             UserNameBox.Style = Styles.GetTextBoxStyle();
-            UserNameBox.Name = "UserNameTextBox";
 
-            UserPasswordBox = new TextBox();
-            UserPasswordBox.Style = Styles.GetTextBoxStyle();
-            UserPasswordBox.Name = "UserNameTextBox";
+            UserPasswordBox = new PasswordBox();
+            UserPasswordBox.Style = Styles.GetPasswordTextBoxStyle();
 
             UserLocationBox = new TextBox();
             UserLocationBox.Style = Styles.GetTextBoxStyle();
-            UserLocationBox.Name = "UserNameTextBox";
 
             UserLoginOK = new Button();
             UserLoginOK.Content = "OK";
@@ -117,18 +114,19 @@ namespace DashboardWetter
                     if (user.Name == UserNameBox.Text)
                     {
                         MainUser = null;
+                        Loggerclass.log.Error($"Benutzer {user.Name} existiert bereits.");
                         throw new NullReferenceException();
                     }
                 }
 
-                MainUser = new User(UserNameBox.Text, User.PasswordToHash(UserPasswordBox.Text), UserLocationBox.Text);
+                MainUser = new User(UserNameBox.Text, User.PasswordToHash(UserPasswordBox.Password), UserLocationBox.Text);
                 MainUser.SaveUser();
                 OpenMeteo.OpenMeteoClient client = new OpenMeteo.OpenMeteoClient();
                 WeatherForecast forecast = await client.QueryAsync(MainUser.Location);
                 if (forecast == null)
                 {
-                    Loggerclass.log.Information("Didn't find Location");
-                    throw new Exception("Didn't find Location");
+                    Loggerclass.log.Information($"Standort {MainUser.Location} konnte nicht gefunden werden.");
+                    throw new Exception($"Standort {MainUser.Location} konnte nicht gefunden werden.");
                 }
 
                 if (File.Exists(UserDataFile))
@@ -141,7 +139,7 @@ namespace DashboardWetter
                 }
                 else
                 {
-                    Loggerclass.log.Error("User Data File not available!");
+                    Loggerclass.log.Error("User Data File ist nicht verfügbar!");
                     using (StreamWriter writer = new StreamWriter(UserDataFile))
                     {
                         writer.WriteLine("1");
@@ -155,12 +153,11 @@ namespace DashboardWetter
             }
             catch (NullReferenceException)
             {
-                Loggerclass.log.Information("Name typed in was already chosen.");
                 MessageBox.Show("Dieser Name ist bereits vergeben!", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch
             {
-                MessageBox.Show($"Didn't find Location '{UserLocationBox.Text}'", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Didn't find Location {UserLocationBox.Text}! Change it in the User Menu.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

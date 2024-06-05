@@ -116,12 +116,8 @@ namespace DashboardWetter
                 PageBeeteMenu newPage = new PageBeeteMenu(beeteManager, MainFrame, CurrentUser);
                 MainFrame.Content = newPage;
                 newPage.DrawBeeteMenu();
+                Loggerclass.log.Information($"Beet {neuesBeet.Name} wurde hinzugefügt.");
             }
-        }
-
-        public void DrawNew()
-        {
-
         }
     }
 }

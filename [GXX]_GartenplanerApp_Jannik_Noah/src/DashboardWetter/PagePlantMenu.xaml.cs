@@ -35,8 +35,6 @@ namespace DashboardWetter
         public void DrawPlantMenu()
         {
 
-
-
             ListBox listBox = ListBoxPlants;
             
             foreach (Plant Plant in Plants.Pflanzen)
@@ -46,9 +44,7 @@ namespace DashboardWetter
                 content.Style = Styles.GetFontStyle(15);
                 listBox.Items.Add(content);
             }
-
-            
-
+            Loggerclass.log.Information($"PlantMenu wurde erfolgreich gezeichnet.");
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -58,6 +54,7 @@ namespace DashboardWetter
                 PagePlantInfo pagePlantInfo = new PagePlantInfo(ListBoxPlants.SelectedIndex);
                 FramePlantInfo.Content = pagePlantInfo;
                 pagePlantInfo.DrawPlantInfo();
+                Loggerclass.log.Information($"Pflanze {pagePlantInfo.Name} wurde ausgewählt.");
             }
         }
 

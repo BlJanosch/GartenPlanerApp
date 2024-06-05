@@ -17,6 +17,7 @@ namespace DashboardWetter
         public void AddBeet(Beet beet)
         {
             Beete.Add(beet);
+            Loggerclass.log.Information($"Beet wurde hinzugefügt (Name: {beet.Name}).");
         }
     }
 }

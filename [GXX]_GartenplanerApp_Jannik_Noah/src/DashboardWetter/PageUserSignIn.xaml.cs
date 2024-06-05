@@ -23,7 +23,7 @@ namespace DashboardWetter
     public partial class PageUserSignIn : Page
     {
         public TextBox UserNameBox;
-        public TextBox UserPasswordBox;
+        public PasswordBox UserPasswordBox;
         public TextBox UserLocationBox;
         public Button UserLoginOK;
         public Frame MainFrame;
@@ -71,11 +71,9 @@ namespace DashboardWetter
 
             UserNameBox = new TextBox();
             UserNameBox.Style = Styles.GetTextBoxStyle();
-            UserNameBox.Name = "UserNameTextBox";
 
-            UserPasswordBox = new TextBox();
-            UserPasswordBox.Style = Styles.GetTextBoxStyle();
-            UserPasswordBox.Name = "UserNameTextBox";
+            UserPasswordBox = new PasswordBox();
+            UserPasswordBox.Style = Styles.GetPasswordTextBoxStyle();
 
             UserLoginOK = new Button();
             UserLoginOK.Content = "OK";
@@ -96,7 +94,7 @@ namespace DashboardWetter
         {
             try
             {
-                MainUser = DataBaseManager.GetUser(UserNameBox.Text, UserPasswordBox.Text);
+                MainUser = DataBaseManager.GetUser(UserNameBox.Text, UserPasswordBox.Password);
                 if (File.Exists(UserDataFile))
                 {
                     using (StreamWriter writer = new StreamWriter(UserDataFile, false))
@@ -117,7 +115,7 @@ namespace DashboardWetter
             catch (Exception ex)
             {
                 MainUser = null;
-                Loggerclass.log.Information("Falsche Eingabe bei der Eingabe");
+                Loggerclass.log.Information("Falsche Eingabe bei PageUserSignIn");
                 MessageBox.Show("Bitte überprüfen Sie ihre Eingabe", "Falsche Eingabe", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }

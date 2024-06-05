@@ -42,7 +42,7 @@ namespace DashboardWetter
             TextBlockInfos.FontWeight = FontWeights.Bold;
             TextBlockInfos.Margin = new Thickness(10, 0, 0, 0);
             Image.Source = new BitmapImage(new Uri($"/Images/plants/plant{plantIndex}.png", UriKind.Relative));
-
+            Loggerclass.log.Information($"PlantInfo wurde erfolgreich gezeichnet.");
         }
     }
 }

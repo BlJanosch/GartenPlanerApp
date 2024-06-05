@@ -34,7 +34,6 @@ namespace DashboardWetter
                     thickness = value;
                 }
                 
-                // TODO: set thickness
                 BorderLeft.Width = thickness;
             }
         }
@@ -143,33 +142,18 @@ namespace DashboardWetter
 
             image.Source = new BitmapImage(new Uri(path, UriKind.Relative));
 
-            /* <Button ></Button>
-
-            Button ButtonDelete = new Button()
-            {
-                Width = 16,
-                Height = 16,
-                
-            };
-            ButtonDelete.Click += ButtonDelete_Click;
-            Canvas.SetBottom(ButtonDelete, 5);
-            Canvas.SetRight(ButtonDelete, 5);
-            */
-            
-
-
             CanvasMain.Children.Add(image);
             
             Canvas.SetTop(image, 0);
             Canvas.SetLeft(image, 10);
-
+            Loggerclass.log.Information("Image von Pflanze in BeetControl wurde gesetzt.");
         }
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
 
             this.beet.DeleteElement(col, row);
-
+            Loggerclass.log.Information("Pflanze in BeetControl wurde gelöscht.");
         }
     }
 }

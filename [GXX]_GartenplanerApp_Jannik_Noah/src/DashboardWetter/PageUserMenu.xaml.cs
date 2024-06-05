@@ -143,17 +143,14 @@ namespace DashboardWetter
 
         private void ButtonPlay_Click(object sender, RoutedEventArgs e)
         {
-            //this.buttonPlay.IsEnabled = false;
-            //this.buttonMute.IsEnabled = true;
             soundPlayer.PlayLooping();
-            
+            Loggerclass.log.Information($"Musik wird abgespielt");
         }
 
         private void ButtonMute_Click(object sender, RoutedEventArgs e)
         {
-            //this.buttonMute.IsEnabled = false;
-            //this.buttonPlay.IsEnabled = true;
             soundPlayer.Stop();
+            Loggerclass.log.Information($"Musik wurde pausiert.");
         }
 
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
@@ -165,6 +162,7 @@ namespace DashboardWetter
                 MainUser = window_ChangePassword.MainUser;
                 MainUser.UpdateUser();
                 window_ChangePassword.Close();
+                Loggerclass.log.Information($"Passwort von Benutzer {MainUser.Name} wurde erfolgreich geändert.");
             }
         }
 
@@ -177,6 +175,7 @@ namespace DashboardWetter
                 MainUser = window_ChangeName.MainUser;
                 MainUser.UpdateUser();
                 window_ChangeName.Close();
+                Loggerclass.log.Information($"Name von Benutzer {MainUser.Name} wurde erfolgreich geändert.");
             }
             DrawUserMenu();
         }
@@ -190,6 +189,7 @@ namespace DashboardWetter
                 MainUser = window_ChangeLocation.MainUser;
                 MainUser.UpdateUser();
                 window_ChangeLocation.Close();
+                Loggerclass.log.Information($"Standort von Benutzer {MainUser.Name} wurde erfolgreich geändert.");
             }
         }
 
@@ -206,6 +206,7 @@ namespace DashboardWetter
             pageLoginOrRegister.DrawUserLogin();
             pageLoginOrRegister.LoginButton.Click += LoginButton2_Click;
             pageLoginOrRegister.RegisterButton.Click += RegisterButton2_Click;
+            Loggerclass.log.Information($"Benutzer {MainUser.Name} wurde ausgeloggt.");
         }
 
         private void RegisterButton2_Click(object sender, RoutedEventArgs e)
@@ -223,11 +224,11 @@ namespace DashboardWetter
                 MainUser = pageUserLogin.MainUser;
                 beeteManager.Beete = DataBaseManager.GetAllBeete(MainUser);
                 Finished?.Invoke(this, EventArgs.Empty);
-                Loggerclass.log.Information("Login accepted");
+                Loggerclass.log.Information($"Benutzer {MainUser.Name} wurde erfolgreich eingeloggt.");
             }
             catch
             {
-                Loggerclass.log.Information("Login not accepted");
+                Loggerclass.log.Information("Fehler beim Einloggen! Wird erneut versucht...");
                 pageUserLogin = new PageUserLogin(MainFrame, MainUser, UserDataFile);
                 MainFrame.Content = pageUserLogin;
                 pageUserLogin.DrawUserLogin();

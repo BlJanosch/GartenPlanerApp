@@ -74,7 +74,7 @@ namespace DashboardWetter
                 }
                 else
                 {
-                    Loggerclass.log.Error("Datei konnte nicht gespeichert werden");
+                    Loggerclass.log.Error("Datei konnte nicht gespeichert werden, da kein Speicherort ausgewählt wurde.");
                     MessageBox.Show("Datei konnte nicht gespeichert werden... kein Speicherort ausgewählt.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
