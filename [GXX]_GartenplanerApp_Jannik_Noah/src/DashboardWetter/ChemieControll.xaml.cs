@@ -83,6 +83,7 @@ namespace DashboardWetter
             pathGeometry.Figures.Add(pathFigure);
 
             progressPath.Data = pathGeometry;
+            Loggerclass.log.Information($"Prozess in ChemieControll wurde erfolgreich geupdated.");
         }
     }
 }
