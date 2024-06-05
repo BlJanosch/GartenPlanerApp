@@ -81,6 +81,7 @@
 |log.txt in Assets Ordner speichern|Noah|05.06.2024|
 |Fixed Bug --> Offline Warnung wird angezeigt wenn System Offline ist|Jannik|05.06.2024|
 |Logging|Jannik & Noah|05.06.2024|
+|Fixed Bug --> Standort kann nicht gefunden werden|Jannik|05.06.2024|
 
 ## Tagebuch
 
@@ -202,6 +203,7 @@ Ein Regenvorhersagen-Diagramm ist nun auf dem Dashboard ersichtlich und eine Aut
 Das Logging File (log.txt) wird nun im Assets Ordner gespeichert.
 Fixed Bug --> Wenn man offline war, wurde eine Exception geworfen, da die Daten von der Wetter API nicht abgerufen werden konnten. Jetzt wird, wenn man offline ist, einen Warnung angezeigt.
 Zusätliches wurde ein allen Files Logging hinzugefügt.
+Fixed Bug --> Der Standort beim Login konnte nicht gefunden werden.
 
 ## Nuget Packages
 + LiveCharts.Wpf
