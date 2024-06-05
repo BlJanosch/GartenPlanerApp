@@ -117,6 +117,7 @@ namespace DashboardWetter
                     if (user.Name == UserNameBox.Text)
                     {
                         MainUser = null;
+                        Loggerclass.log.Error($"Benutzer {user.Name} existiert bereits.");
                         throw new NullReferenceException();
                     }
                 }
@@ -127,8 +128,8 @@ namespace DashboardWetter
                 WeatherForecast forecast = await client.QueryAsync(MainUser.Location);
                 if (forecast == null)
                 {
-                    Loggerclass.log.Information("Didn't find Location");
-                    throw new Exception("Didn't find Location");
+                    Loggerclass.log.Information($"Standort {MainUser.Location} konnte nicht gefunden werden.");
+                    throw new Exception($"Standort {MainUser.Location} konnte nicht gefunden werden.");
                 }
 
                 if (File.Exists(UserDataFile))
@@ -141,7 +142,7 @@ namespace DashboardWetter
                 }
                 else
                 {
-                    Loggerclass.log.Error("User Data File not available!");
+                    Loggerclass.log.Error("User Data File ist nicht verfügbar!");
                     using (StreamWriter writer = new StreamWriter(UserDataFile))
                     {
                         writer.WriteLine("1");
@@ -155,7 +156,6 @@ namespace DashboardWetter
             }
             catch (NullReferenceException)
             {
-                Loggerclass.log.Information("Name typed in was already chosen.");
                 MessageBox.Show("Dieser Name ist bereits vergeben!", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch
