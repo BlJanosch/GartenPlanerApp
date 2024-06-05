@@ -48,7 +48,6 @@ namespace DashboardWetter
                     gu_Nachbarn[i] = Convert.ToInt32(g_Nachbarn[i]);
                 }
                 this.guteNachbarn = gu_Nachbarn;
-                Loggerclass.log.Information($"GuteNachbarn wurden gesetzt.");
             }
             else
             {
@@ -64,7 +63,6 @@ namespace DashboardWetter
                     sc_Nachbarn[i] = Convert.ToInt32(s_Nachbarn[i]);
                 }
                 this.schlechteNachbarn = sc_Nachbarn;
-                Loggerclass.log.Information($"SchlechteNachbarn wurden gesetzt.");
             }
             else
             {

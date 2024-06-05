@@ -157,7 +157,7 @@ namespace DashboardWetter
             }
             catch
             {
-                MessageBox.Show($"Didn't find Location '{UserLocationBox.Text}'", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Didn't find Location {UserLocationBox.Text}! Change it in the User Menu.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }
