@@ -65,6 +65,7 @@ namespace DashboardWetter
                 VerticalAlignment = VerticalAlignment.Bottom,
                 Margin = new Thickness(10, 0, 0, 5)
             };
+            Loggerclass.log.Information("Items wurde erstellt in CreatItems() --> BeetShortInfo.cs");
         }
 
 
@@ -214,6 +215,7 @@ namespace DashboardWetter
             timer_Uhr.Tick += Timer_Uhr_Tick; ;
             timer_Uhr.Start();
 
+            Loggerclass.log.Information("GetShortInfo() in BeetShortInfo wurde erfolgreich ausgeführt.");
             return border;
         }
 
@@ -242,6 +244,7 @@ namespace DashboardWetter
 
                     int tmp = command.ExecuteNonQuery();
                 }
+                Loggerclass.log.Information($"Beet {beet.Name} wurde erfolgreich bewässert und die DB aktualisiert");
             }
         }
 
@@ -268,6 +271,8 @@ namespace DashboardWetter
 
                 int tmp = command.ExecuteNonQuery();
             }
+
+            Loggerclass.log.Information($"Beet {this.beet.Name} wurde erfolgreich gelöscht.");
 
             pageBeeteMenu.DrawBeeteMenu();
 
@@ -301,6 +306,7 @@ namespace DashboardWetter
                 grid.Children.RemoveAt(grid.Children.Count - 1);
                 grid.Children.Add(DrawChemie());
                 CurrentMode = "Chemie";
+                Loggerclass.log.Information($"Ansicht von Beet wurde auf folgende Ansicht geändert: {CurrentMode}");
 
             }
             else if (CurrentMode == "Chemie")
@@ -308,6 +314,7 @@ namespace DashboardWetter
                 grid.Children.RemoveAt(grid.Children.Count - 1);
                 grid.Children.Add(DrawWater());
                 CurrentMode = "Water";
+                Loggerclass.log.Information($"Ansicht von Beet wurde auf folgende Ansicht geändert: {CurrentMode}");
             }
             else if (CurrentMode == "Water")
             {
@@ -317,7 +324,7 @@ namespace DashboardWetter
                 grid.Children.Add(canvas);
                 grid.Children.Add(BestellButtonImage);
                 grid.Children.Add(BeetBestellenButton);
-
+                Loggerclass.log.Information($"Ansicht von Beet wurde auf folgende Ansicht geändert: {CurrentMode}");
             }
         }
 
@@ -363,6 +370,7 @@ namespace DashboardWetter
                     beetViewGrid.Children.Add(Border);
                 }
             }
+            Loggerclass.log.Information($"Detailierte Ansicht von Beet {beet.Name} wurde gezeichnet");
             return beetViewGrid;
         }
 
