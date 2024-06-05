@@ -150,6 +150,7 @@ namespace DashboardWetter
                 MainArea.Children.Add(BeetGrid);
             }
             DrawLabelsPlants();
+            Loggerclass.log.Information("Beete Übersicht wurde gezeichnet.");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -198,27 +199,18 @@ namespace DashboardWetter
                 DrawLabelsPlants();
                 UpdateBeet();
                 Chemie = GetChemie();
+                Loggerclass.log.Information("Pflanze/n wurde/n hinzugefügt.");
             }
         }
 
         public void DeleteElement(int col, int row)
         {
-            /*
-            Panel parentPanel = (Panel)this.Parent;
-            parentPanel.Children.Remove(this);
-            this.beet.plants[col + (row * this.beet.Breite)] = null;
-            this.beet.DrawLabelsPlants();
-            this.beet.UpdateBeet();
-            */
 
-
-            
             this.plants[ToLinear(col, row)] = null;
             this.UpdateBeet();
             this.DrawBeet(MainArea);
             this.DrawLabelsPlants();
-            
-
+            Loggerclass.log.Information("Pflanze/n wurde/n gelöscht.");
         }
 
         public void DrawLabelsPlants()
@@ -230,35 +222,7 @@ namespace DashboardWetter
                 for (int row = 0; row < Hoehe; row++)
                 {
                     if (!(plants[ToLinear(col,row)] == null))
-                    {
-                        /*Canvas canvas = new Canvas()
-                        {
-                            Height = 80,
-                            Width = 80,
-                            Background = Brushes.White,
-                        };
-                        Label labelName = new Label()
-                        {
-                            Content = plants[x+(y*Breite)].Name,
-                        };
-                        Image image = new Image()
-                        {
-
-                            Height = 80,
-                            Width = 80,
-                            
-                        };
-
-                        image.Source = new BitmapImage(new Uri($"/Images/plants/plant{plants[x + (y * Breite)].ID-1}.png", UriKind.Relative));
-
-                        Canvas.SetTop(image, 10);
-                        Canvas.SetLeft(image, 0);
-
-                        canvas.Children.Add(image);
-                        canvas.Children.Add(labelName);
-                        
-                        BeetGrid.Children.Add(canvas);*/
-
+                    {                     
                         BeetControl canvas = new BeetControl(this, col, row, plants[col + (row * Breite)].Name, $"/Images/plants/plant{plants[col + (row * Breite)].ID - 1}.png", GetBrushLeft(col, row), GetBrushRight(col, row), GetBrushTop(col, row), GetBrushBottom(col, row))
                         {
                             Width = 80,
@@ -363,78 +327,93 @@ namespace DashboardWetter
 
         public void SaveBeet()
         {
-            using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+            try
             {
-                connection.Open();
-
-                SqliteCommand command = connection.CreateCommand();
-
-                string Plants = "";
-                int counter = 0;
-                foreach (Plant plant in this.plants)
+                using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
                 {
-                    if (counter == 0)
-                    {
-                        Plants += "x";
+                    connection.Open();
 
-                    }
-                    else
+                    SqliteCommand command = connection.CreateCommand();
+
+                    string Plants = "";
+                    int counter = 0;
+                    foreach (Plant plant in this.plants)
                     {
-                        Plants += ",x";
+                        if (counter == 0)
+                        {
+                            Plants += "x";
+
+                        }
+                        else
+                        {
+                            Plants += ",x";
+                        }
+                        counter++;
                     }
-                    counter++;
+                    command.CommandText = $"INSERT INTO tblBeet(UserID, Rows, Columns, Name, Plants, guteVerbindungen, schlechteVerbindungen, BewässerungsInterval, LetztesMalBewässert) VALUES({UserID}, {Hoehe}, {Breite}, '{Name}', '{Plants}', {GoodConections}, {BadConnections}, {BewässerungsInterval}, '{LastTimeWatered}');";
+
+                    int tmp = command.ExecuteNonQuery();
                 }
-                command.CommandText = $"INSERT INTO tblBeet(UserID, Rows, Columns, Name, Plants, guteVerbindungen, schlechteVerbindungen, BewässerungsInterval, LetztesMalBewässert) VALUES({UserID}, {Hoehe}, {Breite}, '{Name}', '{Plants}', {GoodConections}, {BadConnections}, {BewässerungsInterval}, '{LastTimeWatered}');";
-
-                int tmp = command.ExecuteNonQuery();
+            }
+            catch
+            {
+                MessageBox.Show("Fehler beim Speichern von den Beeten ist aufgetreten!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Loggerclass.log.Information("Fehler beim Speichern von den Beeten ist aufgetreten!");
             }
         }
 
         public void UpdateBeet()
         {
-            using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+            try
             {
-                connection.Open();
-
-                SqliteCommand command = connection.CreateCommand();
-
-                string Plants = "";
-                int counter = 0;
-                foreach (Plant plant in this.plants)
+                using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
                 {
-                    if (counter == 0)
+                    connection.Open();
+
+                    SqliteCommand command = connection.CreateCommand();
+
+                    string Plants = "";
+                    int counter = 0;
+                    foreach (Plant plant in this.plants)
                     {
-                        if (plant != null)
+                        if (counter == 0)
                         {
-                            Plants += plant.ID;
+                            if (plant != null)
+                            {
+                                Plants += plant.ID;
+                            }
+                            else
+                            {
+                                Plants += "x";
+                            }
                         }
                         else
                         {
-                            Plants += "x";
+                            if (plant != null)
+                            {
+                                Plants += $",{plant.ID}";
+                            }
+                            else { Plants += ",x"; }
                         }
+                        counter++;
                     }
-                    else
-                    {
-                        if (plant != null)
-                        {
-                            Plants += $",{plant.ID}";
-                        }
-                        else { Plants += ",x"; }
-                    }
-                    counter++;
-                }
-                command.CommandText = $"UPDATE tblBeet SET Plants = '{Plants}', guteVerbindungen = {GoodConections}, schlechteVerbindungen = {BadConnections}, LetztesMalBewässert = '{LastTimeWatered}' WHERE Name = '{Name}' AND UserID = {UserID};";
+                    command.CommandText = $"UPDATE tblBeet SET Plants = '{Plants}', guteVerbindungen = {GoodConections}, schlechteVerbindungen = {BadConnections}, LetztesMalBewässert = '{LastTimeWatered}' WHERE Name = '{Name}' AND UserID = {UserID};";
 
-                int tmp = command.ExecuteNonQuery();
+                    int tmp = command.ExecuteNonQuery();
+                }
             }
+            catch
+            {
+                MessageBox.Show("Fehler beim Aktualisieren von den Beeten ist aufgetreten!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Loggerclass.log.Information("Fehler beim Aktualisieren von den Beeten ist aufgetreten!");
+            }
+            
         }
 
         public double GetChemie()
-        {
-            
+        {  
             double Max = ((((Breite*2)-1)*(Hoehe-1))+(Breite-1))*2;
             return ((((GoodConections - (BadConnections * 2) - (Max-GoodConections-BadConnections))/ Max * 100) + 300) / 400) * 100;
-
         }
     }
 }
