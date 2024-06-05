@@ -52,6 +52,8 @@ namespace DashboardWetter
 
             MainArea.Children.Add(RegisterButton);
             MainArea.Children.Add(LoginButton);
+            Loggerclass.log.Information($"UserLogin wurde erfolgreich gezeichnet.");
+
         }
 
     }
