@@ -152,6 +152,7 @@ namespace DashboardWetter
                         Users.Add(user);
                     }
                 }
+                Loggerclass.log.Information("Alle Benutzer konnten abgerufen werden.");
                 return Users;
             }
         }

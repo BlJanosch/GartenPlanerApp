@@ -89,6 +89,7 @@ namespace DashboardWetter
                 PflanzeButton.IsEnabled = true;
                 UserButton.IsEnabled = true;
                 beeteManager.Beete = DataBaseManager.GetAllBeete(MainUser);
+                Loggerclass.log.Information($"Menü Buttons wurden freigegeben");
             }
             else if (PageName == "PageUserLogin" || PageName == "PageLoginOrRegister")
             {
@@ -96,6 +97,7 @@ namespace DashboardWetter
                 BeeteButton.IsEnabled = false;
                 PflanzeButton.IsEnabled = false;
                 UserButton.IsEnabled = false;
+                Loggerclass.log.Information($"Menü Buttons wurden gesperrt");
             }
         }
 
@@ -120,6 +122,7 @@ namespace DashboardWetter
                             {
 
                                 DrawUserLoginOrRegister();
+                                Loggerclass.log.Information($"Benutzer {MainUser.Name} wurde erfolgreich regestriert oder angemeldet.");
                                 SignedIn = true;
                                 break;
                             }
@@ -133,6 +136,7 @@ namespace DashboardWetter
                                 MainUser.GetUserID();
                                 DrawHome();
                                 beeteManager.Beete = DataBaseManager.GetAllBeete(MainUser);
+                                Loggerclass.log.Information($"Benutzer {MainUser.Name} wurde erfolgreich automatisch eingeloggt.");
                             }
                         }
                     }
@@ -164,6 +168,7 @@ namespace DashboardWetter
             BeeteButton.IsEnabled = true;
             PflanzeButton.IsEnabled = true;
             UserButton.IsEnabled = true;
+            Loggerclass.log.Information($"Home Menü wurde erfolgreich gezeichnet");
         }
 
         public void DrawBeeteMenu()
@@ -185,6 +190,7 @@ namespace DashboardWetter
                 MainFrame.Content = pageBeeteMenu;
                 pageBeeteMenu.DrawBeeteMenu();
             }
+            Loggerclass.log.Information($"Beete Menü wurde erfolgreich gezeichnet.");
         }
 
 
@@ -195,6 +201,7 @@ namespace DashboardWetter
             MainFrame.Content = pageUserMenu;
             pageUserMenu.DrawUserMenu();
             pageUserMenu.Finished += PageUserMenu_Finished;
+            Loggerclass.log.Information($"User Menü wurde erfolgreich gezeichnet.");
         }
 
         private void PageUserMenu_Finished(object sender, EventArgs e)
@@ -211,6 +218,7 @@ namespace DashboardWetter
             pageLoginOrRegister.DrawUserLogin();
             pageLoginOrRegister.RegisterButton.Click += RegisterButton_Click;
             pageLoginOrRegister.LoginButton.Click += LoginButton_Click;
+            Loggerclass.log.Information($"UserLoginOrRegister wurde erfolgreich gezeichnet.");
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -245,9 +253,11 @@ namespace DashboardWetter
             {
                 MainUser = pageUserLogin.MainUser;
                 MainUser.GetUserID();
+                Loggerclass.log.Information($"Benutzer {MainUser.Name} wurde erfolgreich eingeloggt.");
             }
             catch
             {
+                Loggerclass.log.Error($"Fehler beim Einloggen! Wird erneut versucht...");
                 pageUserLogin = new PageUserLogin(MainFrame, MainUser, UserDataFile);
                 MainFrame.Content = pageUserLogin;
                 pageUserLogin.DrawUserLogin();
