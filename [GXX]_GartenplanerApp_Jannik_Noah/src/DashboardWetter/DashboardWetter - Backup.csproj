@@ -1,0 +1,126 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\song.mp3" />
+    <None Remove="Bild1.png" />
+    <None Remove="Home.png" />
+    <None Remove="Images\Beet.png" />
+    <None Remove="Images\Bild1.png" />
+    <None Remove="Images\Bild6.png" />
+    <None Remove="Images\Change.png" />
+    <None Remove="Images\Delete.png" />
+    <None Remove="Images\Home.png" />
+    <None Remove="Images\Info_Icon.png" />
+    <None Remove="Images\plants\plant0.png" />
+    <None Remove="Images\plants\plant1.png" />
+    <None Remove="Images\plants\plant10.png" />
+    <None Remove="Images\plants\plant11.png" />
+    <None Remove="Images\plants\plant12.png" />
+    <None Remove="Images\plants\plant13.png" />
+    <None Remove="Images\plants\plant14.png" />
+    <None Remove="Images\plants\plant15.png" />
+    <None Remove="Images\plants\plant16.png" />
+    <None Remove="Images\plants\plant17.png" />
+    <None Remove="Images\plants\plant2.png" />
+    <None Remove="Images\plants\plant3.png" />
+    <None Remove="Images\plants\plant4.png" />
+    <None Remove="Images\plants\plant5.png" />
+    <None Remove="Images\plants\plant6.png" />
+    <None Remove="Images\plants\plant7.png" />
+    <None Remove="Images\plants\plant8.png" />
+    <None Remove="Images\plants\plant9.png" />
+    <None Remove="Images\Plus.png" />
+    <None Remove="Images\TerraScape.png" />
+    <None Remove="Images\User.png" />
+    <None Remove="Images\UserPicture.jpg" />
+    <None Remove="Images\userPicture2.png" />
+    <None Remove="Images\wagen.png" />
+    <None Remove="Images\WaterDrop.png" />
+    <None Remove="Images\Wetter.png" />
+    <None Remove="User.png" />
+    <None Remove="UserData\Login.csv" />
+    <None Remove="UserPicture.jpg" />
+    <None Remove="userPicture2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Change.png" />
+    <Content Include="Images\Delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\wagen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\plants\plant16.png" />
+    <Resource Include="Images\plants\plant17.png" />
+    <Resource Include="Images\plants\plant3.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.4" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="8.0.4" />
+    <PackageReference Include="OpenMeteo.dotnet" Version="2.0.0" />
+    <PackageReference Include="QuestPDF" Version="2024.3.10" />
+    <PackageReference Include="Serilog" Version="4.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="Syncfusion.SfProgressBar.WPF" Version="25.2.5" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\song.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Home.png" />
+    <Resource Include="Images\Beet.png" />
+    <Resource Include="Images\Bild1.png" />
+    <Resource Include="Images\Bild6.png" />
+    <Resource Include="Images\Home.png" />
+    <Resource Include="Images\Info_Icon.png" />
+    <Resource Include="Images\plants\plant0.png" />
+    <Resource Include="Images\plants\plant1.png" />
+    <Resource Include="Images\plants\plant10.png" />
+    <Resource Include="Images\plants\plant11.png" />
+    <Resource Include="Images\plants\plant12.png" />
+    <Resource Include="Images\plants\plant13.png" />
+    <Resource Include="Images\plants\plant14.png" />
+    <Resource Include="Images\plants\plant15.png" />
+    <Resource Include="Images\plants\plant2.png" />
+    <Resource Include="Images\plants\plant4.png" />
+    <Resource Include="Images\plants\plant5.png" />
+    <Resource Include="Images\plants\plant6.png" />
+    <Resource Include="Images\plants\plant7.png" />
+    <Resource Include="Images\plants\plant8.png" />
+    <Resource Include="Images\plants\plant9.png" />
+    <Resource Include="Images\Plus.png" />
+    <Resource Include="Images\TerraScape.png" />
+    <Resource Include="Images\User.png" />
+    <Resource Include="Images\UserPicture.jpg" />
+    <Resource Include="Images\userPicture2.png">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\WaterDrop.png" />
+    <Resource Include="Images\Wetter.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UserData\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\GartenPlaner.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
