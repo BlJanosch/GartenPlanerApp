@@ -69,6 +69,7 @@ namespace DashboardWetter
                         });
                     }).GeneratePdf(Filename);
                     MessageBox.Show("Erfolgreich gespeichert!", "Glückwunsch", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // Loggerclass.log.Information("Erfolgreich gespeichert");
                     this.Close();
                 }
                 else
