@@ -9,6 +9,7 @@ using System.Data.SQLite;
 using Microsoft.Data.Sqlite;
 using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Input;
+using System.Windows;
 
 namespace DashboardWetter
 {
@@ -50,55 +51,79 @@ namespace DashboardWetter
 
                 // Gib den Hash-Wert aus
                 string hashString = builder.ToString();
+                Loggerclass.log.Information($"Passwort wurde gehasht.");
                 return hashString;
             }
         }
 
         public void SaveUser()
         {
-            using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+            try
             {
-                connection.Open();
+                using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+                {
+                    connection.Open();
 
-                SqliteCommand command = connection.CreateCommand();
+                    SqliteCommand command = connection.CreateCommand();
 
-                command.CommandText = $"INSERT INTO tblUser(Name, Password, Location) VALUES('{Name}', '{Password}', '{Location}');";
+                    command.CommandText = $"INSERT INTO tblUser(Name, Password, Location) VALUES('{Name}', '{Password}', '{Location}');";
 
-                int tmp = command.ExecuteNonQuery();
-                GetUserID();
+                    int tmp = command.ExecuteNonQuery();
+                    GetUserID();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Fehler beim Speichern von Benutzer!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Loggerclass.log.Information($"Fehler beim Speichern von Benutzer {Name}");
             }
         }
         public void UpdateUser()
         {
-            using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+            try
             {
-                connection.Open();
+                using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+                {
+                    connection.Open();
 
-                SqliteCommand command = connection.CreateCommand();
+                    SqliteCommand command = connection.CreateCommand();
 
-                command.CommandText = $"UPDATE tblUser SET Name = '{Name}', Password = '{Password}', Location = '{Location}' WHERE id = {ID};";
+                    command.CommandText = $"UPDATE tblUser SET Name = '{Name}', Password = '{Password}', Location = '{Location}' WHERE id = {ID};";
 
-                int tmp = command.ExecuteNonQuery();
+                    int tmp = command.ExecuteNonQuery();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Fehler beim Aktualisieren von Benutzer!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Loggerclass.log.Information($"Fehler beim Aktualisieren von Benutzer {Name}");
             }
         }
 
         public void GetUserID()
         {
-            using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+            try
             {
-                connection.Open();
-
-                SqliteCommand command = connection.CreateCommand();
-
-                command.CommandText = $"SELECT id FROM tblUser where Name = '{Name}'";
-
-                using (SqliteDataReader reader = command.ExecuteReader())
+                using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
                 {
-                    while (reader.Read())
+                    connection.Open();
+
+                    SqliteCommand command = connection.CreateCommand();
+
+                    command.CommandText = $"SELECT id FROM tblUser where Name = '{Name}'";
+
+                    using (SqliteDataReader reader = command.ExecuteReader())
                     {
-                        ID = reader.GetInt32(0);
+                        while (reader.Read())
+                        {
+                            ID = reader.GetInt32(0);
+                        }
                     }
                 }
+            }
+            catch
+            {
+                Loggerclass.log.Information($"Benutzer ID von {Name} konnte nicht gefunden werden!");
             }
         }
     }
