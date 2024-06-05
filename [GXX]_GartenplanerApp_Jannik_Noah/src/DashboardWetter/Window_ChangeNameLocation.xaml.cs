@@ -54,6 +54,7 @@ namespace DashboardWetter
                     }
                     catch (Exception ex)
                     {
+                        Loggerclass.log.Information("Name wurde bereits vergeben (change Username window)");
                         MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
@@ -63,6 +64,7 @@ namespace DashboardWetter
                     WeatherForecast forecast = await client.QueryAsync(TextBoxNew.Text);
                     if (forecast == null)
                     {
+                        
                         throw new Exception($"{TextBoxNew.Text} konnte nicht gefunden werden!");
                     }
                     MainUser.Location = TextBoxNew.Text;
@@ -80,6 +82,7 @@ namespace DashboardWetter
             }
             catch (Exception ex)
             {
+                Loggerclass.log.Error(ex.Message);
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

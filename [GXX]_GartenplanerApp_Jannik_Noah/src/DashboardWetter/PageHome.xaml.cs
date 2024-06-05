@@ -349,6 +349,7 @@ namespace DashboardWetter
             }
             catch
             {
+                Loggerclass.log.Information("Weather Infos not Available (cause: very likely Internet issues");
                 WetterDashBoard.Content = "N/A";
                 TemperaturNow.Content = "N/A";
                 RegenNow.Content = "N/A";

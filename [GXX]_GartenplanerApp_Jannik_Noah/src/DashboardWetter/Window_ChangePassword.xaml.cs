@@ -45,6 +45,7 @@ namespace DashboardWetter
             }
             else
             {
+                Loggerclass.log.Information("Prüf-Passwort stimmt nicht mit vorherigem überein!");
                 MessageBox.Show("Passwort stimmt nicht mit vorherigem überein", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

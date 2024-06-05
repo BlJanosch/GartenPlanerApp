@@ -117,6 +117,7 @@ namespace DashboardWetter
             catch (Exception ex)
             {
                 MainUser = null;
+                Loggerclass.log.Information("Falsche Eingabe bei der Eingabe");
                 MessageBox.Show("Bitte überprüfen Sie ihre Eingabe", "Falsche Eingabe", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }

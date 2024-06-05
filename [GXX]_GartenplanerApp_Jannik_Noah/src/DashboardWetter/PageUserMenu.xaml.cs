@@ -223,9 +223,11 @@ namespace DashboardWetter
                 MainUser = pageUserLogin.MainUser;
                 beeteManager.Beete = DataBaseManager.GetAllBeete(MainUser);
                 Finished?.Invoke(this, EventArgs.Empty);
+                Loggerclass.log.Information("Login accepted");
             }
             catch
             {
+                Loggerclass.log.Information("Login not accepted");
                 pageUserLogin = new PageUserLogin(MainFrame, MainUser, UserDataFile);
                 MainFrame.Content = pageUserLogin;
                 pageUserLogin.DrawUserLogin();

@@ -139,6 +139,10 @@ namespace DashboardWetter
 
                 }
             }
+            else
+            {
+                Loggerclass.log.Error("Warning User Data File is not available!");
+            }
         }
 
         private void UserButton_Click(object sender, RoutedEventArgs e)

@@ -95,6 +95,7 @@ namespace DashboardWetter
                     return plant;
                 }
             }
+            Loggerclass.log.Information("Didn't find Plant in Database");
             throw new Exception("Diese Pflanze konnt nicht gefunden werden!");
         }
 
@@ -123,6 +124,7 @@ namespace DashboardWetter
                         }
                     }
                 }
+                Loggerclass.log.Information("User not Found in Database");
                 throw new Exception("User not found!");
             }
         }

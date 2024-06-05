@@ -34,19 +34,23 @@ namespace DashboardWetter
                 zahl = Convert.ToInt32(TBLänge.Text);
                 if (zahl <= 0) 
                 {
+                    Loggerclass.log.Information("Negative Zahl im Beet-Ersteller eingegeben.");
                     throw new Exception("Bitte keine negativen Zahlen eingeben!");
                 }
                 else if (zahl > 8) 
                 {
+                    Loggerclass.log.Information("Zu viele Spalten eingegeben im Beet-Ersteller.");
                     throw new Exception("Achtung! Höchstens 8 Spalten erlaubt!");
                 }
                 zahl = Convert.ToInt32(TBBreite.Text);
                 if (zahl <= 0)
                 {
+                    Loggerclass.log.Information("Negative Zahl im Beet-Ersteller eingegeben.");
                     throw new Exception("Bitte keine negativen Zahlen eingeben!");
                 }
                 else if (zahl > 5)
                 {
+                    Loggerclass.log.Information("Zu viele Reihen eingegeben im Beet-Ersteller.");
                     throw new Exception("Achtung! Höchstens 5 Reihen erlaubt!");
                 }
 
@@ -54,6 +58,7 @@ namespace DashboardWetter
                 {
                     if (TBName.Text == beet.Name)
                     {
+                        Loggerclass.log.Information("Beetname wurde bereits vergeben.");
                         throw new Exception("Dieser Name ist bereits vergeben!");
                     }
                 }
@@ -62,6 +67,7 @@ namespace DashboardWetter
             }
             catch (FormatException)
             {
+                Loggerclass.log.Information("Falsches Eingabe-Format");
                 MessageBox.Show("ACHTUNG Nur Zahlen erlaubt!!!", "Eingabe überprüfen", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
