@@ -384,7 +384,7 @@ namespace DashboardWetter
                 {
                     WasserStatistikGrid.Children.Remove(chart);
                 }
-                OfflineInfo = new Label() { Style = Styles.GetFontStyle(15), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Content = "Du bist Offline! Keine Daten verfügbar." };
+                OfflineInfo = new Label() { Style = Styles.GetFontStyle(15), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Content = "Keine Daten verfügbar!" };
                 WasserStatistikGrid.Children.Add(OfflineInfo);
             }
 
