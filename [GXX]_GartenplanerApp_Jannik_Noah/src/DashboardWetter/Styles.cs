@@ -56,5 +56,22 @@ namespace DashboardWetter
 
             return textboxStyle;
         }
+
+        public static Style GetPasswordTextBoxStyle()
+        {
+            Style textboxStyle = new Style(typeof(PasswordBox));
+            textboxStyle.Setters.Add(new Setter(PasswordBox.WidthProperty, 200.0));
+            textboxStyle.Setters.Add(new Setter(PasswordBox.HeightProperty, 30.0));
+            textboxStyle.Setters.Add(new Setter(PasswordBox.BackgroundProperty, new SolidColorBrush(Color.FromRgb(38, 38, 38))));
+            textboxStyle.Setters.Add(new Setter(PasswordBox.FontSizeProperty, 15.0));
+            textboxStyle.Setters.Add(new Setter(PasswordBox.VerticalContentAlignmentProperty, VerticalAlignment.Center));
+            textboxStyle.Setters.Add(new Setter(PasswordBox.HorizontalContentAlignmentProperty, HorizontalAlignment.Center));
+            textboxStyle.Setters.Add(new Setter(Label.FontSizeProperty, 15.0));
+            textboxStyle.Setters.Add(new Setter(Label.FontFamilyProperty, new FontFamily("Aharoni")));
+            textboxStyle.Setters.Add(new Setter(Label.FontWeightProperty, FontWeights.Bold));
+            textboxStyle.Setters.Add(new Setter(Label.ForegroundProperty, Brushes.White));
+
+            return textboxStyle;
+        }
     }
 }

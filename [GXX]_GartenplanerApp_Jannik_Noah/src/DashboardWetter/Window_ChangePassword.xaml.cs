@@ -33,9 +33,9 @@ namespace DashboardWetter
 
         private void ButtonConfirm_Click(object sender, RoutedEventArgs e)
         {
-            if (User.PasswordToHash(TBold.Text) == MainUser.Password)
+            if (User.PasswordToHash(TBold.Password) == MainUser.Password)
             {
-                MainUser.Password = User.PasswordToHash(TBnew.Text);
+                MainUser.Password = User.PasswordToHash(TBnew.Password);
                 using (StreamWriter writer = new StreamWriter(UserDataFile, false))
                 {
                     writer.WriteLine("1");

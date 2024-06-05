@@ -72,7 +72,7 @@ namespace DashboardWetter
             }
             catch (Exception ex)
             {
-                Loggerclass.log.Error(ex);
+                Loggerclass.log.Error($"{ex}");
                 MessageBox.Show(ex.Message, "Eingabe überprüfen", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }

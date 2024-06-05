@@ -24,7 +24,7 @@ namespace DashboardWetter
     {
 
         public TextBox UserNameBox;
-        public TextBox UserPasswordBox;
+        public PasswordBox UserPasswordBox;
         public TextBox UserLocationBox;
         public Button UserLoginOK;
         public Frame MainFrame;
@@ -80,15 +80,12 @@ namespace DashboardWetter
 
             UserNameBox = new TextBox();
             UserNameBox.Style = Styles.GetTextBoxStyle();
-            UserNameBox.Name = "UserNameTextBox";
 
-            UserPasswordBox = new TextBox();
-            UserPasswordBox.Style = Styles.GetTextBoxStyle();
-            UserPasswordBox.Name = "UserNameTextBox";
+            UserPasswordBox = new PasswordBox();
+            UserPasswordBox.Style = Styles.GetPasswordTextBoxStyle();
 
             UserLocationBox = new TextBox();
             UserLocationBox.Style = Styles.GetTextBoxStyle();
-            UserLocationBox.Name = "UserNameTextBox";
 
             UserLoginOK = new Button();
             UserLoginOK.Content = "OK";
@@ -122,7 +119,7 @@ namespace DashboardWetter
                     }
                 }
 
-                MainUser = new User(UserNameBox.Text, User.PasswordToHash(UserPasswordBox.Text), UserLocationBox.Text);
+                MainUser = new User(UserNameBox.Text, User.PasswordToHash(UserPasswordBox.Password), UserLocationBox.Text);
                 MainUser.SaveUser();
                 OpenMeteo.OpenMeteoClient client = new OpenMeteo.OpenMeteoClient();
                 WeatherForecast forecast = await client.QueryAsync(MainUser.Location);
