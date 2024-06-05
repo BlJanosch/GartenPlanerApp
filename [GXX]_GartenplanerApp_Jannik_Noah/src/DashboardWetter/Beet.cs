@@ -432,8 +432,23 @@ namespace DashboardWetter
         public double GetChemie()
         {
             
-            double Max = ((((Breite*2)-1)*(Hoehe-1))+(Breite-1))*2;
-            return ((((GoodConections - (BadConnections * 2) - (Max-GoodConections-BadConnections))/ Max * 100) + 300) / 400) * 100;
+            double w = 0; 
+            double w_max = ((((Breite * 2) - 1) * (Hoehe - 1)) + (Breite - 1)) * 2;
+
+            for (int i= 0; i<BadConnections; i++)
+            {
+                w += -1;
+            }
+            for (int i = 0; i<GoodConections; i++)
+            {
+                w += 1;
+            }
+
+
+                
+            double chemieProzent = ((w + w_max) / (2 * w_max)) * 100;
+            return chemieProzent;
+            // return ((((GoodConections - (BadConnections * 2) + (Max-GoodConections-BadConnections))/ Max * 100) + 400) / 500) * 100;
 
         }
     }

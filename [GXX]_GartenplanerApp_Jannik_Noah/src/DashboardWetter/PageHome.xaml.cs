@@ -265,6 +265,31 @@ namespace DashboardWetter
             Label WasserStatistikLabel = new Label() { Content = "Regenvorhersage 24h", Style = Styles.GetFontStyle(20), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
             WasserStatistikGrid.Children.Add(WasserStatistikLabel);
 
+            Button buttonWasserStatistikInformation = new Button()
+            {
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Top,
+                Height = 20,
+                Width = 20,
+                Background = Brushes.Transparent,
+                Margin = new Thickness(0, 5, 10, 0),
+                Opacity = 0.000001
+            };
+            buttonWasserStatistikInformation.Click += ButtonWasserStatistikInformation_Click;
+
+            Image infoImage = new Image()
+            {
+                Source = new BitmapImage(new Uri("Images/Info_Icon.png", UriKind.Relative)),
+                Height = 20,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(0, 5, 0, 0)
+            };
+
+            WasserStatistikGrid.Children.Add(infoImage);
+            WasserStatistikGrid.Children.Add(buttonWasserStatistikInformation);
+
+
             chart = new CartesianChart();
             chart.Name = "Regenvorhersage";
             chart.Width = 500;
@@ -302,6 +327,13 @@ namespace DashboardWetter
             }
             
         }
+
+        private void ButtonWasserStatistikInformation_Click(object sender, RoutedEventArgs e)
+        {
+            WindowInfoWasserstatistik windowInfo = new WindowInfoWasserstatistik();
+            windowInfo.ShowDialog();
+        }
+
         private void timer_Uhr_Tick(object? sender, EventArgs e)
         {
             UhrDashBoard.Content = DateTime.Now.ToString("hh:mm:ss");

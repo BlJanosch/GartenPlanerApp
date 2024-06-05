@@ -69,11 +69,12 @@ namespace DashboardWetter
                         });
                     }).GeneratePdf(Filename);
                     MessageBox.Show("Erfolgreich gespeichert!", "Glückwunsch", MessageBoxButton.OK, MessageBoxImage.Information);
-                    // Loggerclass.log.Information("Erfolgreich gespeichert");
+                    Loggerclass.log.Information("Erfolgreich gespeichert");
                     this.Close();
                 }
                 else
                 {
+                    Loggerclass.log.Error("Datei konnte nicht gespeichert werden");
                     MessageBox.Show("Datei konnte nicht gespeichert werden... kein Speicherort ausgewählt.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
