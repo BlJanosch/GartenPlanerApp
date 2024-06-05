@@ -119,10 +119,5 @@ namespace DashboardWetter
                 Loggerclass.log.Information($"Beet {neuesBeet.Name} wurde hinzugefügt.");
             }
         }
-
-        public void DrawNew()
-        {
-
-        }
     }
 }

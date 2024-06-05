@@ -299,6 +299,7 @@ namespace DashboardWetter
             {
                 Label RegenInfo = new Label() { Style = Styles.GetFontStyle(12), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Bottom, Content = "Beete müssen in den nächsten 24h nicht getränkt werden!", Margin = new Thickness(0, 0, 0, 5) };
                 WasserStatistikGrid.Children.Add(RegenInfo);
+                Loggerclass.log.Information($"RegenInfo wurde erfolgreich angezeigt.");
             }
             
         }
@@ -314,6 +315,7 @@ namespace DashboardWetter
                 Grid.SetColumn(Warning, 1);
                 subGrid.Children.Add(Warning);
                 ChemieWarningSet = true;
+                Loggerclass.log.Information($"{Warning.Content}");
             }
             else if (CalculateWater() < 50 && !WaterWarningSet)
             {
@@ -322,11 +324,13 @@ namespace DashboardWetter
                 {
                     Warning.Foreground = Brushes.Red;
                     Warning.Content = "Wasserstand unter 10% gefallen!";
+                    Loggerclass.log.Information($"{Warning.Content}");
                 }
                 Grid.SetRow(Warning, subGrid.Children.Count - 5);
                 Grid.SetColumn(Warning, 1);
                 subGrid.Children.Add(Warning);
                 WaterWarningSet = true;
+                Loggerclass.log.Information($"{Warning.Content}");
             }
             else if (CalculateChemie() > 50 && ChemieWarningSet)
             {
@@ -334,6 +338,7 @@ namespace DashboardWetter
                 subGrid.Children.RemoveAt(subGrid.Children.Count - 2);
                 ChemieWarningSet = false;
                 WaterWarningSet = false;
+                Loggerclass.log.Information($"Chemie Warnung wurde entfernt.");
             }
             else if (CalculateWater() > 50 && WaterWarningSet)
             {
@@ -341,6 +346,8 @@ namespace DashboardWetter
                 subGrid.Children.RemoveAt(subGrid.Children.Count - 2);
                 ChemieWarningSet = false;
                 WaterWarningSet = false;
+                Loggerclass.log.Information($"Wasser Warnung wurde entfernt.");
+
             }
         }
 
@@ -363,10 +370,11 @@ namespace DashboardWetter
                 RegenNow.Content = $"Regen {forecast.Current.Rain} %";
                 SchneeNow.Content = $"Schnee {forecast.Current.Snowfall} %";
                 WolkenNow.Content = $"Wolken {forecast.Current.Cloudcover} %";
+                Loggerclass.log.Information($"Wetter wurde erfolgreich abgerufen.");
             }
             catch
             {
-                Loggerclass.log.Information("Weather Infos not Available (cause: very likely Internet issues");
+                Loggerclass.log.Information("Wetter Daten konnten nicht abgerufen werden. Entweder falscher Standort (unwahrscheinlich) oder keine Internetverbinung vorhanden.");
                 WetterDashBoard.Content = "N/A";
                 TemperaturNow.Content = "N/A";
                 RegenNow.Content = "N/A";
@@ -445,9 +453,11 @@ namespace DashboardWetter
                     ShowRegenInfo = false;
                 }
                 Offline = false;
+                Loggerclass.log.Information($"Beete wurden erfolgreich automatisch bewässert.");
             }
             catch
             {
+                Loggerclass.log.Error($"Fehler beim Automatischen Bewässern von den Beeten!");
                 Offline = true;
             }
             
