@@ -50,6 +50,9 @@ namespace DashboardWetter
         public bool ChemieWarningSet = false;
         public CartesianChart chart;
         public bool ShowRegenInfo = false;
+        public bool Offline = false;
+        public Label OfflineInfo;
+        protected Grid WasserStatistikGrid;
 
         public PageHome(User MainUser)
         {
@@ -257,9 +260,9 @@ namespace DashboardWetter
             WasserStatistik.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#262626"));
             WasserStatistik.Margin = new Thickness(0, 10, 0, 10);
 
-            Grid WasserStatistikGrid = new Grid();
+            WasserStatistikGrid = new Grid();
 
-            Label WasserStatistikLabel = new Label() { Content = "Regenvorhersage", Style = Styles.GetFontStyle(20), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
+            Label WasserStatistikLabel = new Label() { Content = "Regenvorhersage 24h", Style = Styles.GetFontStyle(20), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
             WasserStatistikGrid.Children.Add(WasserStatistikLabel);
 
             chart = new CartesianChart();
@@ -267,15 +270,17 @@ namespace DashboardWetter
             chart.Width = 500;
             chart.Height = 150;
             chart.Margin = new Thickness(0, 10, 0, 0);
-
-            if (ShowRegenInfo)
+            var yAxis = new Axis
             {
-                Label RegenInfo = new Label() { Style = Styles.GetFontStyle(12), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Bottom, Content = "Beete müssen in den nächsten 24h nicht getränkt werden!", Margin = new Thickness(0, 0, 0, 5) };
-                WasserStatistikGrid.Children.Add(RegenInfo);
-            }
+                LabelFormatter = value => "" // Keine Einheiten anzeigen
+            };
+            chart.AxisY.Add(yAxis);
+            var xAxis = new Axis
+            {
+                LabelFormatter = value => "" // Keine Einheiten anzeigen
+            };
+            chart.AxisX.Add(xAxis);
 
-            WasserStatistikGrid.Children.Add(chart);
-            
             WasserStatistik.Child = WasserStatistikGrid;
 
             stackPanel.Children.Add(border2);
@@ -290,6 +295,12 @@ namespace DashboardWetter
             Wetter = "Location needed";
             WetterDashBoard.Content = Wetter;
             getWeather();
+            if (ShowRegenInfo)
+            {
+                Label RegenInfo = new Label() { Style = Styles.GetFontStyle(12), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Bottom, Content = "Beete müssen in den nächsten 24h nicht getränkt werden!", Margin = new Thickness(0, 0, 0, 5) };
+                WasserStatistikGrid.Children.Add(RegenInfo);
+            }
+            
         }
         private void timer_Uhr_Tick(object? sender, EventArgs e)
         {
@@ -337,6 +348,12 @@ namespace DashboardWetter
         {
             try
             {
+                BeeteAutomatischBewässern();
+                if (WasserStatistikGrid.Children.Contains(OfflineInfo))
+                {
+                    WasserStatistikGrid.Children.Remove(OfflineInfo);
+                }
+                WasserStatistikGrid.Children.Add(chart);
                 OpenMeteo.OpenMeteoClient client = new OpenMeteo.OpenMeteoClient();
                 WeatherForecast forecast = await client.QueryAsync(MainUser.Location);
 
@@ -353,72 +370,86 @@ namespace DashboardWetter
                 TemperaturNow.Content = "N/A";
                 RegenNow.Content = "N/A";
                 SchneeNow.Content = "N/A";
-                WolkenNow.Content = "N/A";
+                WolkenNow.Content = "N/A"; 
+                if (WasserStatistikGrid.Children.Contains(chart))
+                {
+                    WasserStatistikGrid.Children.Remove(chart);
+                }
+                OfflineInfo = new Label() { Style = Styles.GetFontStyle(15), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Content = "Du bist Offline! Keine Daten verfügbar." };
+                WasserStatistikGrid.Children.Add(OfflineInfo);
             }
-            // Verwenden ?
-            BeeteAutomatischBewässern();
+
         }
 
         private async void BeeteAutomatischBewässern()
         {
-            OpenMeteo.OpenMeteoClient client = new OpenMeteo.OpenMeteoClient();
-            WeatherForecastOptions weatherForecastOptions = new WeatherForecastOptions();
-            weatherForecastOptions.Hourly = new HourlyOptions(HourlyOptionsParameter.precipitation);
-
-            WeatherForecast forecast = await client.QueryAsync(MainUser.Location, weatherForecastOptions);
-            var RainValue = forecast.Hourly.Precipitation;
-            int count = 0;
-            DateTime time = DateTime.Now;
-            int HourLastTimeRaining = -1;
-            double WasserMenge = 0;
-
-            List<string> Labels = new List<string>();
-            ChartValues<double> Values = new ChartValues<double>();
-            foreach (var RainItem in RainValue)
+            try
             {
-                if (RainItem.Value > 0 && count < 24)
-                {
-                    HourLastTimeRaining = count;
-                    WasserMenge += RainItem.Value;
-                }
-                if (count < 24)
-                {
-                    Labels.Add(Convert.ToString(time.AddHours(count).Hour));
-                    Values.Add(RainItem.Value);
-                }
-                count++;
-            }
-            var lineSeries = new LineSeries
-            {
-                Title = "",
-                Values = Values,
-                LabelPoint = point => $"{Math.Round(Values[(int) point.X], 2)} mm",
-            };
-            chart.Series = new SeriesCollection { lineSeries };
+                OpenMeteo.OpenMeteoClient client = new OpenMeteo.OpenMeteoClient();
+                WeatherForecastOptions weatherForecastOptions = new WeatherForecastOptions();
+                weatherForecastOptions.Hourly = new HourlyOptions(HourlyOptionsParameter.precipitation);
 
-            if (HourLastTimeRaining != -1 && WasserMenge >= 1)
-            {
-                using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
-                {
-                    connection.Open();
+                WeatherForecast forecast = await client.QueryAsync(MainUser.Location, weatherForecastOptions);
+                var RainValue = forecast.Hourly.Precipitation;
+                int count = 0;
+                DateTime time = DateTime.Now;
+                int HourLastTimeRaining = -1;
+                double WasserMenge = 0;
 
-                    foreach(Beet beet in DataBaseManager.GetAllBeete(MainUser))
+                List<string> Labels = new List<string>();
+                ChartValues<double> Values = new ChartValues<double>();
+                foreach (var RainItem in RainValue)
+                {
+                    if (RainItem.Value > 0 && count < 24)
                     {
-                        SqliteCommand command = connection.CreateCommand();
-
-                        beet.LastTimeWatered = DateTime.Now;
-
-                        command.CommandText = $"UPDATE tblBeet SET LetztesMalBewässert = '{beet.LastTimeWatered}' WHERE Name = '{beet.Name}' AND UserID = {beet.UserID};";
-
-                        int tmp = command.ExecuteNonQuery();
+                        HourLastTimeRaining = count;
+                        WasserMenge += RainItem.Value;
                     }
+                    if (count < 24)
+                    {
+                        Labels.Add(Convert.ToString(time.AddHours(count).Hour));
+                        Values.Add(Math.Round(RainItem.Value, 2));
+                    }
+                    count++;
                 }
-                ShowRegenInfo = true;
+                var lineSeries = new LineSeries
+                {
+                    Title = "",
+                    Values = Values,
+                    LabelPoint = point => $"{Values[(int)point.X]} mm",
+                };
+                chart.Series = new SeriesCollection { lineSeries };
+
+                if (HourLastTimeRaining != -1 && WasserMenge >= 1)
+                {
+                    using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
+                    {
+                        connection.Open();
+
+                        foreach (Beet beet in DataBaseManager.GetAllBeete(MainUser))
+                        {
+                            SqliteCommand command = connection.CreateCommand();
+
+                            beet.LastTimeWatered = DateTime.Now;
+
+                            command.CommandText = $"UPDATE tblBeet SET LetztesMalBewässert = '{beet.LastTimeWatered}' WHERE Name = '{beet.Name}' AND UserID = {beet.UserID};";
+
+                            int tmp = command.ExecuteNonQuery();
+                        }
+                    }
+                    ShowRegenInfo = true;
+                }
+                else
+                {
+                    ShowRegenInfo = false;
+                }
+                Offline = false;
             }
-            else
+            catch
             {
-                ShowRegenInfo = false;
+                Offline = true;
             }
+            
         }
 
         private double CalculateWater()
