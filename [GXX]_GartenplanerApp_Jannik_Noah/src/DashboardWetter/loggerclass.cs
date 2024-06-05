@@ -10,6 +10,6 @@ namespace DashboardWetter
 {
     public static class Loggerclass
     {
-        public static Logger log = new LoggerConfiguration().WriteTo.File("log.txt", rollingInterval: RollingInterval.Day, retainedFileCountLimit: 7).CreateLogger();
+        public static Logger log = new LoggerConfiguration().WriteTo.File("Assets/log.txt", rollingInterval: RollingInterval.Day, retainedFileCountLimit: 7).CreateLogger();
     }
 }

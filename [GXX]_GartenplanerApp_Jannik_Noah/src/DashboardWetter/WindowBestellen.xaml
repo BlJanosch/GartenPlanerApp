@@ -19,7 +19,7 @@
         </StackPanel>
             
         <Button Grid.Column="1" Grid.Row="3" Width="85" Height="30" HorizontalAlignment="Left" IsCancel="True" Background="#265026" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" Margin="40,0,0,0" >Abbrechen</Button>
-        <Button Grid.Column="1" Grid.Row="3" Width="190" Height="30" HorizontalAlignment="Right" Background="#265026" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" Margin="0,0,40,0" x:Name="ButtonBestellen" Click="ButtonBestellen_Click" IsDefault="True">Einkaufsliste Ausdrucken</Button>
+        <Button Grid.Column="1" Grid.Row="3" Width="210" Height="30" HorizontalAlignment="Right" Background="#265026" FontSize="15" FontFamily="Aharoni" FontWeight="Bold" Foreground="White" Margin="0,0,40,0" x:Name="ButtonBestellen" Click="ButtonBestellen_Click" IsDefault="True">Einkaufsliste Speichern (pdf)</Button>
 
 
     </Grid>
