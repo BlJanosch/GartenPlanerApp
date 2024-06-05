@@ -67,11 +67,12 @@ namespace DashboardWetter
             }
             catch (FormatException)
             {
-                Loggerclass.log.Information("Falsches Eingabe-Format");
+                Loggerclass.log.Error("Falsches Eingabe-Format");
                 MessageBox.Show("ACHTUNG Nur Zahlen erlaubt!!!", "Eingabe überprüfen", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
+                Loggerclass.log.Error(ex);
                 MessageBox.Show(ex.Message, "Eingabe überprüfen", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
