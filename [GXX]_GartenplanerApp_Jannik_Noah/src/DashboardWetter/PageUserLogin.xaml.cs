@@ -155,7 +155,7 @@ namespace DashboardWetter
             {
                 MessageBox.Show("Dieser Name ist bereits vergeben!", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            catch
+            catch (Exception ex)
             {
                 MessageBox.Show($"Didn't find Location {UserLocationBox.Text}! Change it in the User Menu.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
             }

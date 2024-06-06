@@ -81,7 +81,6 @@ namespace DashboardWetter
                         }
                     }
                 }
-                Loggerclass.log.Information($"Alle Beete wurden erfolgreich abgerufen.");
                 return Beete;
             }
         }
