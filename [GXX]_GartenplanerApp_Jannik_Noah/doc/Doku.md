@@ -254,9 +254,12 @@ Möglichkeit AB an- bzw abzuschalten im User-Menü und Bug gefixed --> Aktiviere
     + https://www.nuget.org/packages/Serilog.Sinks.Console/5.0.1?_src=template
 + Syncfusion.SfProgressBar.WPF
     + Für die Progess Bar von Chemie und Wasser
+    + Version: 25.2.5
     + https://www.nuget.org/packages/Syncfusion.SfProgressBar.WPF/25.2.5?_src=template
 + System.Data.SQLite & System.Data.SQLite.Core
     + Für die DB-Anbindung
+    + Version: 1.0.118
     + https://www.nuget.org/packages/System.Data.SQLite/1.0.118?_src=template
 
-
+## Anleitung
+https://github.com/BlJanosch/GartenPlanerApp/blob/master/README.md
