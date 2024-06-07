@@ -231,6 +231,49 @@ Möglichkeit AB an- bzw abzuschalten im User-Menü und Bug gefixed --> Aktiviere
             + Lösung: Windows-Dienst?
     + AB-Status (ob aktiviert oder deaktiviert) wird nicht gespeichert.
 
+## Quellen
++ Spinat
+    + https://media.assettype.com/healthday%2Fimport%2F23633240%2Forigin.jpg?w=1200&auto=format%2Ccompress&fit=max
++ Kohlrabi
+    + https://www-lagerhausrl.hosting.onehippo.com/binaries/content/gallery/sws/artikel/tipps--tricks/garten/gemuse/bid-1-artikel-kohlrabi-im-august-pflanzen.jpg/bid-1-artikel-kohlrabi-im-august-pflanzen.jpg/sws%3Abannerlarge
++ Salat
+    + https://www.veggycation.com.au/siteassets/veggycationvegetable/lettuce-butterhead.jpg
++ Blumenkohl
+    + https://prod-cdn-04.storenvy.com/product_photos/97927651/file_573595063f_original.png
++ Karotte
+    + https://lebensmittel-warenkunde.de/assets/images/gemueseprodukte/karotten.jpg
++ Pastinake
+    + https://www.lubera.com/images/600/Pastinaken-Gemuse-c-gitusik-Fotolia_201323871_Subscription_Monthly_M.jpg
++ Kartoffel
+    + https://www.ortis.com/media/plant/solanum-tuberosum.png
++ Radieschen
+    + https://gpm-cs.e-fork.net/sites/default/files/styles/1024px_width/public/2020-04/radieschen2.jpg?h=1877402c&itok=4_x2vRnw
++ Schnittlauch
+    + https://www.plantura.garden/wp-content/uploads/2018/05/schnittlauch-pflegen-1024x683.jpg
++ Erbsen
+    + https://image.essen-und-trinken.de/11897208/t/ki/v9/w480/r1.5/-/1005456--42085-.jpg
++ Kürbis
+    + https://www.shutterstock.com/image-photo/pumpkin-leaves-flowers-on-white-background-85144201
++ Zucchini
+    + https://www.agrimaxseeds.com/products/vegetables/squash
++ Gurke
+    + https://static.super.website/fs/super-website/userFiles/freshfoodbg/images/467-krastavitsi-16743138844261.webp
++ Tomate
+    + https://www.meine-ernte.de/wp-content/uploads/csm_tomate-shutterstock-web_7707b3c282.jpg
++ Paprika
+    + https://www.floristik24.at/media/images/popup/Deko-Gemuese-Paprika-rot-9cm-9124-02.jpg
++ Zwiebel
+    + https://trkagronion.com/wp-content/uploads/2020/08/35yu5u-e1597658445773.jpg
++ Lauch
+    + https://www.123rf.com/photo_52581426_illustration-of-single-leek-white-background.html
++ Petersillie
+    + https://www.remarkt.ro/cdn/shop/products/Patrunjellegatura_500x.jpg?v=1590723093
++ Papierkorb
+    + https://www.iconsdb.com/icons/preview/red/delete-xxl.png
++ Einkaufswagen
+    + https://www.istockphoto.com/de/vektor/cart-icon-isoliert-auf-wei%C3%9Fem-hintergrund-gm1206806317-348188144
++ Alle anderen Bilder wurden mit AI generiert 
+
 ## Nuget Packages
 + LiveCharts.Wpf
     + Für die Regenvorhersage
