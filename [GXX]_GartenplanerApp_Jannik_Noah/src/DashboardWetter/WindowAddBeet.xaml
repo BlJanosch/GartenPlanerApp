@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashboardWetter"
         mc:Ignorable="d"
-        Title="Breite und Länge angeben" WindowStartupLocation="CenterScreen" Height="200" Width="300">
+        Title="Breite und Länge angeben" WindowStartupLocation="CenterScreen" Height="200" Width="300" ResizeMode="NoResize">
     <Grid Background="#262626">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>

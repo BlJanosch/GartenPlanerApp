@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashboardWetter"
         mc:Ignorable="d"
-        Title="Daten verändern" Height="120" Width="350" WindowStartupLocation="CenterScreen">
+        Title="Daten verändern" Height="120" Width="350" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Background="#262626">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>

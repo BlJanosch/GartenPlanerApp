@@ -39,7 +39,6 @@ namespace DashboardWetter
                         plantManager.Pflanzen.Add(plant);
                     }
                 }
-                Loggerclass.log.Information($"Alle Pflanzen konnten erfolgreich abgerufen werden.");
                 return plantManager;
             }
         }
