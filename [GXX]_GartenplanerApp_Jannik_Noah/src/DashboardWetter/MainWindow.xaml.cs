@@ -199,7 +199,7 @@ namespace DashboardWetter
 
         public void DrawUserMenu()
         {
-            pageUserMenu = new PageUserMenu(MainUser, MainFrame, soundPlayer);
+            pageUserMenu = new PageUserMenu(MainUser, MainFrame, soundPlayer, AutomaticWatering);
             MainFrame.Content = pageUserMenu;
             pageUserMenu.DrawUserMenu();
             pageUserMenu.AutomaticWateringButton.Click += AutomaticWateringButton_Click;

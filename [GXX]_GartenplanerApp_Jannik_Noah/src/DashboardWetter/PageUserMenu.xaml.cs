@@ -30,8 +30,28 @@ namespace DashboardWetter
         public PageUserLogin pageUserLogin;
         public BeeteManager beeteManager = new BeeteManager();
         public bool UserLogout = false;
-        public bool AutomaticWatering = true;
+        public bool AutomaticWatering
+        {
+            get
+            {
+                return automaticWatering;
+            }
+            set
+            {
+                automaticWatering = value;
+                if (value)
+                {
+                    ABStatus = "AB deaktivieren";
+                }
+                else
+                {
+                    ABStatus = "AB aktivieren";
+                }
+            }
+        }
         public Button AutomaticWateringButton;
+        private string ABStatus = "";
+        private bool automaticWatering;
 
         // Test-Event
         public delegate void FinishedHandler(object sender, EventArgs e);
@@ -41,12 +61,13 @@ namespace DashboardWetter
         private Button buttonPlay;
         private Button buttonMute;
 
-        public PageUserMenu(User MainUser, Frame mainFrame, SoundPlayer soundPlayer)
+        public PageUserMenu(User MainUser, Frame mainFrame, SoundPlayer soundPlayer, bool automaticWatering)
         {
             InitializeComponent();
             this.MainUser = MainUser;
             MainFrame = mainFrame;
             this.soundPlayer = soundPlayer;
+            AutomaticWatering = automaticWatering;
         }
 
         public PageUserMenu()
@@ -125,10 +146,9 @@ namespace DashboardWetter
 
             AutomaticWateringButton = new Button()
             {
-                Content = "AB deaktivieren",
                 ToolTip = "Automatische Bewässerung (Beta-Phase)",
+                Content = ABStatus,
                 Style = Styles.GetUserLoginButtonStyle(),
-
             };
 
             buttonPlay.Click += ButtonPlay_Click;
