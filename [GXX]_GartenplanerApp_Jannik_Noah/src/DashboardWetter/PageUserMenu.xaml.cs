@@ -30,6 +30,8 @@ namespace DashboardWetter
         public PageUserLogin pageUserLogin;
         public BeeteManager beeteManager = new BeeteManager();
         public bool UserLogout = false;
+        public bool AutomaticWatering = true;
+        public Button AutomaticWateringButton;
 
         // Test-Event
         public delegate void FinishedHandler(object sender, EventArgs e);
@@ -121,9 +123,18 @@ namespace DashboardWetter
                 
             };
 
+            AutomaticWateringButton = new Button()
+            {
+                Content = "AB deaktivieren",
+                ToolTip = "Automatische Bewässerung (Beta-Phase)",
+                Style = Styles.GetUserLoginButtonStyle(),
+
+            };
+
             buttonPlay.Click += ButtonPlay_Click;
             this.buttonPlay = buttonPlay;
 
+            AutomaticWateringButton.Click += AutomaticWateringButton_Click;
             ChangePassword.Click += ChangePassword_Click;
             ChangeUserName.Click += ChangeUserName_Click;
             ChangeLocation.Click += ChangeLocation_Click;
@@ -137,8 +148,23 @@ namespace DashboardWetter
             MainArea.Children.Add(ChangeUserName);
             MainArea.Children.Add(ChangePassword);
             MainArea.Children.Add(ChangeLocation);
+            MainArea.Children.Add(AutomaticWateringButton);
             MainArea.Children.Add(Logout);
 
+        }
+
+        private void AutomaticWateringButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!AutomaticWatering)
+            {
+                AutomaticWateringButton.Content = "AB aktivieren";
+                AutomaticWatering = true;
+            }
+            else
+            {
+                AutomaticWateringButton.Content = "AB deaktivieren";
+                AutomaticWatering = false;
+            }
         }
 
         private void ButtonPlay_Click(object sender, RoutedEventArgs e)

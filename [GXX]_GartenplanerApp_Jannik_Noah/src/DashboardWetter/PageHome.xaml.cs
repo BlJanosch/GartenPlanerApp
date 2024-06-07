@@ -54,6 +54,7 @@ namespace DashboardWetter
         public Label OfflineInfo;
         protected Grid WasserStatistikGrid;
         public Label RegenInfo;
+        public bool AutomaticWatering = true;
 
         public PageHome(User MainUser)
         {
@@ -457,7 +458,7 @@ namespace DashboardWetter
                 };
                 chart.Series = new SeriesCollection { lineSeries };
 
-                if (HourLastTimeRaining != -1 && WasserMenge >= 0.5)
+                if (HourLastTimeRaining != -1 && WasserMenge >= 0.5 && AutomaticWatering)
                 {
                     using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
                     {

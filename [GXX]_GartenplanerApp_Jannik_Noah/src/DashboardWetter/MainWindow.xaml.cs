@@ -53,6 +53,7 @@ namespace DashboardWetter
         public PageUserLogin pageUserLogin;
         public SoundPlayer soundPlayer;
         public PageUserSignIn pageUserSignIn;
+        public bool AutomaticWatering = true;
 
         public MainWindow()
         {
@@ -164,6 +165,7 @@ namespace DashboardWetter
             PageHome pageHome = new PageHome(MainUser);
             MainFrame.Content = pageHome;
             pageHome.DrawHome();
+            pageHome.AutomaticWatering = AutomaticWatering;
             HomeButton.IsEnabled = true;
             BeeteButton.IsEnabled = true;
             PflanzeButton.IsEnabled = true;
@@ -200,8 +202,22 @@ namespace DashboardWetter
             pageUserMenu = new PageUserMenu(MainUser, MainFrame, soundPlayer);
             MainFrame.Content = pageUserMenu;
             pageUserMenu.DrawUserMenu();
+            pageUserMenu.AutomaticWateringButton.Click += AutomaticWateringButton_Click;
             pageUserMenu.Finished += PageUserMenu_Finished;
             Loggerclass.log.Information($"User Menü wurde erfolgreich gezeichnet.");
+        }
+
+        private void AutomaticWateringButton_Click(object sender, RoutedEventArgs e)
+        {
+            AutomaticWatering = pageUserMenu.AutomaticWatering;
+            if (!AutomaticWatering)
+            {
+                pageUserMenu.AutomaticWateringButton.Content = "AB aktivieren";
+            }
+            else
+            {
+                pageUserMenu.AutomaticWateringButton.Content = "AB deaktivieren";
+            }
         }
 
         private void PageUserMenu_Finished(object sender, EventArgs e)
