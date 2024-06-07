@@ -24,6 +24,7 @@ using static System.Net.WebRequestMethods;
 using System.Net.Http;
 using Microsoft.Data.Sqlite;
 using ScottPlot.WPF;
+using System.Globalization;
 
 namespace DashboardWetter
 {
@@ -49,10 +50,10 @@ namespace DashboardWetter
         public bool WaterWarningSet = false;
         public bool ChemieWarningSet = false;
         public CartesianChart chart;
-        public bool ShowRegenInfo = false;
         public bool Offline = false;
         public Label OfflineInfo;
         protected Grid WasserStatistikGrid;
+        public Label RegenInfo;
 
         public PageHome(User MainUser)
         {
@@ -272,8 +273,9 @@ namespace DashboardWetter
                 Height = 20,
                 Width = 20,
                 Background = Brushes.Transparent,
-                Margin = new Thickness(0, 5, 10, 0),
-                Opacity = 0.000001
+                Margin = new Thickness(0, 10, 10, 0),
+                ToolTip = "Funktion befindet sich in Beta-Phase.",
+                Opacity = 0.0001,
             };
             buttonWasserStatistikInformation.Click += ButtonWasserStatistikInformation_Click;
 
@@ -283,7 +285,7 @@ namespace DashboardWetter
                 Height = 20,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(0, 5, 0, 0)
+                Margin = new Thickness(0, 10, 0, 0)
             };
 
             WasserStatistikGrid.Children.Add(infoImage);
@@ -320,12 +322,6 @@ namespace DashboardWetter
             Wetter = "Location needed";
             WetterDashBoard.Content = Wetter;
             getWeather();
-            if (ShowRegenInfo)
-            {
-                Label RegenInfo = new Label() { Style = Styles.GetFontStyle(12), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Bottom, Content = "Beete müssen in den nächsten 24h nicht getränkt werden!", Margin = new Thickness(0, 0, 0, 5) };
-                WasserStatistikGrid.Children.Add(RegenInfo);
-                Loggerclass.log.Information($"RegenInfo wurde erfolgreich angezeigt.");
-            }
             
         }
 
@@ -461,7 +457,7 @@ namespace DashboardWetter
                 };
                 chart.Series = new SeriesCollection { lineSeries };
 
-                if (HourLastTimeRaining != -1 && WasserMenge >= 1)
+                if (HourLastTimeRaining != -1 && WasserMenge >= 0.5)
                 {
                     using (SqliteConnection connection = new SqliteConnection("Data Source=Assets/GartenPlaner.db"))
                     {
@@ -478,11 +474,13 @@ namespace DashboardWetter
                             int tmp = command.ExecuteNonQuery();
                         }
                     }
-                    ShowRegenInfo = true;
+                    RegenInfo = new Label() { Style = Styles.GetFontStyle(12), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Bottom, Content = "Beete müssen in den nächsten 24h nicht getränkt werden!", Margin = new Thickness(0, 0, 0, 5) };
+                    WasserStatistikGrid.Children.Add(RegenInfo);
+                    Loggerclass.log.Information($"RegenInfo wurde erfolgreich angezeigt.");
                 }
                 else
                 {
-                    ShowRegenInfo = false;
+                    WasserStatistikGrid.Children.Remove(RegenInfo);
                 }
                 Offline = false;
                 Loggerclass.log.Information($"Beete wurden erfolgreich automatisch bewässert.");
