@@ -1,4 +1,4 @@
-# Dokumentation Gartenplaner App
+# Dokumentation Terra Scape
 
 ## Arbeitsaufteilung
 
@@ -82,6 +82,11 @@
 |Fixed Bug --> Offline Warnung wird angezeigt wenn System Offline ist|Jannik|05.06.2024|
 |Logging|Jannik & Noah|05.06.2024|
 |Fixed Bug --> Standort kann nicht gefunden werden|Jannik|05.06.2024|
+|PowerPoint verbessert|Noah|06.06.2024|
+|Logging optimiert|Jannik|07.06.2024|
+|NoResize & benötigtes Wasser auf 0.5 gesenkt|Jannik|07.06.2024|
+|Funktion um AB an- bzw. abzuschalten|Jannik|07.06.2024|
+|Fixed Bug --> AB Button|Jannik|07.06.2024|
 
 ## Tagebuch
 
@@ -204,6 +209,27 @@ Das Logging File (log.txt) wird nun im Assets Ordner gespeichert.
 Fixed Bug --> Wenn man offline war, wurde eine Exception geworfen, da die Daten von der Wetter API nicht abgerufen werden konnten. Jetzt wird, wenn man offline ist, einen Warnung angezeigt.
 Zusätliches wurde ein allen Files Logging hinzugefügt.
 Fixed Bug --> Der Standort beim Login konnte nicht gefunden werden.
+
+### 06.06.2024
+PowerPoint mit Folien und Animationen erweitert.
+
+### 07.06.2024
+Loggin optimiert, da Datei zu groß wurde und WindowTest gelöscht.
+Zu allen Windows NoResize hinzugefügt und das benötigte Wasser auf 0.5 gesenkt (für AB).
+Möglichkeit AB an- bzw abzuschalten im User-Menü und Bug gefixed --> Aktivieren/Deaktivieren wurden nicht richtig übernommen.
+
+## Bekannte Bugs
++ Nach wechseln von dem User-Menü ins Hauptmenü werden die Wetterdaten nicht angezeigt bzw. N/A (passiert aber selten).
+    + Lösung: Einfach nochmal auf das Home Symbol klicken, um die Seite neu zu laden.
++ AB (Automatische Bewässerung)
+    + Ist noch in Beta-Phase und es kann noch zu Problemen kommen.
+    + Bewässerungssytem
+        + Nicht optimal
+        + Wenn automatisch bewässert wird, muss die Home Seite neu geladen werden (einfach auf Home Symbol klicken), um den Wasserstand zu aktualisieren
+            + Lösung: Dispatcher Timer verwenden
+        + Wenn Programm nicht geöffnet ist, werden die Beete trotz Regen nicht bewässert.
+            + Lösung: Windows-Dienst?
+    + AB-Status (ob aktiviert oder deaktiviert) wird nicht gespeichert.
 
 ## Nuget Packages
 + LiveCharts.Wpf
