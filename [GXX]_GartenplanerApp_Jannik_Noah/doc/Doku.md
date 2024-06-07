@@ -234,18 +234,23 @@ Möglichkeit AB an- bzw abzuschalten im User-Menü und Bug gefixed --> Aktiviere
 ## Nuget Packages
 + LiveCharts.Wpf
     + Für die Regenvorhersage
+    + Version: 0.9.7
     + https://www.nuget.org/packages/LiveCharts.Wpf/0.9.7?_src=template
 + Microsoft.Data.Sqlite & Microsoft.Data.Sqlite.Core
     + Für die DB-Anbindung
+    + Version: 8.0.4
     + https://www.nuget.org/packages/Microsoft.Data.Sqlite/8.0.4?_src=template
 + OpenMeteo.dotnet
     + Für die Wetter-Daten
+    + Version: 2.0.0
     + https://www.nuget.org/packages/OpenMeteo.dotnet/2.0.0?_src=template
 + QuestPDF
     + Für die PDF-Export-Funktion
+    + Version: 2024.3.10
     + https://www.nuget.org/packages/QuestPDF/2024.3.10?_src=template
 + Serilog & Serilog.Sinks.Console & Serilog.Sinks.File
     + Für das Logging
+    + Versionen: 4.0.0, 5.0.1, 5.0.0
     + https://www.nuget.org/packages/Serilog.Sinks.Console/5.0.1?_src=template
 + Syncfusion.SfProgressBar.WPF
     + Für die Progess Bar von Chemie und Wasser

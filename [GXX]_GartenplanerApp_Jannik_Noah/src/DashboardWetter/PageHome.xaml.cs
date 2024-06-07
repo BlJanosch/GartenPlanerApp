@@ -23,7 +23,6 @@ using LiveCharts.Wpf;
 using static System.Net.WebRequestMethods;
 using System.Net.Http;
 using Microsoft.Data.Sqlite;
-using ScottPlot.WPF;
 using System.Globalization;
 
 namespace DashboardWetter
