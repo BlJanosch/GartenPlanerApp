@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashboardWetter"
         mc:Ignorable="d"
-        Title="WindowInfoWasserstatistik" Height="280" Width="630" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="WindowInfoWasserstatistik" Height="280" Width="630" WindowStartupLocation="CenterScreen">
     <StackPanel Background="#262626">
         <Label FontWeight="Bold" FontSize="30" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Top" Margin="20 10">Kleine Info</Label>
         <Label x:Name="LabelInfo" Content="" Foreground="White" Margin="20"></Label>
