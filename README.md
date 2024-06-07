@@ -17,9 +17,10 @@ Many different plants with all informations you need to run a successfull bed!
 ![Plant-Menu Image](https://github.com/BlJanosch/GartenPlanerApp/assets/167287612/eaf8dbca-d2b2-4d33-a4e8-aedab7568d5e)
 
 ## User-Menu
-Here you can change your Name, Password and Location but also mute the music or turn it on. If you want to change your account you can logout.
+Here you can change your Name, Password and Location but also mute the music or turn it on. If you want to change your account you can logout. There's also an option to turn the AB (Automatische Bewässerung/automatic watering) off or on.
 
-![User-Menu Image](https://github.com/BlJanosch/GartenPlanerApp/assets/167287612/9e99f007-a5c8-40d1-bb60-c7fb719b017f)
+![User-Menu Image](https://github.com/BlJanosch/GartenPlanerApp/assets/167287612/aae671cc-fa98-4360-b73d-2c920136a954)
+
 
 
 
