@@ -23,7 +23,7 @@ namespace DashboardWetter
     public partial class PageUserMenu : Page
     {
         public User MainUser;
-        public string UserDataFile = AppDomain.CurrentDomain.BaseDirectory.Split("\\bin\\")[0] + "\\UserData\\Login.csv";
+        public string UserDataFile = "UserData/Login - Copy.csv";
         public Frame MainFrame;
         public PageLoginOrRegister pageLoginOrRegister;
         public PageUserSignIn pageUserSignIn;

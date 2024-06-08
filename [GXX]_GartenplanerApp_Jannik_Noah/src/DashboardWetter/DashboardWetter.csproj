@@ -45,17 +45,23 @@
     <None Remove="Images\WaterDrop.png" />
     <None Remove="Images\Wetter.png" />
     <None Remove="User.png" />
+    <None Remove="UserData\Login - Copy.csv" />
     <None Remove="UserData\Login.csv" />
     <None Remove="UserPicture.jpg" />
     <None Remove="userPicture2.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\Change.png" />
+    <Content Include="Images\Change.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\Delete.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\wagen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UserData\Login - Copy.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\plants\plant16.png" />
@@ -82,11 +88,21 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Home.png" />
-    <Resource Include="Images\Beet.png" />
-    <Resource Include="Images\Bild1.png" />
-    <Resource Include="Images\Bild6.png" />
-    <Resource Include="Images\Home.png" />
-    <Resource Include="Images\Info_Icon.png" />
+    <Content Include="Images\Beet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Bild1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Bild6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Info_Icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Images\plants\plant0.png" />
     <Resource Include="Images\plants\plant1.png" />
     <Resource Include="Images\plants\plant10.png" />
@@ -102,15 +118,21 @@
     <Resource Include="Images\plants\plant7.png" />
     <Resource Include="Images\plants\plant8.png" />
     <Resource Include="Images\plants\plant9.png" />
-    <Resource Include="Images\Plus.png" />
-    <Resource Include="Images\TerraScape.png" />
-    <Resource Include="Images\User.png" />
-    <Resource Include="Images\WaterDrop.png" />
-    <Resource Include="Images\Wetter.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="UserData\" />
+    <Content Include="Images\Plus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\TerraScape.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\User.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\WaterDrop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Wetter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

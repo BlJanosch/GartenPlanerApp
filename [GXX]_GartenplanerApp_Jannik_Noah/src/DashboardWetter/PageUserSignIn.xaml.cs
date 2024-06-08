@@ -28,7 +28,7 @@ namespace DashboardWetter
         public Button UserLoginOK;
         public Frame MainFrame;
         public User MainUser;
-        public string UserDataFile = AppDomain.CurrentDomain.BaseDirectory.Split("\\bin\\")[0] + "\\UserData\\Login.csv";
+        public string UserDataFile = "UserData/Login - Copy.csv";
         public PageUserSignIn(Frame mainFrame, User mainUser)
         {
             this.MainFrame = mainFrame;
