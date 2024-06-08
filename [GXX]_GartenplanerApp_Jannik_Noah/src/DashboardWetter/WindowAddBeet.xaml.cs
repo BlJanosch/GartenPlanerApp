@@ -62,6 +62,11 @@ namespace DashboardWetter
                         throw new Exception("Dieser Name ist bereits vergeben!");
                     }
                 }
+                if (BewässerungBox.Text == "" || BewässerungBox.Text == null)
+                {
+                    throw new Exception("Bitte ein Bewässerungs-Interval auswählen");
+                }
+
                 this.DialogResult = true;
                 this.Close();
             }

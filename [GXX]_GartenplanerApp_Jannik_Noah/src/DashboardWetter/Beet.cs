@@ -425,12 +425,8 @@ namespace DashboardWetter
                 w += 1;
             }
 
-
-                
             double chemieProzent = ((w + w_max) / (2 * w_max)) * 100;
             return chemieProzent;
-            // return ((((GoodConections - (BadConnections * 2) + (Max-GoodConections-BadConnections))/ Max * 100) + 400) / 500) * 100;
-
         }
     }
 }

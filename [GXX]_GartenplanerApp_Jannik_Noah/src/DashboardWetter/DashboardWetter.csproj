@@ -105,10 +105,6 @@
     <Resource Include="Images\Plus.png" />
     <Resource Include="Images\TerraScape.png" />
     <Resource Include="Images\User.png" />
-    <Resource Include="Images\UserPicture.jpg" />
-    <Resource Include="Images\userPicture2.png">
-      <CopyToOutputDirectory></CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Images\WaterDrop.png" />
     <Resource Include="Images\Wetter.png" />
   </ItemGroup>
