@@ -87,6 +87,7 @@
 |NoResize & benötigtes Wasser auf 0.5 gesenkt|Jannik|07.06.2024|
 |Funktion um AB an- bzw. abzuschalten|Jannik|07.06.2024|
 |Fixed Bug --> AB Button|Jannik|07.06.2024|
+|Fixed Bug --> Bewässerungs-Interval|Jannik|08.06.2024|
 
 ## Tagebuch
 
@@ -217,6 +218,9 @@ PowerPoint mit Folien und Animationen erweitert.
 Loggin optimiert, da Datei zu groß wurde und WindowTest gelöscht.
 Zu allen Windows NoResize hinzugefügt und das benötigte Wasser auf 0.5 gesenkt (für AB).
 Möglichkeit AB an- bzw abzuschalten im User-Menü und Bug gefixed --> Aktivieren/Deaktivieren wurden nicht richtig übernommen.
+
+### 08.06.2024
+Fixed Bug --> Benutzer konnte, wenn er kein Bewässerungs-Interval beim Erstellen des Beetes ausgewählt hat, das Bewässerungs-Interval auf 0 setzen.
 
 ## Bekannte Bugs
 + Nach wechseln von dem User-Menü ins Hauptmenü werden die Wetterdaten nicht angezeigt bzw. N/A (passiert aber selten).
