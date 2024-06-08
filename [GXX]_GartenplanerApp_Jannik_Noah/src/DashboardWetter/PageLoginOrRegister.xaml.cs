@@ -50,6 +50,11 @@ namespace DashboardWetter
             LoginButton.Background = new SolidColorBrush(Color.FromRgb(38, 38, 38));
             LoginButton.Margin = new Thickness(0, 20, 0, 20);
 
+            if (DataBaseManager.GetAllUser().Count == 0)
+            {
+                LoginButton.IsEnabled = false;
+            }
+
             MainArea.Children.Add(RegisterButton);
             MainArea.Children.Add(LoginButton);
             Loggerclass.log.Information($"UserLogin wurde erfolgreich gezeichnet.");

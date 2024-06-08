@@ -88,6 +88,7 @@
 |Funktion um AB an- bzw. abzuschalten|Jannik|07.06.2024|
 |Fixed Bug --> AB Button|Jannik|07.06.2024|
 |Fixed Bug --> Bewässerungs-Interval|Jannik|08.06.2024|
+|Kleiner Probleme behoben|Jannik|08.06.2024|
 
 ## Tagebuch
 
@@ -221,6 +222,8 @@ Möglichkeit AB an- bzw abzuschalten im User-Menü und Bug gefixed --> Aktiviere
 
 ### 08.06.2024
 Fixed Bug --> Benutzer konnte, wenn er kein Bewässerungs-Interval beim Erstellen des Beetes ausgewählt hat, das Bewässerungs-Interval auf 0 setzen.
+Alle Bilder und Login.csv auf Content und Copy if newer umgestellt.
+Beim ersten Start wird der Anmelden Button nun disabeld.
 
 ## Bekannte Bugs
 + Nach wechseln von dem User-Menü ins Hauptmenü werden die Wetterdaten nicht angezeigt bzw. N/A (passiert aber selten).
