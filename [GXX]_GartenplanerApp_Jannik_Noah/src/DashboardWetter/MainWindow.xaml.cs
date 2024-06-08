@@ -40,7 +40,7 @@ namespace DashboardWetter
         public Label SchneeDaily;
         public Label WolkenDaily;
         public Label WetterDashBoard;
-        public string UserDataFile = "UserData/Login - Copy.csv";
+        public string UserDataFile = "UserData/Login.csv";
         public User MainUser;
         public TextBox UserNameBox;
         public TextBox UserPasswordBox;
