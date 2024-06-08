@@ -41,21 +41,14 @@ namespace DashboardWetter
         public void DrawUserLogin()
         {
             MainArea.Background = Brushes.Transparent;
-            Ellipse Profilbuch = new Ellipse()
+
+            Image image = new Image()
             {
-                Height = 150,
-                Width = 150,
+                Source = new BitmapImage(UriHelper.GetRessourceUri("Images/TerraScape.png")),
+                Height = 200,
+                Margin = new Thickness(0, 30, 0, 0),
             };
-            Profilbuch.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#262626"));
-            Profilbuch.StrokeThickness = 2;
-            Profilbuch.Margin = new Thickness(0, 30, 0, 0);
-            ImageBrush imageBrush = new ImageBrush();
-            imageBrush.ImageSource = new BitmapImage(UriHelper.GetRessourceUri("Images/userPicture2.png"));
 
-            imageBrush.Stretch = Stretch.UniformToFill;
-            imageBrush.TileMode = TileMode.None;
-
-            Profilbuch.Fill = imageBrush;
 
             Label UserName = new Label()
             {
@@ -94,7 +87,7 @@ namespace DashboardWetter
             UserLoginOK.Margin = new Thickness(0, 20, 0, 20);
             UserLoginOK.Click += UserLoginOK_Click;
 
-            MainArea.Children.Add(Profilbuch);
+            MainArea.Children.Add(image);
             MainArea.Children.Add(UserName);
             MainArea.Children.Add(UserNameBox);
             MainArea.Children.Add(UserPassword);
